@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pengcode"
+version = "0.1.0"
+description = "Gera G-code de desenho a caneta a partir de imagens, para impressoras 3D (perfil Bambu Lab A1)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24",
+    "Pillow>=10.0",
+    "scipy>=1.10",
+    "scikit-image>=0.21",
+    "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+web = ["fastapi>=0.110", "uvicorn[standard]>=0.27", "python-multipart>=0.0.9"]
+dev = ["pytest>=7.4"]
+
+[project.scripts]
+pengcode = "pengcode.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["pengcode*"]
+
+[tool.setuptools.package-data]
+"pengcode.machine" = ["profiles/*.yaml"]
+"pengcode.web" = ["static/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,76 @@
+# Perfil: Bambu Lab A1 com suporte de caneta preso ao carro.
+#
+# ANTES DO PRIMEIRO USO, LEIA:
+#
+# 1. A ponta da caneta, recolhida, PRECISA ficar acima da ponta do bico.
+#    O G28 leva o bico até a mesa; se a caneta estiver mais baixa, ela é
+#    esmagada (e pode danificar a mesa). Use um apoio rígido sobre a mesa
+#    para o papel, de modo que o Z de desenho fique numa faixa positiva.
+#
+# 2. Use suporte com mola. Ele absorve papel ondulado, mesa desnivelada e a
+#    compensação de mesh da própria impressora, e mantém a pressão constante.
+#
+# 3. Prenda o papel nas quatro bordas. A A1 move a MESA no eixo Y: papel solto
+#    escorrega e borra o desenho. Por isso a aceleração aqui é baixa.
+#
+# 4. Na impressora/no Bambu Studio, desligue detecção de primeira camada por
+#    IA, detecção de "spaghetti" e timelapse. Sem filamento saindo, o
+#    monitoramento pode pausar o trabalho sozinho.
+#
+# 5. Nenhum aquecedor é ligado e nenhum comando de extrusão (E) é gerado.
+
+name: Bambu Lab A1 + caneta
+description: Bed slinger 256x256, caneta montada no carro do extrusor
+
+bed:
+  x: 256.0
+  y: 256.0
+
+# Ponta da caneta em relação ao bico, em mm. MEÇA com `pengcode calibrate cross`.
+# y negativo = caneta à frente do bico (em direção ao operador).
+pen_offset:
+  x: 0.0
+  y: -35.0
+
+z:
+  up: 4.0        # caneta levantada, para viagem
+  down: 1.0      # caneta desenhando (ache com `pengcode calibrate zladder`)
+  safe: 25.0     # altura de entrada/saída
+  feed: 2400.0   # mm/min nos movimentos de subir/descer a caneta
+  min: 0.0       # limites duros; o emissor recusa gerar fora deles
+  max: 60.0
+
+feeds:
+  draw: 2400.0    # mm/min desenhando
+  travel: 9000.0  # mm/min com a caneta no ar
+
+# Aceleração em mm/s². Baixa de propósito: acima disso a linha ondula e o
+# papel se mexe. Suba aos poucos usando `pengcode calibrate speed`.
+accel: 1500.0
+
+# A5 em retrato é o padrão por um motivo concreto: com 35 mm de offset da
+# caneta sobram 221 mm de curso em Y, então A4 (297 mm) simplesmente não cabe.
+# Offset menor = folha maior. `Profile.check()` avisa se a folha não couber.
+paper:
+  width: 148.0
+  height: 210.0
+  x: 55.0         # canto inferior esquerdo da folha, em coordenadas de mesa
+  y: 6.0
+  margin: 8.0
+
+start_gcode: |
+  ; ---------- pengcode :: início ----------
+  G90                      ; coordenadas absolutas
+  G21                      ; milímetros
+  M204 S{accel}            ; aceleração domada
+  G28                      ; homing (a caneta precisa estar acima do bico!)
+  G1 Z{z_safe} F1200       ; sobe antes de qualquer movimento em XY
+  ; ----------------------------------------
+
+end_gcode: |
+  ; ---------- pengcode :: fim ----------
+  G1 Z{z_safe} F1200
+  M400                     ; espera a fila de movimento esvaziar
+  G1 X{park_x} Y{park_y} F{feed_travel}
+  M84                      ; desliga os motores
+  ; -------------------------------------

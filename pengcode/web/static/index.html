@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>pengcode — desenho a caneta</title>
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar">
+    <header>
+      <h1>pengcode</h1>
+      <p class="sub">imagem &rarr; G-code de caneta</p>
+    </header>
+
+    <section class="panel">
+      <label class="drop" id="drop">
+        <input type="file" id="file" accept="image/*,.svg" hidden>
+        <strong id="dropName">Solte uma imagem aqui</strong>
+        <span>PNG, JPG, SVG — ou clique para escolher</span>
+      </label>
+    </section>
+
+    <section class="panel">
+      <h2>Modo</h2>
+      <div id="modes" class="chips"></div>
+      <p class="hint" id="modeHint"></p>
+      <div id="modeParams" class="fields"></div>
+    </section>
+
+    <section class="panel collapsed" data-panel>
+      <h2 class="toggle">Imagem</h2>
+      <div class="fields" id="imageParams"></div>
+    </section>
+
+    <section class="panel collapsed" data-panel>
+      <h2 class="toggle">Folha e máquina</h2>
+      <div class="fields" id="machineParams"></div>
+    </section>
+
+    <section class="panel collapsed" data-panel>
+      <h2 class="toggle">Otimização</h2>
+      <div class="fields" id="optParams"></div>
+    </section>
+
+    <section class="panel collapsed" data-panel>
+      <h2 class="toggle">Calibração</h2>
+      <p class="hint">Rode estes antes do primeiro desenho.</p>
+      <div id="patterns" class="chips"></div>
+    </section>
+  </aside>
+
+  <main id="viewport">
+    <div id="toolbar">
+      <button id="btnFit" title="Enquadrar (F)">Enquadrar</button>
+      <label class="check"><input type="checkbox" id="showTravel" checked> viagens</label>
+      <label class="check"><input type="checkbox" id="showContext" checked> mesa</label>
+      <button id="btnAnim" title="Animar a ordem do traçado">Animar</button>
+      <span class="spacer"></span>
+      <span id="status"></span>
+      <button id="btnDownload" class="primary" disabled>Baixar .gcode</button>
+    </div>
+    <canvas id="canvas"></canvas>
+    <div id="stats"></div>
+    <div id="warnings"></div>
+  </main>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>
