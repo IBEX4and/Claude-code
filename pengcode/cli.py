@@ -120,6 +120,23 @@ def cmd_info(args) -> int:
     return 0
 
 
+def _open_browser_soon(url: str, delay: float = 1.5) -> None:
+    """Abre o navegador depois que o servidor subiu, sem travar se não houver um."""
+    import threading
+    import webbrowser
+
+    def go():
+        import time
+
+        time.sleep(delay)
+        try:
+            webbrowser.open(url)
+        except Exception:
+            pass       # sem navegador (servidor, container): o endereço já foi impresso
+
+    threading.Thread(target=go, daemon=True).start()
+
+
 def cmd_web(args) -> int:
     try:
         import uvicorn
@@ -128,7 +145,11 @@ def cmd_web(args) -> int:
         return 2
     from .web.app import create_app
 
-    print(f"pengcode em http://{args.host}:{args.port}")
+    url = f"http://{args.host}:{args.port}"
+    print(f"pengcode em {url}")
+    print("(feche esta janela ou aperte Ctrl+C para parar)")
+    if not args.no_browser:
+        _open_browser_soon(url)
     uvicorn.run(create_app(args.profile), host=args.host, port=args.port, log_level="warning")
     return 0
 
@@ -218,6 +239,7 @@ def build_parser() -> argparse.ArgumentParser:
     web.add_argument("--host", default="127.0.0.1")
     web.add_argument("--port", type=int, default=8000)
     web.add_argument("--profile")
+    web.add_argument("--no-browser", action="store_true", help="não abre o navegador sozinho")
     web.set_defaults(func=cmd_web)
 
     return p

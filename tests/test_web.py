@@ -1,6 +1,7 @@
 import pytest
 
-fastapi = pytest.importorskip("fastapi")
+pytest.importorskip("fastapi", reason="instale os extras: pip install -e '.[web,dev]'")
+pytest.importorskip("httpx", reason="o TestClient do Starlette precisa de httpx")
 from fastapi.testclient import TestClient
 
 from pengcode.web.app import create_app

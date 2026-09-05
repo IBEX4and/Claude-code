@@ -40,9 +40,28 @@ Cinco coisas que evitam estragar máquina, caneta ou papel:
 
 ## Instalação
 
+**Jeito fácil — duplo-clique.** Baixe o projeto, descompacte e:
+
+| sistema | arquivo |
+|---|---|
+| Windows | `instalar.bat` |
+| macOS | `instalar.command` |
+| Linux | `bash instalar.command` |
+
+O script acha o Python, monta um ambiente isolado, instala tudo e abre a
+interface no navegador. Da segunda vez em diante ele pula direto para abrir.
+Use o mesmo arquivo sempre que quiser usar o programa.
+
+Se o script disser que não achou Python, instale em
+[python.org/downloads](https://python.org/downloads) — no Windows, marque
+**"Add Python to PATH"** na primeira tela — e rode de novo.
+
+**Na mão**, se preferir:
+
 ```bash
-python -m venv .venv && source .venv/bin/activate
+python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -e ".[web,dev]"
+pengcode web
 ```
 
 ## Comece pela calibração
