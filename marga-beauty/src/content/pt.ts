@@ -14,50 +14,33 @@ export const pt = {
       "Tratamentos de rosto e corpo com tecnologias de última geração, drenagem linfática Método Renata França e podologia. Agende online com horários em tempo real.",
   },
 
-  preloader: {
-    label: "Carregando",
-  },
-
-  nav: {
+  header: {
     home: "Marga Beauty, início",
-    links: [
-      { href: "#servicos", label: "Serviços" },
-      { href: "#tecnologias", label: "Tecnologias" },
-      { href: "#drenagem", label: "Drenagem brasileira" },
-      { href: "#sobre", label: "Sobre" },
-    ],
     book: "Agendar",
-    openMenu: "Abrir menu",
-    closeMenu: "Fechar menu",
   },
 
   hero: {
-    statement: "Estética avançada para rosto e corpo, drenagem linfática brasileira e podologia.",
-    cta: "Agendar horário",
+    title: "Sua Beleza em Perfeito Equilíbrio",
+    asideTop: "Estética Avançada",
+    asideBottom: ["Podologia &", "Drenagem Brasileira"],
     imageAlt: "Marga, fundadora da Marga Beauty, de blazer preto",
-    aside: "Tratamentos femininos e masculinos",
-    scroll: "Role para conhecer",
+    galleryLabel: "Tratamentos da Marga Beauty",
   },
 
-  manifesto: {
-    text:
-      "Cada tratamento é pensado para você. Unimos técnicas manuais e aparelhos profissionais de alta performance para chegar a resultados visíveis e naturais, sempre respeitando o equilíbrio da pele e da silhueta.",
-  },
-
-  services: {
-    title: "Serviços",
-    intro:
-      "Escolha uma área para ver os tratamentos. Todos começam com uma avaliação e seguem um protocolo feito para o seu objetivo.",
-    treatmentsCount: (n: number) => (n === 1 ? "1 tratamento" : `${n} tratamentos`),
+  /** Seção em degradê com a lista lateral e os cartões que sobem (um por área). */
+  showcase: {
+    title: "Nossos Tratamentos",
     book: "Agendar",
     bookAria: (name: string) => `Agendar ${name}`,
     minutes: (n: number) => `${n} min`,
-    expand: "Ver tratamentos",
-    collapse: "Fechar tratamentos",
+  },
+
+  services: {
     categories: [
       {
         id: "rosto",
         name: "Rosto",
+        tags: ["Anti-idade", "Pele renovada"],
         summary: "Rejuvenescimento, limpeza profunda e regeneração da pele.",
         image: "rosto",
         items: [
@@ -102,6 +85,7 @@ export const pt = {
       {
         id: "corpo",
         name: "Corpo",
+        tags: ["Remodelação", "Anticelulite"],
         summary: "Remodelação, drenagem e tonificação com tecnologia e técnicas manuais.",
         image: "corpo",
         items: [
@@ -157,8 +141,9 @@ export const pt = {
       },
       {
         id: "drenagem",
-        name: "Drenagem linfática brasileira",
-        summary: "Método Renata França: leveza, menos inchaço e bem-estar desde a primeira sessão.",
+        name: "Drenagem Linfática",
+        tags: ["Método Renata França", "Bem-estar"],
+        summary: "Leveza, menos inchaço e bem-estar desde a primeira sessão.",
         image: "drenagem",
         items: [
           {
@@ -178,6 +163,7 @@ export const pt = {
       {
         id: "podologia",
         name: "Podologia",
+        tags: ["Saúde dos pés", "Cuidado completo"],
         summary: "Cuidado especializado para a saúde e a beleza dos pés.",
         image: "podologia",
         items: [
@@ -210,78 +196,166 @@ export const pt = {
     ],
   },
 
-  technologies: {
-    title: "Tecnologias e métodos",
-    intro:
-      "Aparelhos profissionais de última geração e técnicas manuais, combinados em cada protocolo conforme a necessidade da sua pele e do seu corpo.",
+  why: {
+    title: "Por Que a Marga Beauty?",
+    subtitle: "Tecnologia, competência e sensibilidade estética",
     items: [
-      { name: "Laser de última geração", description: "Energia de luz precisa para tratar a pele com segurança." },
-      { name: "Radiofrequência multipolar", description: "Aquece as camadas profundas e estimula o colágeno." },
-      { name: "Ondas de choque estéticas", description: "Impulsos acústicos contra celulite e gordura localizada." },
-      { name: "Ultrassom e cavitação", description: "Ondas de ultrassom focadas na redução de medidas." },
-      { name: "Eletroporação", description: "Abre caminho para os ativos penetrarem, sem agulhas." },
-      { name: "Pressoterapia", description: "Compressão em sequência que ativa a circulação." },
-      { name: "Vacuum endomassagem", description: "Sucção e rolos que drenam e suavizam a pele." },
-      { name: "Oxigenoterapia e LED", description: "Oxigênio e fotobiomodulação para regenerar a pele." },
-      { name: "Termoterapia e crioterapia", description: "Calor e frio para tonificar, drenar e firmar." },
-      { name: "Espátula ultrassônica", description: "Limpeza profunda do rosto sem agredir a pele." },
-      { name: "Madeiroterapia", description: "Instrumentos de madeira que modelam e ativam." },
-      { name: "Massagem linfodrenante e modeladora", description: "As mãos da terapeuta, onde a tecnologia não chega." },
+      {
+        icon: "sparkles",
+        title: "Protocolos Personalizados",
+        text: "Cada tratamento é estudado para você, combinando técnicas manuais e aparelhos profissionais de alta performance.",
+      },
+      {
+        icon: "zap",
+        title: "Tecnologia de Última Geração",
+        text: "Laser, radiofrequência multipolar, ondas de choque, cavitação e mais: equipamentos de ponta para rosto e corpo.",
+      },
+      {
+        icon: "heart",
+        title: "Resultados Visíveis e Naturais",
+        text: "Respeito total ao equilíbrio da pele e da silhueta, em tratamentos femininos e masculinos.",
+      },
     ],
   },
 
-  drainage: {
-    title: "Drenagem linfática brasileira",
-    method: "Método Renata França",
-    text:
-      "Marga é terapeuta especializada no Método Renata França, a drenagem linfática brasileira conhecida pelo resultado imediato. Manobras rápidas, firmes e ritmadas que desincham e devolvem a sensação de leveza já na primeira sessão.",
-    benefitsTitle: "O que a massagem faz por você",
-    benefits: [
-      "Ajuda a controlar o estresse",
-      "Ajuda a reduzir a ansiedade",
-      "Alivia a tensão e as dores musculares",
-      "Melhora a circulação sanguínea",
-      "Contribui para fortalecer a imunidade",
-      "Aumenta a elasticidade da pele",
-      "Reduz o cansaço",
-      "Ajuda a eliminar toxinas",
-      "Contribui para reduzir a insônia",
+  /** Cartões em rolagem horizontal. */
+  technologies: {
+    title: ["Tecnologia que", "Respeita a Sua Pele"],
+    text: "Especializada em tecnologias estéticas de última geração para remodelação corporal, regeneração da pele e rejuvenescimento facial. Cada tratamento é pensado para você, unindo métodos manuais e aparelhos profissionais para resultados visíveis e naturais.",
+    cardAction: (title: string) => `Agendar: ${title}`,
+    cards: [
+      {
+        title: "Rejuvenescimento",
+        items: ["Radiofrequência multipolar", "Fotobiomodulação LED", "Oxigenoterapia", "Lifting não invasivo"],
+      },
+      {
+        title: "Pele Saudável",
+        items: ["Espátula ultrassônica", "Tratamento antimanchas", "Tratamento para acne", "Eletroporação"],
+      },
+      {
+        title: "Remodelação",
+        items: ["Ondas de choque", "Ultrassom e cavitação", "Laser de última geração", "Termo e crioterapia"],
+      },
+      {
+        title: "Drenagem",
+        items: ["Método Renata França", "Pressoterapia", "Vacuum endomassagem", "Linfodrenagem manual"],
+      },
+      {
+        title: "Técnicas Manuais",
+        items: ["Madeiroterapia", "Massagem modeladora", "Massagem linfodrenante", "Protocolos anticelulite"],
+      },
+      {
+        title: "Podologia",
+        items: ["Avaliação podológica", "Unha encravada", "Calos e calosidades", "Cuidado completo dos pés"],
+      },
     ],
-    cta: "Agendar drenagem",
-    ctaServiceId: "drenagem-renata-franca",
-    imageAlt: "Sessão de drenagem linfática",
   },
 
-  about: {
-    title: "Quem cuida de você",
-    paragraphs: [
-      "Formada em podologia e especializada em estética avançada, Marga une a sensibilidade das técnicas manuais à precisão da tecnologia.",
-      "Cada atendimento começa com uma conversa e uma avaliação. A partir dela, o protocolo é montado para você: as técnicas, os aparelhos e o número de sessões que fazem sentido para o seu objetivo.",
+  /** Lista com linhas que vibram e imagem que acompanha o mouse. */
+  specialties: {
+    title: ["Formação e", "Especialidades"],
+    items: [
+      { title: "Podologia", meta: "Formação profissional", image: "podologia" },
+      { title: "Método Renata França", meta: "Drenagem linfática brasileira", image: "drenagem" },
+      { title: "Estética Avançada", meta: "Tecnologias para rosto e corpo", image: "rosto" },
+      { title: "Atendimento Feminino e Masculino", meta: "Protocolos para cada pessoa", image: "marga" },
     ],
-    credentialsTitle: "Formação e especialidades",
-    credentials: [
-      "Formada em podologia",
-      "Terapeuta especializada no Método Renata França",
-      "Tecnologias estéticas de última geração para rosto e corpo",
-      "Atendimento feminino e masculino",
-    ],
-    imageAlt: "Marga no estúdio",
   },
 
-  process: {
-    title: "Como funciona",
-    steps: [
-      { title: "Avaliação", text: "Conversamos sobre o seu objetivo e analisamos pele, corpo ou pés." },
-      { title: "Protocolo sob medida", text: "Definimos técnicas, aparelhos e o número de sessões para o seu caso." },
-      { title: "Sessões", text: "Tratamentos com hora marcada, no seu ritmo." },
-      { title: "Acompanhamento", text: "Avaliamos a evolução e ajustamos o protocolo quando for preciso." },
+  /** Frase central com os benefícios voando em 3D. */
+  benefits: {
+    title: "Drenagem Linfática Brasileira: Leveza e Bem-Estar Desde a Primeira Sessão.",
+    words: [
+      "Menos estresse",
+      "Menos ansiedade",
+      "Alívio muscular",
+      "Mais circulação",
+      "Imunidade",
+      "Pele mais elástica",
+      "Menos cansaço",
+      "Menos toxinas",
+      "Sono melhor",
+      "Menos inchaço",
+      "Leveza",
+      "Bem-estar",
     ],
+  },
+
+  /** Carrossel no formato dos depoimentos da referência, com as etapas do atendimento. */
+  steps: {
+    title: "Como Funciona o Seu Atendimento",
+    stepLabel: (n: number, total: number) => `Etapa ${n} de ${total}`,
+    showStep: (title: string) => `Mostrar etapa: ${title}`,
+    prev: "Etapa anterior",
+    next: "Próxima etapa",
+    items: [
+      {
+        title: "Avaliação",
+        text: "Conversamos sobre o seu objetivo e analisamos pele, corpo ou pés. É o ponto de partida de todo protocolo.",
+      },
+      {
+        title: "Protocolo Sob Medida",
+        text: "Definimos as técnicas, os aparelhos e o número de sessões que fazem sentido para o seu caso.",
+      },
+      {
+        title: "Sessões",
+        text: "Tratamentos com hora marcada, no seu ritmo, combinando tecnologia e o cuidado das mãos.",
+      },
+      {
+        title: "Acompanhamento",
+        text: "Avaliamos a evolução a cada etapa e ajustamos o protocolo quando for preciso.",
+      },
+    ],
+  },
+
+  faq: {
+    title: "Perguntas Frequentes",
+    // TODO: confirmar com a cliente a política de remarcação (24 h).
+    items: [
+      {
+        question: "O que é a drenagem linfática Método Renata França?",
+        answer:
+          "É uma técnica brasileira de drenagem com manobras rápidas, firmes e ritmadas. Ela ajuda a desinchar e devolve a sensação de leveza já na primeira sessão, além de contribuir para o bem-estar geral.",
+      },
+      {
+        question: "Quantas sessões são necessárias?",
+        answer:
+          "Depende do seu objetivo e do tratamento escolhido. Na avaliação inicial definimos o protocolo e o número de sessões indicado para você.",
+      },
+      {
+        question: "Os tratamentos também são para homens?",
+        answer: "Sim. Os tratamentos de rosto, corpo e podologia são oferecidos para mulheres e homens.",
+      },
+      {
+        question: "Como funciona o agendamento online?",
+        answer:
+          "Você escolhe o tratamento, vê os horários livres em tempo real e confirma em poucos passos. O horário entra direto na agenda da Marga.",
+      },
+      {
+        question: "Posso remarcar ou cancelar um horário?",
+        answer: "Sim. Avise com pelo menos 24 horas de antecedência para liberarmos o horário para outra pessoa.",
+      },
+    ],
+  },
+
+  footer: {
+    cta: "Reserve o Seu Momento de Cuidado",
+    book: "Agendar horário",
+    reachOut: "Contato",
+    hoursTitle: "Horários",
+    closed: "Fechado",
+    addressPending: "Itália",
+    privacy: "Política de privacidade",
+    vat: "P. IVA",
+    rights: (year: number) => `Copyright © Marga Beauty ${year}`,
+    instagram: "Instagram",
+    whatsapp: "WhatsApp",
   },
 
   booking: {
-    title: "Agende seu horário",
-    intro:
-      "Os horários vêm direto da agenda da Marga e mostram só o que está livre. Escolha o tratamento, o dia e a hora.",
+    title: "Agende Seu Horário",
+    intro: "Horários em tempo real, direto da agenda da Marga.",
+    close: "Fechar agendamento",
     timezoneNote: "Horários no fuso da Itália.",
     steps: ["Tratamento", "Data e horário", "Seus dados"],
     stepsLabel: "Etapas do agendamento",
@@ -350,18 +424,6 @@ export const pt = {
       source: "Agendado pelo site",
     },
     clientEventTitle: (service: string) => `${service} na Marga Beauty`,
-  },
-
-  footer: {
-    contactTitle: "Contato",
-    hoursTitle: "Horários",
-    followTitle: "Instagram",
-    addressPending: "Endereço em breve",
-    closed: "Fechado",
-    backToTop: "Voltar ao topo",
-    privacy: "Política de privacidade",
-    vat: "P. IVA",
-    rights: (year: number) => `© ${year} Marga Beauty`,
   },
 
   privacy: {

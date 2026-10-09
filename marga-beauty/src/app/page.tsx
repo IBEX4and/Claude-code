@@ -1,35 +1,32 @@
-import { About } from "@/components/About";
-import { Booking } from "@/components/booking/Booking";
-import { Drainage } from "@/components/Drainage";
+import { BenefitsBlur } from "@/components/BenefitsBlur";
+import { BookingModal } from "@/components/booking/BookingModal";
 import { Experience } from "@/components/Experience";
+import { Faq } from "@/components/Faq";
 import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { Manifesto } from "@/components/Manifesto";
-import { Nav } from "@/components/Nav";
-import { Preloader } from "@/components/Preloader";
-import { Process } from "@/components/Process";
-import { Services } from "@/components/Services";
-import { Technologies } from "@/components/Technologies";
+import { Showcase } from "@/components/Showcase";
+import { Specialties } from "@/components/Specialties";
+import { Steps } from "@/components/Steps";
+import { TechScroller } from "@/components/TechScroller";
+import { WhyUs } from "@/components/WhyUs";
 
 export default function Home() {
   return (
     <Experience>
-      <noscript>
-        <style>{`.preloader{display:none!important}`}</style>
-      </noscript>
-      <Preloader />
-      <Nav />
+      <Header />
       <main>
         <Hero />
-        <Manifesto />
-        <Services />
-        <Technologies />
-        <Drainage />
-        <About />
-        <Process />
-        <Booking />
+        <Showcase />
+        <WhyUs />
+        <TechScroller />
+        <Specialties />
+        <BenefitsBlur />
+        <Steps />
+        <Faq />
       </main>
       <Footer />
+      <BookingModal />
     </Experience>
   );
 }

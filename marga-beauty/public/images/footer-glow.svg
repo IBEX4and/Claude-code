@@ -1,0 +1,13 @@
+<svg width="1920" height="900" viewBox="0 0 1920 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="b" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="90"/>
+    </filter>
+    <clipPath id="c"><rect width="1920" height="900"/></clipPath>
+  </defs>
+  <g clip-path="url(#c)">
+    <path filter="url(#b)" fill="#C76B78" d="M271 464C64 335-274 358-417 385l199 817h1166l1049 29 295-643c6-7-44-58-295-209-314-188-784-67-931 86-148 153-535 161-795 0Z"/>
+    <path filter="url(#b)" stroke="#8A1838" stroke-width="63" d="M2291 588c6-7-44-58-294-209-314-188-784-67-931 86-148 153-535 161-795 0C64 335-274 358-417 385"/>
+    <path filter="url(#b)" opacity=".5" stroke="#8A1838" stroke-width="63" d="M2291 543c6-7-44-58-294-209-314-188-784-67-931 86-255 264-535 160-795-1C64 290-274 313-417 340"/>
+  </g>
+</svg>

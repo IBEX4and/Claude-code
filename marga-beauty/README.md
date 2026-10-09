@@ -4,8 +4,32 @@ Site de uma página para a Marga Beauty (estética avançada, drenagem linfátic
 brasileira Método Renata França e podologia, na Itália), com agendamento online
 ligado ao Google Agenda.
 
+A estrutura e as animações seguem o template de referência
+([Elena Voss, Hyperiux](https://elena-voss-portfolio-template-v3.21st.app/)),
+com o conteúdo da Marga e a paleta da marca (rosé → bordô sobre preto, no lugar
+do laranja → vermelho da referência). Fonte: Host Grotesk, a mesma da referência.
+
 O texto está em português por enquanto. A troca para italiano é feita num único
 arquivo (veja [Traduzir para italiano](#traduzir-para-italiano)).
+
+## Seções e efeitos
+
+| Seção (referência)          | No site da Marga                 | Efeito                                                                                     |
+| --------------------------- | -------------------------------- | ------------------------------------------------------------------------------------------ |
+| Hero                        | Foto da Marga + título           | Foto revela em diagonal (3,5 s), letras sobem, parallax do mouse em 2 camadas; no scroll o hero encolhe até 50% e revela um mosaico em loop que sai do desfoque |
+| Award Winning Work          | Nossos Tratamentos               | Arco em degradê sobe; lista com barra de progresso; cartões de cada área sobem um sobre o outro, com "snap" |
+| Why Work With Me            | Por Que a Marga Beauty?          | Colunas entram em sequência; linha preenche no hover                                        |
+| Design That Speaks…         | Tecnologia que Respeita a Sua Pele | Cartões em rolagem horizontal; preenchimento radial em degradê no hover                   |
+| Awards and Recognition      | Formação e Especialidades        | Linhas que vibram como corda (com som de dedilhado) e imagem que acompanha a linha          |
+| Trusted by Founders…        | Benefícios da drenagem           | Palavras vêm do fundo em 3D, ficam nítidas e somem                                          |
+| Testimonials                | Como Funciona o Seu Atendimento  | Carrossel com bolinhas que se reorganizam e cartão que troca (arrasta no celular)          |
+| FAQ                         | Perguntas Frequentes             | Acordeão com botão em degradê                                                               |
+| Footer                      | Rodapé                           | Cartão de vidro sobe com o scroll, brilho em onda                                           |
+| Modal "Get in Touch"        | Modal de agendamento             | Abre de todos os botões "Agendar"                                                           |
+
+Todas as animações respeitam o "reduzir movimento" do sistema. O som das linhas
+que vibram pode ser desligado em `src/components/Specialties.tsx`
+(`<StringLine sound={false} />`).
 
 ## Rodar no computador
 
@@ -35,8 +59,8 @@ memória do servidor e o site avisa isso embaixo do calendário.
 | Todos os textos, serviços e durações    | `src/content/pt.ts`           |
 | Endereço, WhatsApp, e-mail, P. IVA      | `src/config/business.ts`      |
 | Horário de funcionamento e regras da agenda | `src/config/business.ts` (`bookingRules`) |
-| Fotos                                   | `src/content/images.ts` + `public/images/` |
-| Cores e tipografia                      | `src/app/globals.css` (topo do arquivo) |
+| Fotos (e cartazes provisórios)          | `src/content/images.ts` + `public/images/` |
+| Cores                                   | `src/app/globals.css` (`--accent-a`, `--accent-b` no topo e o degradê de `.hero__stage`) |
 
 ### Regras da agenda (`bookingRules`)
 
@@ -56,14 +80,17 @@ horário se o serviço inteiro couber antes da pausa ou do fechamento.
 ### Fotos
 
 A foto do hero (`public/images/marga-hero.webp` e `.png`) já é a da Marga, recortada
-com fundo transparente. As outras ainda são provisórias (`public/images/placeholder/`):
-coloque as fotos reais em `public/images/` e troque os caminhos em
-`src/content/images.ts`. Para o hero, uma versão da mesma foto em resolução maior
-(1500 px de largura ou mais) deixa a imagem mais nítida em telas grandes.
+com fundo transparente. As demais imagens (mosaico do hero, cartões de tratamento,
+especialidades) aparecem como cartazes no degradê da marca com a etiqueta
+"Foto provisória". Para trocar, coloque a foto em `public/images/` e preencha o
+`src` do item correspondente em `src/content/images.ts`. Para o hero, uma versão
+da mesma foto em resolução maior (1500 px de largura ou mais) deixa a imagem mais
+nítida em telas grandes.
 
 ## Como o agendamento funciona
 
-1. A cliente escolhe o tratamento.
+1. A cliente clica em "Agendar" (qualquer botão do site abre o modal; os botões
+   de um tratamento específico já abrem com ele escolhido) e escolhe o tratamento.
 2. O site pergunta à API (`/api/availability`) os horários livres do mês. A API lê
    no Google Agenda da Marga o que está ocupado (consulta *free/busy*) e cruza com
    o horário de funcionamento, a duração do serviço, a folga entre clientes, a
@@ -124,9 +151,9 @@ Com as variáveis preenchidas, o aviso de "modo demonstração" some sozinho.
    sair em italiano automaticamente.
 4. Em `src/content/index.ts`, troque a linha de exportação para
    `export { it as content } from "./it";`.
-5. Ajuste as âncoras do menu se quiser os endereços em italiano
-   (`#servicos` → `#servizi` etc.) e renomeie a pasta `src/app/privacidade` para
-   `src/app/privacy`, atualizando os links.
+5. Se quiser os endereços em italiano, ajuste os `id` das seções
+   (`#tratamentos` → `#trattamenti` etc.) e renomeie a pasta
+   `src/app/privacidade` para `src/app/privacy`, atualizando os links.
 
 ## Pendências com a cliente
 

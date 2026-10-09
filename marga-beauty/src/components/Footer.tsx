@@ -1,68 +1,103 @@
+"use client";
+
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef } from "react";
 import { bookingRules, business } from "@/config/business";
 import { content } from "@/content";
 import { groupWeeklyHours } from "@/lib/hours";
+import { prefersReducedMotion } from "./Experience";
+import { InstagramIcon, WhatsAppIcon } from "./Icons";
+import { Logo } from "./Logo";
+import { RollButton } from "./RollButton";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function Footer() {
   const t = content.footer;
+  const footer = useRef<HTMLElement>(null);
+  const card = useRef<HTMLDivElement>(null);
   const hours = groupWeeklyHours(bookingRules.weeklyHours, content.locale, t.closed);
-  const year = new Date().getFullYear();
   const place = [business.address, business.city, business.country].filter(Boolean).join(", ");
 
+  // O cartão sobe um pouco conforme o rodapé entra na tela.
+  useEffect(() => {
+    if (prefersReducedMotion() || window.innerWidth <= 1025) return;
+    const tween = gsap.fromTo(
+      card.current,
+      { yPercent: 20 },
+      { yPercent: 0, ease: "power1.out", scrollTrigger: { trigger: footer.current, start: "top 60%", end: "bottom bottom", scrub: true } },
+    );
+    return () => {
+      tween.scrollTrigger?.kill();
+      tween.kill();
+    };
+  }, []);
+
+  const socials = [
+    { label: t.instagram, href: business.instagram, icon: <InstagramIcon /> },
+    ...(business.whatsapp ? [{ label: t.whatsapp, href: `https://wa.me/${business.whatsapp}`, icon: <WhatsAppIcon /> }] : []),
+  ];
+
   return (
-    <footer className="footer">
-      <div className="footer__grid">
-        <div>
-          <h2 className="footer__title">{t.contactTitle}</h2>
-          <address className="footer__text">
-            {business.address ? place : t.addressPending}
-            {business.phoneDisplay && (
-              <>
-                <br />
-                <a href={`tel:${business.phoneDisplay.replace(/\s/g, "")}`}>{business.phoneDisplay}</a>
-              </>
-            )}
-            {business.email && (
-              <>
-                <br />
-                <a href={`mailto:${business.email}`}>{business.email}</a>
-              </>
-            )}
-          </address>
+    <footer ref={footer} id="contato" className="footer">
+      <img src="/images/footer-glow.svg" alt="" aria-hidden="true" className="footer__glow" loading="lazy" />
+      <div className="footer__inner">
+        <div ref={card} className="footer__card">
+          <div className="footer__top">
+            <Logo className="footer__logo" />
+            <div className="footer__cta">
+              <p>{t.cta}</p>
+              <RollButton label={t.book} />
+            </div>
+          </div>
+          <div className="footer__bottom">
+            <div className="footer__reach">
+              <h2>{t.reachOut}</h2>
+              <ul>
+                {business.phoneDisplay && (
+                  <li className="under-multi-parent">
+                    <a className="under-multi" href={`tel:${business.phoneDisplay.replace(/\s/g, "")}`}>
+                      {business.phoneDisplay}
+                    </a>
+                  </li>
+                )}
+                {business.email && (
+                  <li className="under-multi-parent">
+                    <a className="under-multi" href={`mailto:${business.email}`}>
+                      {business.email}
+                    </a>
+                  </li>
+                )}
+                <li>{place || t.addressPending}</li>
+                {hours.map((row) => (
+                  <li key={row.days} className="footer__hours">
+                    {row.days}: {row.hours}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <ul className="footer__socials">
+              {socials.map((s) => (
+                <li key={s.label}>
+                  <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}>
+                    {s.icon}
+                    <span className="footer__social-fill" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-        <div>
-          <h2 className="footer__title">{t.hoursTitle}</h2>
-          <dl className="footer__hours">
-            {hours.map((row) => (
-              <div key={row.days}>
-                <dt>{row.days}</dt>
-                <dd>{row.hours}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-        <div>
-          <h2 className="footer__title">{t.followTitle}</h2>
-          <p className="footer__text">
-            <a href={business.instagram} target="_blank" rel="noopener noreferrer">
-              {business.instagramHandle}
-            </a>
+        <div className="footer__legal">
+          <p>
+            {t.rights(new Date().getFullYear())}
+            {business.vatNumber && ` · ${t.vat} ${business.vatNumber}`}
           </p>
+          <a href="/privacidade" className="under-multi-parent">
+            <span className="under-multi">{t.privacy}</span>
+          </a>
         </div>
-      </div>
-
-      <p className="footer__wordmark" aria-hidden="true">
-        Marga Beauty
-      </p>
-
-      <div className="footer__bar">
-        <span>{t.rights(year)}</span>
-        {business.vatNumber && (
-          <span>
-            {t.vat} {business.vatNumber}
-          </span>
-        )}
-        <a href="/privacidade">{t.privacy}</a>
-        <a href="#top">{t.backToTop}</a>
       </div>
     </footer>
   );

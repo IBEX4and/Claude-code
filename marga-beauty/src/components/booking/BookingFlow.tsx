@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { bookingRules, business } from "@/config/business";
 import { content } from "@/content";
 import { weekdayNames } from "@/lib/hours";
-import { BOOK_EVENT, useExperience } from "../Experience";
+import { RollButton } from "../RollButton";
 import { googleCalendarUrl, icsDataUrl } from "./calendarLinks";
 
 const t = content.booking;
@@ -60,7 +60,22 @@ function validate(form: Form): Record<string, string> {
 
 const emptyForm: Form = { name: "", phone: "", email: "", notes: "", consent: false, website: "" };
 
-export function Booking() {
+/**
+ * Fluxo de agendamento (tratamento → data e horário → dados → confirmado).
+ * Renderiza as duas colunas do modal: a lateral com título e resumo, e o painel.
+ */
+export function BookingFlow({
+  requestedService,
+  requestNonce,
+  scrollArea,
+}: {
+  /** Tratamento escolhido no botão que abriu o modal. */
+  requestedService?: string;
+  /** Muda a cada abertura, para reaplicar o tratamento pedido. */
+  requestNonce: number;
+  /** Área com rolagem própria (o cartão do modal), para voltar ao topo ao trocar de etapa. */
+  scrollArea: React.RefObject<HTMLElement | null>;
+}) {
   const [step, setStep] = useState<Step>("service");
   const [serviceId, setServiceId] = useState<string | null>(null);
   const [month, setMonth] = useState<string>(currentMonth);
@@ -76,9 +91,7 @@ export function Booking() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [result, setResult] = useState<Result | null>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
   const firstRender = useRef(true);
-  const { scrollTo } = useExperience();
 
   const service = findService(serviceId);
 
@@ -91,15 +104,13 @@ export function Booking() {
     setStep("datetime");
   }, []);
 
-  // Botões "Agendar" espalhados pelo site pré-selecionam o tratamento.
+  // A cada abertura: se o último agendamento já terminou, começa de novo; botões
+  // "Agendar" de um tratamento específico já abrem na etapa de data e horário.
   useEffect(() => {
-    const onBook = (e: Event) => {
-      const id = (e as CustomEvent<{ serviceId: string }>).detail?.serviceId;
-      if (findService(id)) chooseService(id);
-    };
-    window.addEventListener(BOOK_EVENT, onBook);
-    return () => window.removeEventListener(BOOK_EVENT, onBook);
-  }, [chooseService]);
+    if (step === "done") restart();
+    if (requestedService && findService(requestedService)) chooseService(requestedService);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [requestNonce]);
 
   // Busca os horários livres do mês para o tratamento escolhido.
   useEffect(() => {
@@ -133,9 +144,8 @@ export function Booking() {
       return;
     }
     headingRef.current?.focus({ preventScroll: true });
-    const panel = sectionRef.current?.querySelector(".booking__panel");
-    if (panel && panel.getBoundingClientRect().top < 0) scrollTo(sectionRef.current!);
-  }, [step, scrollTo]);
+    scrollArea.current?.scrollTo({ top: 0, behavior: "smooth" });
+  }, [step, scrollArea]);
 
   const weeks = useMemo(() => {
     const [y, m] = month.split("-").map(Number);
@@ -233,10 +243,10 @@ export function Booking() {
   );
 
   return (
-    <section ref={sectionRef} id="agendar" className="booking">
+    <>
       <div className="booking__aside">
-        <h2 className="section-title">{t.title}</h2>
-        <p className="section-intro">{t.intro}</p>
+        <h2 id="booking-title" className="booking__title">{t.title}</h2>
+        <p className="booking__intro">{t.intro}</p>
 
         <ol className="booking__steps" aria-label={t.stepsLabel}>
           {t.steps.map((label, i) => (
@@ -255,7 +265,7 @@ export function Booking() {
             <div>
               <dt>{t.summary.service}</dt>
               <dd>
-                {service.name}, {content.services.minutes(service.duration)}
+                {service.name}, {content.showcase.minutes(service.duration)}
               </dd>
               <button type="button" className="text-link" onClick={() => setStep("service")}>
                 {t.change}
@@ -298,7 +308,7 @@ export function Booking() {
                           onClick={() => chooseService(item.id)}
                         >
                           <span>{item.name}</span>
-                          <span className="option__meta">{content.services.minutes(item.duration)}</span>
+                          <span className="option__meta">{content.showcase.minutes(item.duration)}</span>
                         </button>
                       </li>
                     ))}
@@ -508,9 +518,7 @@ export function Booking() {
                 {submitError}
               </p>
             )}
-            <button type="submit" className="button booking__submit" disabled={submitting}>
-              {submitting ? t.submitting : t.submit}
-            </button>
+            <RollButton type="submit" className="booking__submit" label={submitting ? t.submitting : t.submit} disabled={submitting} />
           </form>
         )}
 
@@ -534,7 +542,7 @@ export function Booking() {
               </div>
               <div>
                 <dt>{t.summary.duration}</dt>
-                <dd>{content.services.minutes(result.duration)}</dd>
+                <dd>{content.showcase.minutes(result.duration)}</dd>
               </div>
             </dl>
             <p className="booking__done-text">{t.success.text}</p>
@@ -578,6 +586,6 @@ export function Booking() {
           </div>
         )}
       </div>
-    </section>
+    </>
   );
 }

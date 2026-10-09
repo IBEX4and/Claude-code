@@ -1,19 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Bodoni_Moda, Jost } from "next/font/google";
+import { Host_Grotesk } from "next/font/google";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import { content } from "@/content";
 
-const display = Bodoni_Moda({
+const sans = Host_Grotesk({
   subsets: ["latin"],
-  style: ["normal", "italic"],
-  axes: ["opsz"],
-  display: "swap",
-  variable: "--font-display",
-});
-
-const sans = Jost({
-  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
   display: "swap",
   variable: "--font-sans",
 });
@@ -31,12 +24,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#F3EAE7",
+  themeColor: "#0A0708",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang={content.htmlLang} className={`${display.variable} ${sans.variable}`}>
+    <html lang={content.htmlLang} className={sans.variable}>
       <body>{children}</body>
     </html>
   );

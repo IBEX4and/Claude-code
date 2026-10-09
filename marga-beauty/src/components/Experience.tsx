@@ -8,25 +8,22 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 gsap.registerPlugin(ScrollTrigger);
 
 type ExperienceContext = {
-  /** Vira true quando o preloader termina: é o sinal para a entrada do hero. */
-  ready: boolean;
-  markReady: () => void;
+  /** Libera a rolagem (a entrada do hero começa com ela travada, como na referência). */
+  startScroll: () => void;
+  stopScroll: () => void;
   scrollTo: (target: string | HTMLElement) => void;
+  /** Abre o modal de agendamento, opcionalmente com um tratamento já escolhido. */
+  openBooking: (serviceId?: string) => void;
+  closeBooking: () => void;
+  booking: { open: boolean; serviceId?: string; nonce: number };
 };
 
-const Ctx = createContext<ExperienceContext>({
-  ready: true,
-  markReady: () => {},
-  scrollTo: () => {},
-});
+const Ctx = createContext<ExperienceContext | null>(null);
 
-export const useExperience = () => useContext(Ctx);
-
-export const BOOK_EVENT = "marga:book";
-
-/** Pede para a seção de agendamento selecionar um serviço. */
-export function requestBooking(serviceId: string) {
-  window.dispatchEvent(new CustomEvent(BOOK_EVENT, { detail: { serviceId } }));
+export function useExperience() {
+  const ctx = useContext(Ctx);
+  if (!ctx) throw new Error("useExperience precisa estar dentro de <Experience>");
+  return ctx;
 }
 
 export function prefersReducedMotion() {
@@ -34,12 +31,15 @@ export function prefersReducedMotion() {
 }
 
 export function Experience({ children }: { children: React.ReactNode }) {
-  const [ready, setReady] = useState(false);
   const lenisRef = useRef<Lenis | null>(null);
+  const [booking, setBooking] = useState<ExperienceContext["booking"]>({ open: false, nonce: 0 });
 
   useEffect(() => {
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    window.scrollTo(0, 0);
     if (prefersReducedMotion()) return;
-    const lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 1 });
+
+    const lenis = new Lenis({ lerp: 0.1 });
     lenisRef.current = lenis;
     lenis.on("scroll", ScrollTrigger.update);
     const tick = (time: number) => lenis.raf(time * 1000);
@@ -53,8 +53,7 @@ export function Experience({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  // Quando a altura da página muda (acordeão de serviços, etapas do agendamento),
-  // recalcula o limite da rolagem suave e as posições das animações.
+  // Quando a altura da página muda (FAQ, fontes), recalcula a rolagem e as animações.
   useEffect(() => {
     let timer: number | undefined;
     const observer = new ResizeObserver(() => {
@@ -71,11 +70,8 @@ export function Experience({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  useEffect(() => {
-    if (!ready) return;
-    lenisRef.current?.start();
-    ScrollTrigger.refresh();
-  }, [ready]);
+  const startScroll = useCallback(() => lenisRef.current?.start(), []);
+  const stopScroll = useCallback(() => lenisRef.current?.stop(), []);
 
   const scrollTo = useCallback((target: string | HTMLElement) => {
     const el = typeof target === "string" ? document.querySelector<HTMLElement>(target) : target;
@@ -83,30 +79,38 @@ export function Experience({ children }: { children: React.ReactNode }) {
     if (lenisRef.current) {
       lenisRef.current.resize();
       lenisRef.current.scrollTo(el, { duration: 1.6 });
-    }
-    else el.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth" });
+    } else el.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth" });
   }, []);
 
-  // Links internos (#secao) passam pela rolagem suave. `data-book-service`
-  // também pré-seleciona o tratamento no agendamento.
+  const openBooking = useCallback((serviceId?: string) => {
+    setBooking((b) => ({ open: true, serviceId, nonce: b.nonce + 1 }));
+  }, []);
+  const closeBooking = useCallback(() => setBooking((b) => ({ ...b, open: false })), []);
+
+  // Links "#agendar" abrem o modal; "#secao" usam a rolagem suave.
   useEffect(() => {
     const onClick = (event: MouseEvent) => {
       if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey) return;
       const link = (event.target as Element).closest<HTMLAnchorElement>('a[href^="#"]');
       if (!link) return;
       const hash = link.getAttribute("href")!;
+      if (hash === "#agendar") {
+        event.preventDefault();
+        openBooking(link.dataset.bookService);
+        return;
+      }
       const target = hash === "#" || hash === "#top" ? document.body : document.querySelector<HTMLElement>(hash);
       if (!target) return;
       event.preventDefault();
-      const serviceId = link.dataset.bookService;
-      if (serviceId) requestBooking(serviceId);
       scrollTo(target);
     };
     document.addEventListener("click", onClick);
     return () => document.removeEventListener("click", onClick);
-  }, [scrollTo]);
+  }, [scrollTo, openBooking]);
 
-  const markReady = useCallback(() => setReady(true), []);
-  const value = useMemo(() => ({ ready, markReady, scrollTo }), [ready, markReady, scrollTo]);
+  const value = useMemo(
+    () => ({ startScroll, stopScroll, scrollTo, openBooking, closeBooking, booking }),
+    [startScroll, stopScroll, scrollTo, openBooking, closeBooking, booking],
+  );
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
