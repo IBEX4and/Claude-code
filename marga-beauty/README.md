@@ -31,7 +31,19 @@ Todas as animações respeitam o "reduzir movimento" do sistema. O som das linha
 que vibram pode ser desligado em `src/components/Specialties.tsx`
 (`<StringLine sound={false} />`).
 
-## Rodar no computador
+## Ver o site no seu computador (dois cliques)
+
+1. Instale o [Node.js](https://nodejs.org) (versão LTS), se ainda não tiver.
+2. Baixe este repositório na branch `claude/marga-beauty-website-xt7azz`
+   (no GitHub: *Code → Download ZIP*) e descompacte.
+3. Abra a pasta `marga-beauty` e dê dois cliques em:
+   - **Mac:** `abrir-site.command`
+   - **Windows:** `abrir-site.bat`
+4. Na primeira vez ele instala o que precisa (um ou dois minutos). Depois abre
+   sozinho o navegador em `http://localhost:3000`. Deixe a janela preta aberta
+   enquanto estiver vendo o site.
+
+## Rodar no computador (desenvolvimento)
 
 ```bash
 cd marga-beauty
