@@ -458,6 +458,9 @@ button {
 /* ---------- Tratamentos (cartões que sobem) ---------- */
 
 .showcase {
+  /* Medidas da seção: 1vw, mas nunca mais que 1,6vh. Em telas 16:10 é igual a
+     1vw; em telas largas e baixas evita que o título seja cortado no topo. */
+  --u: min(1vw, 1.6vh);
   position: relative;
   width: 100vw;
   height: 360vh;
@@ -470,7 +473,9 @@ button {
   left: 0;
   z-index: 2;
   width: 100%;
-  height: 50vh;
+  /* Depois de subir 70%, o arco ainda precisa alcançar o painel (8vw abaixo do
+     topo da seção); em telas largas e baixas 50vh não basta e sobrava uma faixa preta. */
+  height: max(50vh, 30vw);
   background: var(--gradient);
   will-change: clip-path;
 }
@@ -483,7 +488,7 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5vw;
+  gap: calc(5 * var(--u));
   width: 100vw;
   height: 100vh;
   padding: 0 4vw;
@@ -492,14 +497,14 @@ button {
 }
 
 .showcase__title {
-  font-size: 5.5vw;
+  font-size: calc(5.5 * var(--u));
   text-align: center;
 }
 
 .showcase__body {
   display: flex;
   align-items: center;
-  gap: 4vw;
+  gap: calc(4 * var(--u));
   width: 100%;
 }
 
@@ -512,10 +517,10 @@ button {
 .showcase__track,
 .showcase__progress {
   position: absolute;
-  top: 2.5vw;
+  top: calc(2.5 * var(--u));
   left: 4px;
   width: 1px;
-  height: 21vw;
+  height: calc(21 * var(--u));
   background: rgba(255, 255, 255, 0.2);
 }
 
@@ -528,33 +533,33 @@ button {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 1.2vw;
-  height: 7vw;
+  gap: calc(1.2 * var(--u));
+  height: calc(7 * var(--u));
 }
 
 .showcase__dot {
   flex-shrink: 0;
   width: 10px;
   height: 10px;
-  margin-top: -1.5vw;
+  margin-top: calc(-1.5 * var(--u));
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 50%;
   background: var(--accent-a);
 }
 
 .showcase__list h3 {
-  font-size: 1.5vw;
+  font-size: calc(1.5 * var(--u));
 }
 
 .showcase__list p {
-  font-size: 1vw;
+  font-size: calc(1 * var(--u));
   white-space: pre;
 }
 
 .showcase__cards {
   position: relative;
   width: 100%;
-  height: 38vw;
+  height: calc(38 * var(--u));
   overflow: hidden;
   border-radius: 0.75rem;
 }
@@ -574,19 +579,19 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 1.2vw;
-  padding: 2.4vw;
+  gap: calc(1.2 * var(--u));
+  padding: calc(2.4 * var(--u));
 }
 
 .showcase__card-text h3 {
-  font-size: 3vw;
+  font-size: calc(3 * var(--u));
   line-height: 1.05;
   letter-spacing: -0.02em;
 }
 
 .showcase__card-text > div > p {
-  margin-top: 0.6vw;
-  font-size: 1.05vw;
+  margin-top: calc(0.6 * var(--u));
+  font-size: calc(1.05 * var(--u));
   color: rgba(29, 11, 16, 0.65);
 }
 
@@ -598,10 +603,10 @@ button {
 .showcase__card-text li a {
   display: flex;
   justify-content: space-between;
-  gap: 1vw;
-  padding: 0.55vw 0;
+  gap: calc(1 * var(--u));
+  padding: calc(0.55 * var(--u)) 0;
   border-bottom: 1px solid rgba(29, 11, 16, 0.12);
-  font-size: 0.95vw;
+  font-size: calc(0.95 * var(--u));
   transition: color 0.3s;
 }
 
@@ -616,6 +621,21 @@ button {
 
 .showcase__card-visual {
   height: 100%;
+}
+
+@media (min-width: 1026px), (min-aspect-ratio: 1/1) {
+  .showcase .roll-btn {
+    gap: calc(0.9 * var(--u));
+    height: calc(3.5 * var(--u));
+    padding: 0 calc(2 * var(--u));
+    font-size: calc(1.15 * var(--u));
+  }
+
+  .showcase .roll-btn__dot,
+  .showcase .roll-btn__spacer {
+    width: calc(0.5 * var(--u));
+    height: calc(0.5 * var(--u));
+  }
 }
 
 .showcase__glow {
@@ -1390,6 +1410,19 @@ button {
   color: rgba(255, 255, 255, 0.75);
 }
 
+.footer__whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+}
+
+.footer__whatsapp svg {
+  flex-shrink: 0;
+  width: 1.25em;
+  height: 1.25em;
+  color: #25d366;
+}
+
 .footer__socials {
   display: flex;
   gap: 1rem;
@@ -2038,13 +2071,6 @@ button {
 /* ---------- Tablet (≤1025px) ---------- */
 
 @media (max-width: 1025px) {
-  .section-title,
-  .showcase__title,
-  .benefits__title h2,
-  .steps__head .section-title {
-    font-size: 7vw;
-  }
-
   .roll-btn {
     gap: 1.6vw;
     height: 8vw;
@@ -2067,105 +2093,6 @@ button {
 
   .header {
     padding: 3vw 5vw;
-  }
-
-  .hero__stage {
-    align-items: flex-start;
-    padding: 30vw 5vw 0;
-  }
-
-  .hero__row {
-    position: relative;
-    z-index: 3;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .hero__title {
-    width: 62%;
-  }
-
-  .hero__title h1 {
-    font-size: 12vw;
-  }
-
-  .hero__aside {
-    flex-direction: column-reverse;
-    gap: 5rem;
-    width: 40%;
-    padding: 0;
-    font-size: 3.5vw;
-    text-align: start;
-  }
-
-  .hero__portrait {
-    --ph: 66vh;
-    margin-left: calc(var(--ph) * 645 / 859 / -2 + 16vw);
-  }
-
-  .hero__gallery-inner {
-    padding: 0 5vw;
-  }
-
-  .hero__tile {
-    height: 45vw;
-  }
-
-  .showcase__stage {
-    gap: 3rem;
-    padding: 0 5vw;
-  }
-
-  .showcase__body {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4rem;
-  }
-
-  .showcase__list {
-    width: 50%;
-  }
-
-  .showcase__track,
-  .showcase__progress {
-    top: 1vw;
-    height: 33vw;
-  }
-
-  .showcase__list ol {
-    display: flex;
-    flex-direction: column;
-    gap: 4vw;
-  }
-
-  .showcase__list li {
-    height: auto;
-  }
-
-  .showcase__dot {
-    margin-top: -4vw;
-  }
-
-  .showcase__list h3 {
-    font-size: 3.5vw;
-  }
-
-  .showcase__list p {
-    font-size: 2.5vw;
-  }
-
-  .showcase__cards {
-    height: 60vw;
-    border-radius: 0.5rem;
-  }
-
-  .showcase__card-text h3 {
-    font-size: 4.5vw;
-  }
-
-  .showcase__card-text > div > p,
-  .showcase__card-text li a {
-    font-size: 1.9vw;
   }
 
   .why {
@@ -2396,6 +2323,119 @@ button {
 
   .booking__heading {
     font-size: 3.6vw;
+  }
+}
+
+/* Tablet em pé: hero e tratamentos empilhados. Deitado, mantêm o layout de desktop. */
+@media (max-width: 1025px) and (max-aspect-ratio: 1/1) {
+  .section-title,
+  .showcase__title,
+  .benefits__title h2,
+  .steps__head .section-title {
+    font-size: 7vw;
+  }
+
+  .showcase {
+    --u: 1vw;
+  }
+
+  .showcase__stage {
+    gap: 3rem;
+    padding: 0 5vw;
+  }
+
+  .showcase__body {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4rem;
+  }
+
+  .showcase__list {
+    width: 50%;
+  }
+
+  .showcase__track,
+  .showcase__progress {
+    top: 1vw;
+    height: 33vw;
+  }
+
+  .showcase__list ol {
+    display: flex;
+    flex-direction: column;
+    gap: 4vw;
+  }
+
+  .showcase__list li {
+    height: auto;
+  }
+
+  .showcase__dot {
+    margin-top: -4vw;
+  }
+
+  .showcase__list h3 {
+    font-size: 3.5vw;
+  }
+
+  .showcase__list p {
+    font-size: 2.5vw;
+  }
+
+  .showcase__cards {
+    height: 60vw;
+    border-radius: 0.5rem;
+  }
+
+  .showcase__card-text h3 {
+    font-size: 4.5vw;
+  }
+
+  .showcase__card-text > div > p,
+  .showcase__card-text li a {
+    font-size: 1.9vw;
+  }
+
+  .hero__stage {
+    align-items: flex-start;
+    padding: 30vw 5vw 0;
+  }
+
+  .hero__row {
+    position: relative;
+    z-index: 3;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .hero__title {
+    width: 62%;
+  }
+
+  .hero__title h1 {
+    font-size: 12vw;
+  }
+
+  .hero__aside {
+    flex-direction: column-reverse;
+    gap: 5rem;
+    width: 40%;
+    padding: 0;
+    font-size: 3.5vw;
+    text-align: start;
+  }
+
+  .hero__portrait {
+    --ph: 66vh;
+    margin-left: calc(var(--ph) * 645 / 859 / -2 + 16vw);
+  }
+
+  .hero__gallery-inner {
+    padding: 0 5vw;
+  }
+
+  .hero__tile {
+    height: 45vw;
   }
 }
 

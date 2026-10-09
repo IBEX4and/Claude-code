@@ -173,8 +173,10 @@ GitHub (publicação automática a cada alteração) e o domínio próprio.
 
 ## Pendências com a cliente
 
-- [ ] Endereço completo, cidade, WhatsApp, e-mail e **Partita IVA**
-      (obrigatória no site de empresas na Itália) — `src/config/business.ts`
+- [x] Endereço (Via L. Carcano, 11, 22070 Rovello Porro, CO) e WhatsApp
+      (+39 375 862 0602) — `src/config/business.ts`
+- [ ] E-mail de contato e **Partita IVA** (obrigatória no site de empresas na
+      Itália) — `src/config/business.ts`
 - [ ] Horários reais de atendimento e dias fechados
 - [ ] Durações de cada tratamento e lista final de serviços (os de podologia
       foram montados por nós; o Instagram não detalha)

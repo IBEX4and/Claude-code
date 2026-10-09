@@ -3,7 +3,7 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
-import { bookingRules, business } from "@/config/business";
+import { bookingRules, business, fullAddress, mapsUrl, whatsappUrl } from "@/config/business";
 import { content } from "@/content";
 import { groupWeeklyHours } from "@/lib/hours";
 import { prefersReducedMotion } from "./Experience";
@@ -18,7 +18,6 @@ export function Footer() {
   const footer = useRef<HTMLElement>(null);
   const card = useRef<HTMLDivElement>(null);
   const hours = groupWeeklyHours(bookingRules.weeklyHours, content.locale, t.closed);
-  const place = [business.address, business.city, business.country].filter(Boolean).join(", ");
 
   // O cartão sobe um pouco conforme o rodapé entra na tela.
   useEffect(() => {
@@ -36,7 +35,7 @@ export function Footer() {
 
   const socials = [
     { label: t.instagram, href: business.instagram, icon: <InstagramIcon /> },
-    ...(business.whatsapp ? [{ label: t.whatsapp, href: `https://wa.me/${business.whatsapp}`, icon: <WhatsAppIcon /> }] : []),
+    ...(business.whatsapp ? [{ label: t.whatsapp, href: whatsappUrl(t.whatsappMessage), icon: <WhatsAppIcon /> }] : []),
   ];
 
   return (
@@ -55,10 +54,17 @@ export function Footer() {
             <div className="footer__reach">
               <h2>{t.reachOut}</h2>
               <ul>
-                {business.phoneDisplay && (
-                  <li className="under-multi-parent">
-                    <a className="under-multi" href={`tel:${business.phoneDisplay.replace(/\s/g, "")}`}>
-                      {business.phoneDisplay}
+                {business.whatsapp && (
+                  <li>
+                    <a
+                      className="footer__whatsapp under-multi-parent"
+                      href={whatsappUrl(t.whatsappMessage)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={t.whatsappAria(business.phoneDisplay)}
+                    >
+                      <WhatsAppIcon size={20} />
+                      <span className="under-multi">{business.phoneDisplay}</span>
                     </a>
                   </li>
                 )}
@@ -69,7 +75,17 @@ export function Footer() {
                     </a>
                   </li>
                 )}
-                <li>{place || t.addressPending}</li>
+                <li className="under-multi-parent">
+                  <a
+                    className="under-multi"
+                    href={mapsUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={t.mapsAria(fullAddress())}
+                  >
+                    {fullAddress()}
+                  </a>
+                </li>
                 {hours.map((row) => (
                   <li key={row.days} className="footer__hours">
                     {row.days}: {row.hours}

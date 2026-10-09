@@ -344,12 +344,14 @@ export const pt = {
     reachOut: "Contato",
     hoursTitle: "Horários",
     closed: "Fechado",
-    addressPending: "Itália",
     privacy: "Política de privacidade",
     vat: "P. IVA",
     rights: (year: number) => `Copyright © Marga Beauty ${year}`,
     instagram: "Instagram",
     whatsapp: "WhatsApp",
+    whatsappMessage: "Olá, Marga! Vi o site e gostaria de mais informações.",
+    whatsappAria: (phone: string) => `Conversar no WhatsApp: ${phone}`,
+    mapsAria: (address: string) => `Ver no Google Maps: ${address}`,
   },
 
   booking: {

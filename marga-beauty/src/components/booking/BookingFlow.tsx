@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { bookingRules, business } from "@/config/business";
+import { bookingRules, business, fullAddress, whatsappUrl } from "@/config/business";
 import { content } from "@/content";
 import { weekdayNames } from "@/lib/hours";
 import { RollButton } from "../RollButton";
@@ -215,7 +215,7 @@ export function BookingFlow({
   }
 
   const stepIndex = { service: 0, datetime: 1, details: 2, done: 3 }[step];
-  const location = [business.address, business.city, business.country].filter(Boolean).join(", ");
+  const location = fullAddress();
 
   const field = (name: "name" | "phone" | "email", type: string, autoComplete: string, hint?: string) => (
     <div className={`field${errors[name] ? " field--error" : ""}`}>
@@ -570,9 +570,7 @@ export function BookingFlow({
               {business.whatsapp && (
                 <a
                   className="text-link"
-                  href={`https://wa.me/${business.whatsapp}?text=${encodeURIComponent(
-                    t.success.whatsappMessage(result.serviceName, longDate(date), time, form.name.trim()),
-                  )}`}
+                  href={whatsappUrl(t.success.whatsappMessage(result.serviceName, longDate(date), time, form.name.trim()))}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

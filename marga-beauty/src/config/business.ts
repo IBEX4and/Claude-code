@@ -8,24 +8,42 @@ export type TimeRange = [start: string, end: string];
 /** 1 = segunda ... 7 = domingo (padrão ISO, igual ao Luxon). */
 export type WeeklyHours = Record<1 | 2 | 3 | 4 | 5 | 6 | 7, TimeRange[]>;
 
-export const business: Record<
-  "name" | "city" | "country" | "address" | "whatsapp" | "phoneDisplay" | "email" | "instagram" | "instagramHandle" | "vatNumber",
-  string
-> = {
+export const business = {
   name: "Marga Beauty",
-  // TODO: cidade e endereço completos do estúdio
-  city: "",
+  address: "Via L. Carcano, 11",
+  postalCode: "22070",
+  city: "Rovello Porro",
+  /** Sigla da província (Como). */
+  province: "CO",
   country: "Itália",
-  address: "",
-  // TODO: número com DDI, só dígitos (ex.: 393331234567). Vazio esconde os botões de WhatsApp.
-  whatsapp: "",
-  phoneDisplay: "",
+  /** Número com DDI, só dígitos: usado no link direto do WhatsApp. */
+  whatsapp: "393758620602",
+  phoneDisplay: "+39 375 862 0602",
+  // TODO: e-mail de contato (vazio esconde a linha no rodapé)
   email: "",
   instagram: "https://www.instagram.com/marga_beauty_official/",
   instagramHandle: "@marga_beauty_official",
-  // Na Itália a Partita IVA precisa aparecer no site.
+  // TODO: na Itália a Partita IVA precisa aparecer no site.
   vatNumber: "",
 };
+
+/** Endereço completo no formato italiano: "Via L. Carcano, 11, 22070 Rovello Porro (CO), Itália". */
+export function fullAddress() {
+  const { address, postalCode, city, province, country } = business;
+  const locality = [postalCode, city].filter(Boolean).join(" ") + (province ? ` (${province})` : "");
+  return [address, locality.trim(), country].filter(Boolean).join(", ");
+}
+
+/** Link do WhatsApp que já abre a conversa, opcionalmente com uma mensagem pronta. */
+export function whatsappUrl(message?: string) {
+  if (!business.whatsapp) return "";
+  return `https://wa.me/${business.whatsapp}${message ? `?text=${encodeURIComponent(message)}` : ""}`;
+}
+
+/** Link para abrir o endereço no Google Maps. */
+export function mapsUrl() {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${business.name}, ${fullAddress()}`)}`;
+}
 
 export const bookingRules = {
   timezone: "Europe/Rome",

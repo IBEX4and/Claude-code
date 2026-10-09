@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 import { NextResponse } from "next/server";
-import { bookingRules, business } from "@/config/business";
+import { bookingRules, fullAddress } from "@/config/business";
 import { content } from "@/content";
 import { loadAvailability } from "@/lib/availability";
 import { calendarMode, createEvent } from "@/lib/calendar";
@@ -83,7 +83,7 @@ export async function POST(request: Request) {
       ]
         .filter((line) => line !== null)
         .join("\n"),
-      location: business.address,
+      location: fullAddress(),
       start,
       end,
     });
