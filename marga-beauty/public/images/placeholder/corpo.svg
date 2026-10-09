@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1100" width="900" height="1100" preserveAspectRatio="xMidYMid slice">
+<defs><filter id="g"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .09 0"/></filter><filter id="b" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="60"/></filter><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9B9AF"/><stop offset="1" stop-color="#A9807C"/></linearGradient></defs>
+<rect width="100%" height="100%" fill="url(#bg)"/>
+<g filter="url(#b)"><path d="M200 1100 C 260 760, 640 760, 560 300 S 820 120, 900 200 L 900 1100 Z" fill="#8C6468"/><ellipse cx="260" cy="260" rx="200" ry="160" fill="#EAD7D1"/></g>
+<rect width="100%" height="100%" filter="url(#g)"/>
+<text x="54" y="1046" font-family="Georgia, serif" font-style="italic" font-size="29" fill="#F3EAE7" opacity=".7">Foto provisória: corpo</text>
+</svg>
