@@ -144,6 +144,10 @@ Com as variáveis preenchidas, o aviso de "modo demonstração" some sozinho.
 
 ## Publicar e ligar o domínio da GoDaddy
 
+O site já está publicado em **https://marga-beauty.vercel.app** (projeto
+`marga-beauty` na conta da Vercel). Os passos abaixo servem para ligar o
+GitHub (publicação automática a cada alteração) e o domínio próprio.
+
 1. Na [Vercel](https://vercel.com/), importe este repositório e defina
    **Root Directory** como `marga-beauty`.
 2. Em *Settings → Environment Variables*, cadastre as variáveis do Google e
