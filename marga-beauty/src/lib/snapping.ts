@@ -79,7 +79,8 @@ export function restingKey(map: SnapMap, y: number): string | null {
 /**
  * Para onde a rolagem vai quando para em `y`; null = fica onde está.
  * `direction`: sentido do último movimento (1 = descendo, -1 = subindo).
- * `lastRest`: ponto em que a rolagem estava parada antes deste movimento.
+ * `lastRest`: ponto em que a rolagem estava parada (ou para onde estava indo)
+ * antes deste movimento.
  */
 export function settleTarget(
   map: SnapMap,
@@ -88,28 +89,41 @@ export function settleTarget(
   viewport: number,
   lastRest: number | null = null,
 ): number | null {
-  const leaving = (p: number) => lastRest !== null && Math.abs(p - lastRest) <= 2 && Math.sign(y - p) === Math.sign(direction);
+  const dir = Math.sign(direction) || 1;
   const zone = map.zones.find((z) => y > z.from + 1 && y < z.to - 1);
   let target: number | null = null;
+
+  // Regras comuns às etapas e aos pontos livres; `reach` = alcance do encaixe.
+  // Nas etapas (`advance`), sair de um cartão sempre leva ao seguinte; nos pontos
+  // livres, só se o seguinte estiver ao alcance.
+  const decide = (points: number[], reach: number, advance: boolean, fallback: () => number | null) => {
+    const rest = lastRest !== null && points.some((p) => Math.abs(p - lastRest) <= 2) ? lastRest : null;
+    if (rest !== null) {
+      const moved = y - rest;
+      // Indo em direção ao ponto de destino (um deslize interrompido): continua até ele.
+      if (moved * dir < 0 && Math.abs(moved) <= reach) return rest;
+      // Saiu do ponto em que estava, pouco: vai ao próximo ponto naquele sentido.
+      if (moved * dir > 0 && Math.abs(moved) < reach) {
+        const next = nextFrom(points, rest, dir);
+        return next !== null && (advance || Math.abs(next - y) <= reach) ? next : null;
+      }
+    }
+    return fallback();
+  };
 
   if (zone?.mode === "directional") {
     if (y - zone.from < EDGE_DEAD_BAND) target = zone.from;
     else if (zone.to - y < EDGE_DEAD_BAND) target = zone.to;
-    else target = direction < 0 ? zone.from : zone.to;
+    else target = dir < 0 ? zone.from : zone.to;
   } else if (zone) {
-    const p = nearest(zone.points, y);
-    // Saindo de um cartão: vai ao próximo; antes do primeiro (ou depois do último), fica livre.
-    target = leaving(p) ? nextFrom(zone.points, p, direction) : p;
+    const step = (zone.to - zone.points[0]) / Math.max(1, zone.points.length - 1);
+    target = decide(zone.points, step, true, () => nearest(zone.points, y));
   } else if (map.points.length) {
     const reach = viewport * SNAP_THRESHOLD;
-    const p = nearest(map.points, y);
-    if (Math.abs(p - y) <= reach) {
-      if (!leaving(p)) target = p;
-      else {
-        const next = nextFrom(map.points, p, direction);
-        target = next !== null && Math.abs(next - y) <= reach ? next : null;
-      }
-    }
+    target = decide(map.points, reach, false, () => {
+      const p = nearest(map.points, y);
+      return Math.abs(p - y) <= reach ? p : null;
+    });
   }
   return target !== null && Math.abs(target - y) > 2 ? target : null;
 }

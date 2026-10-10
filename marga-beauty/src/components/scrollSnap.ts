@@ -1,9 +1,11 @@
 import type Lenis from "lenis";
 import type { VirtualScrollData } from "lenis";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { gestureTarget, readSnapMap, restingKey, settleTarget } from "@/lib/snapping";
 
 const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
-const NAV_KEYS = new Set(["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " ", "Spacebar"]);
+/** Teclas que rolam a página, com o sentido de cada uma. */
+const NAV_KEYS: Record<string, number> = { ArrowDown: 1, PageDown: 1, End: 1, " ": 1, Spacebar: 1, ArrowUp: -1, PageUp: -1, Home: -1 };
 
 /**
  * Liga o encaixe da rolagem (src/lib/snapping.ts) ao Lenis.
@@ -12,7 +14,9 @@ const NAV_KEYS = new Set(["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", 
  *   animação. O resto do mesmo gesto (inércia do trackpad) é ignorado; um gesto
  *   novo no sentido contrário inverte o salto.
  * - Ao parar de rolar (roda, toque, teclado, barra de rolagem), desliza até o ponto
- *   de encaixe, respeitando o sentido do movimento.
+ *   de encaixe, respeitando o sentido do movimento (o sentido vem da pessoa: roda,
+ *   dedo, tecla ou barra; nunca dos deslizes automáticos).
+ * - Ao redimensionar a janela, volta ao mesmo ponto em que estava parada.
  */
 export function createScrollSnap() {
   let lenis: Lenis | null = null;
@@ -32,18 +36,27 @@ export function createScrollSnap() {
   let holdGesture = false;
   let heldAt = 0;
 
-  // Onde a rolagem descansou por último
+  // Onde a rolagem descansou por último (ou para onde um deslize está indo)
   let lastDir = 1;
   let lastRest: number | null = 0;
   let lastRestKey: string | null = "top";
+  let restingNow = true; // parada exatamente em lastRest, sem a pessoa ter mexido
   let settleTimer: number | undefined;
+  let resizing = false;
+  let resizeTimer: number | undefined;
   let size = { w: 0, h: 0 };
 
   const isJumping = () => !!lenis?.isLocked;
 
-  const rest = (value: number) => {
+  /** Marca `value` como o ponto de descanso (no início do deslize, não só no fim). */
+  const aim = (value: number) => {
     lastRest = value;
     lastRestKey = restingKey(readSnapMap(), value);
+    restingNow = false;
+  };
+  const userMoved = (dir: number) => {
+    if (dir) lastDir = dir;
+    restingNow = false;
   };
 
   const jump = (target: number) => {
@@ -52,6 +65,7 @@ export function createScrollSnap() {
     window.clearTimeout(settleTimer);
     jumpDir = Math.sign(target - l.animatedScroll) || 1;
     jumpKey = restingKey(readSnapMap(), target);
+    aim(target);
     l.scrollTo(target, {
       duration: 1.4,
       easing: easeInOutCubic,
@@ -60,7 +74,7 @@ export function createScrollSnap() {
       onComplete: () => {
         holdGesture = true;
         heldAt = performance.now();
-        rest(target);
+        restingNow = true;
       },
     });
   };
@@ -95,6 +109,7 @@ export function createScrollSnap() {
 
     if (isJumping()) {
       const dir = Math.sign(deltaY);
+      if (dir === -jumpDir) lastDir = dir;
       const fresh = gesture !== jumpGesture && (!isTouch || Math.abs(touchTravel) >= 12);
       if (dir && dir === -jumpDir && fresh) {
         const target = gestureTarget(readSnapMap(), l.animatedScroll, deltaY);
@@ -110,11 +125,18 @@ export function createScrollSnap() {
       if (!over) return block();
       holdGesture = false;
     }
-    if (Math.abs(deltaX) > Math.abs(deltaY)) return true;
     if ((event.target as Element | null)?.closest?.("[data-lenis-prevent]")) return true;
+    const map = readSnapMap();
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      // Gesto lateral (ex.: voltar página no trackpad): no hero, a leve deriva
+      // vertical não pode disparar o salto; no resto do site segue normal.
+      const inHero = map.zones.some((z) => z.mode === "directional" && l.targetScroll >= z.from - 1 && l.targetScroll <= z.to + 1);
+      return inHero ? block() : true;
+    }
+    userMoved(Math.sign(deltaY));
     if (isTouch && Math.abs(touchTravel) < 12) return true;
 
-    const target = gestureTarget(readSnapMap(), l.targetScroll, deltaY);
+    const target = gestureTarget(map, l.targetScroll, deltaY);
     if (target === null) return true;
     jumpGesture = gesture;
     jump(target);
@@ -123,7 +145,7 @@ export function createScrollSnap() {
 
   const settle = () => {
     const l = lenis;
-    if (!l || isJumping() || touching || pointerHeld || l.isStopped || l.isScrolling === "smooth") return;
+    if (!l || resizing || isJumping() || touching || pointerHeld || l.isStopped || l.isScrolling === "smooth") return;
     const map = readSnapMap();
     const y = window.scrollY;
     const target = settleTarget(map, y, lastDir, window.innerHeight, lastRest);
@@ -132,10 +154,12 @@ export function createScrollSnap() {
       if (key) {
         lastRest = map.keys[key];
         lastRestKey = key;
+        restingNow = true;
       }
       return;
     }
-    l.scrollTo(target, { duration: 0.9, easing: easeInOutCubic, onComplete: () => rest(target) });
+    aim(target);
+    l.scrollTo(target, { duration: 0.9, easing: easeInOutCubic, onComplete: () => void (restingNow = true) });
   };
 
   const scheduleSettle = () => {
@@ -153,11 +177,13 @@ export function createScrollSnap() {
   };
 
   const onScroll = () => {
-    if (lenis?.direction) lastDir = lenis.direction;
+    // Arrastando a barra de rolagem: o sentido vem do próprio movimento.
+    if (pointerHeld && lenis?.direction) userMoved(lenis.direction);
     scheduleSettle();
   };
   const onTouchStart = () => {
     touching = true;
+    restingNow = false;
     window.clearTimeout(settleTimer);
   };
   const onTouchEnd = () => {
@@ -180,25 +206,37 @@ export function createScrollSnap() {
     if (pointerHeld && e.buttons === 0) onPointerUp();
   };
   const onKeyDown = (e: KeyboardEvent) => {
-    if (!NAV_KEYS.has(e.key)) return;
+    const dir = NAV_KEYS[e.key];
+    if (!dir) return;
     if ((e.target as HTMLElement | null)?.closest?.("input, textarea, select, [contenteditable='true']")) return;
+    userMoved(e.key === " " && e.shiftKey ? -1 : dir);
     cancelGlide();
   };
 
-  /** Depois de redimensionar: volta ao mesmo ponto de encaixe na nova medida. */
-  const onResize = () => {
+  /**
+   * Redimensionar (janela, rotação do celular): enquanto o layout e as animações se
+   * recalculam, não encaixa nada; depois volta ao mesmo ponto na nova medida.
+   */
+  const finishResize = () => {
     const l = lenis;
+    resizing = false;
     if (!l) return;
-    const changed = window.innerWidth !== size.w || window.innerHeight !== size.h;
+    const widthChanged = window.innerWidth !== size.w;
+    const heightDelta = Math.abs(window.innerHeight - size.h);
     size = { w: window.innerWidth, h: window.innerHeight };
-    if (!changed) return;
+    // Barra de endereço do celular aparecendo/sumindo: só a altura muda um pouco.
+    if (!widthChanged && heightDelta < window.innerHeight * 0.25 && window.matchMedia("(pointer: coarse)").matches) {
+      scheduleSettle();
+      return;
+    }
+    l.resize();
+    ScrollTrigger.refresh();
     const map = readSnapMap();
     if (isJumping() && jumpKey && map.keys[jumpKey] !== undefined) {
       jump(map.keys[jumpKey]);
       return;
     }
-    const wasResting = lastRest !== null && Math.abs(window.scrollY - lastRest) <= 2;
-    if (wasResting && lastRestKey && map.keys[lastRestKey] !== undefined) {
+    if (restingNow && lastRestKey && map.keys[lastRestKey] !== undefined) {
       const value = map.keys[lastRestKey];
       lastRest = value;
       if (Math.abs(value - window.scrollY) > 1) l.scrollTo(value, { immediate: true, force: true });
@@ -206,11 +244,18 @@ export function createScrollSnap() {
     }
     scheduleSettle();
   };
+  const onResize = () => {
+    resizing = true;
+    window.clearTimeout(settleTimer);
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(finishResize, 350);
+  };
 
   const attach = (instance: Lenis) => {
     lenis = instance;
     size = { w: window.innerWidth, h: window.innerHeight };
     lenis.on("scroll", onScroll);
+    window.addEventListener("resize", onResize);
     window.addEventListener("touchstart", onTouchStart, { passive: true });
     window.addEventListener("touchend", onTouchEnd, { passive: true });
     window.addEventListener("touchcancel", onTouchEnd, { passive: true });
@@ -222,6 +267,8 @@ export function createScrollSnap() {
     window.addEventListener("keydown", onKeyDown);
     return () => {
       window.clearTimeout(settleTimer);
+      window.clearTimeout(resizeTimer);
+      window.removeEventListener("resize", onResize);
       window.removeEventListener("touchstart", onTouchStart);
       window.removeEventListener("touchend", onTouchEnd);
       window.removeEventListener("touchcancel", onTouchEnd);
@@ -235,5 +282,5 @@ export function createScrollSnap() {
     };
   };
 
-  return { virtualScroll, attach, onResize };
+  return { virtualScroll, attach };
 }

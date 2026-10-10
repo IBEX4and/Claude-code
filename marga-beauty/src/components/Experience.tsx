@@ -40,7 +40,6 @@ export function prefersReducedMotion() {
 
 export function Experience({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
-  const snapRef = useRef<ReturnType<typeof createScrollSnap> | null>(null);
   const [booking, setBooking] = useState<ExperienceContext["booking"]>({ open: false, nonce: 0 });
 
   useEffect(() => {
@@ -50,7 +49,6 @@ export function Experience({ children }: { children: React.ReactNode }) {
 
     // Encaixe da rolagem: hero com salto de ponta a ponta e paradas nas etapas.
     const snap = createScrollSnap();
-    snapRef.current = snap;
     const lenis = new Lenis({ lerp: 0.1, virtualScroll: snap.virtualScroll });
     lenisRef.current = lenis;
     lenis.on("scroll", ScrollTrigger.update);
@@ -64,7 +62,6 @@ export function Experience({ children }: { children: React.ReactNode }) {
       gsap.ticker.remove(tick);
       lenis.destroy();
       lenisRef.current = null;
-      snapRef.current = null;
     };
   }, []);
 
@@ -76,7 +73,6 @@ export function Experience({ children }: { children: React.ReactNode }) {
       timer = window.setTimeout(() => {
         lenisRef.current?.resize();
         ScrollTrigger.refresh();
-        snapRef.current?.onResize();
       }, 200);
     });
     observer.observe(document.body);

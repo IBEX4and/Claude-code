@@ -81,6 +81,20 @@ test("empurrão pequeno saindo de um ponto não é desfeito", () => {
   assert.equal(settleTarget(map, 2100, -1, vh, null), 2000); // voltando em direção ao ponto, encaixa
 });
 
+test("deslize interrompido: seguindo no mesmo sentido continua; invertendo, volta", () => {
+  // Deslizando do cartão 1 (3360) para o 2 (4107), a pessoa aperta uma seta em 3700.
+  assert.equal(settleTarget(map, 3740, 1, vh, 4107), 4107);
+  assert.equal(settleTarget(map, 3660, -1, vh, 4107), 3360);
+  // Rodinha a cada 0,7 s: cada volta avança, nunca puxa para trás.
+  assert.equal(settleTarget(map, 4007, 1, vh, 4107), 4107);
+  assert.equal(settleTarget(map, 4207, 1, vh, 4107), 4854);
+});
+
+test("voltando em direção ao ponto de onde saiu, encaixa nele", () => {
+  assert.equal(settleTarget(map, 2050, -1, vh, 2000), 2000);
+  assert.equal(settleTarget(map, 6100, -1, vh, 6000), 6000);
+});
+
 test("reconhece o ponto em que a rolagem está parada", () => {
   assert.equal(restingKey(map, 2001), "zone0:1");
   assert.equal(restingKey(map, 6000), "snap0:top");
