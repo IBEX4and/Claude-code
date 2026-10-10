@@ -23,6 +23,29 @@ type Form = { name: string; phone: string; email: string; notes: string; consent
 const services = content.services.categories.flatMap((c) => c.items);
 const findService = (id: string | null) => services.find((s) => s.id === id) ?? null;
 
+/**
+ * Divide as áreas em duas colunas com alturas parecidas (cada área conta os seus
+ * serviços + o título), mantendo a ordem original dentro de cada coluna. Assim a
+ * lista inteira cabe no modal sem rolar.
+ */
+const serviceColumns = (() => {
+  const groups = content.services.categories;
+  const weight = groups.map((g) => g.items.length + 1);
+  let best = 0;
+  let bestHeight = Infinity;
+  for (let mask = 0; mask < 1 << groups.length; mask++) {
+    let left = 0;
+    let right = 0;
+    weight.forEach((w, i) => (mask & (1 << i) ? (right += w) : (left += w)));
+    // Em empate, prefere a divisão que deixa a primeira área na coluna da esquerda.
+    if (Math.max(left, right) < bestHeight && !(mask & 1)) {
+      best = mask;
+      bestHeight = Math.max(left, right);
+    }
+  }
+  return [groups.filter((_, i) => !(best & (1 << i))), groups.filter((_, i) => best & (1 << i))];
+})();
+
 const capitalize = (s: string) => s.charAt(0).toLocaleUpperCase() + s.slice(1);
 const ymd = (y: number, m: number, d: number) =>
   `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
@@ -217,8 +240,8 @@ export function BookingFlow({
   const stepIndex = { service: 0, datetime: 1, details: 2, done: 3 }[step];
   const location = fullAddress();
 
-  const field = (name: "name" | "phone" | "email", type: string, autoComplete: string, hint?: string) => (
-    <div className={`field${errors[name] ? " field--error" : ""}`}>
+  const field = (name: "name" | "phone" | "email", type: string, autoComplete: string, hint?: string, half = false) => (
+    <div className={`field${half ? " field--half" : ""}${errors[name] ? " field--error" : ""}`}>
       <label htmlFor={`booking-${name}`}>{t.fields[name]}</label>
       <input
         id={`booking-${name}`}
@@ -295,24 +318,28 @@ export function BookingFlow({
               {t.chooseService}
             </h3>
             <div className="booking__services">
-              {content.services.categories.map((category) => (
-                <div key={category.id} className="booking__group">
-                  <h4 className="booking__group-title">{category.name}</h4>
-                  <ul>
-                    {category.items.map((item) => (
-                      <li key={item.id}>
-                        <button
-                          type="button"
-                          className="option"
-                          aria-pressed={serviceId === item.id}
-                          onClick={() => chooseService(item.id)}
-                        >
-                          <span>{item.name}</span>
-                          <span className="option__meta">{content.showcase.minutes(item.duration)}</span>
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
+              {serviceColumns.map((column, c) => (
+                <div key={c} className="booking__column">
+                  {column.map((category) => (
+                    <div key={category.id} className="booking__group">
+                      <h4 className="booking__group-title">{category.name}</h4>
+                      <ul>
+                        {category.items.map((item) => (
+                          <li key={item.id}>
+                            <button
+                              type="button"
+                              className="option"
+                              aria-pressed={serviceId === item.id}
+                              onClick={() => chooseService(item.id)}
+                            >
+                              <span>{item.name}</span>
+                              <span className="option__meta">{content.showcase.minutes(item.duration)}</span>
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>
@@ -468,8 +495,8 @@ export function BookingFlow({
               {t.yourDetails}
             </h3>
             {field("name", "text", "name")}
-            {field("phone", "tel", "tel", t.fields.phoneHint)}
-            {field("email", "email", "email")}
+            {field("phone", "tel", "tel", t.fields.phoneHint, true)}
+            {field("email", "email", "email", undefined, true)}
             <div className="field">
               <label htmlFor="booking-notes">{t.fields.notes}</label>
               <textarea

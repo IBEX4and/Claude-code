@@ -2,7 +2,8 @@
    Marga Beauty — estrutura e animações espelhadas do template de referência
    (Elena Voss / Hyperiux), com a identidade da marca MARGA Brazilian Beauty:
    azul profundo, tortora, bronze, nude e avorio (paleta/cores.json da marca).
-   Medidas em vw como na referência; ajustes para tablet (≤1025px) e celular (≤767px).
+   Medidas na unidade --u (1vw, limitada pela altura da tela) para cada seção caber
+   numa tela; ajustes em vw para tablet (≤1025px) e celular (≤767px).
    ========================================================================== */
 
 :root {
@@ -27,6 +28,21 @@
   --card-text: #4a3427;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --sans: var(--font-sans), "Helvetica Neue", Arial, sans-serif;
+
+  /* Unidade de medida: 1% da largura, mas nunca mais que 1,6% da altura. Em telas
+     16:10 é igual a 1vw; em telas largas e baixas (notebook, janela com a barra do
+     navegador) tudo encolhe junto e cada seção continua cabendo numa tela. */
+  --u: min(1vw, 1.6vh);
+  /* Margem lateral: 4vw, ou mais em telas muito largas, para o conteúdo não esticar. */
+  --gutter: max(4vw, calc(50vw - 56 * var(--u)));
+
+  /* Escala de texto */
+  --fs-display: calc(6.2 * var(--u));
+  --fs-title: calc(3.6 * var(--u));
+  --fs-h3: calc(1.5 * var(--u));
+  --fs-lead: max(15px, calc(1.1 * var(--u)));
+  --fs-body: max(14px, calc(1 * var(--u)));
+  --fs-small: max(12.5px, calc(0.85 * var(--u)));
 }
 
 *,
@@ -97,8 +113,8 @@ button {
 }
 
 .section-title {
-  font-size: 5.5vw;
-  line-height: 1.2;
+  font-size: var(--fs-title);
+  line-height: 1.15;
 }
 
 /* Revelação de texto: invisível até o GSAP dividir e animar. */
@@ -122,16 +138,16 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.9vw;
+  gap: calc(0.8 * var(--u));
   width: fit-content;
-  height: 3.5vw;
-  padding: 0 2vw;
+  height: max(38px, calc(3 * var(--u)));
+  padding: 0 max(16px, calc(1.7 * var(--u)));
   overflow: hidden;
   border: 1px solid rgba(246, 235, 229, 0.2);
   border-radius: 999px;
   background: var(--btn-bg);
   color: var(--btn-text);
-  font-size: 1.15vw;
+  font-size: max(13px, calc(0.95 * var(--u)));
   font-weight: 400;
   white-space: nowrap;
   cursor: pointer;
@@ -156,8 +172,8 @@ button {
   z-index: 10;
   display: flex;
   flex-shrink: 0;
-  width: 0.5vw;
-  height: 0.5vw;
+  width: max(5px, calc(0.45 * var(--u)));
+  height: max(5px, calc(0.45 * var(--u)));
   margin-top: 0.08em;
 }
 
@@ -206,7 +222,7 @@ button {
 .roll-btn__spacer {
   display: block;
   flex-shrink: 0;
-  width: 0.5vw;
+  width: max(5px, calc(0.45 * var(--u)));
 }
 
 @media (hover: hover) {
@@ -227,7 +243,7 @@ button {
 
 .logo {
   display: block;
-  width: 12vw;
+  width: calc(9.5 * var(--u));
   height: auto;
 }
 
@@ -242,7 +258,7 @@ button {
   align-items: center;
   justify-content: space-between;
   width: 100vw;
-  padding: 1.5vw 4vw;
+  padding: calc(1.4 * var(--u)) 4vw;
   opacity: 0;
 }
 
@@ -285,11 +301,12 @@ button {
 }
 
 .hero__title {
-  width: 45%;
+  /* Três linhas, sem passar por baixo da foto. */
+  width: calc(34 * var(--u));
 }
 
 .hero__title h1 {
-  font-size: 7.5vw;
+  font-size: var(--fs-display);
   line-height: 1.1;
 }
 
@@ -298,8 +315,8 @@ button {
   flex-direction: column;
   justify-content: space-between;
   width: 12%;
-  padding: 2vw 0;
-  font-size: 1.25vw;
+  padding: calc(2 * var(--u)) 0;
+  font-size: var(--fs-body);
   line-height: 1.15;
   text-align: end;
 }
@@ -457,9 +474,6 @@ button {
 /* ---------- Tratamentos (cartões que sobem) ---------- */
 
 .showcase {
-  /* Medidas da seção: 1vw, mas nunca mais que 1,6vh. Em telas 16:10 é igual a
-     1vw; em telas largas e baixas evita que o título seja cortado no topo. */
-  --u: min(1vw, 1.6vh);
   position: relative;
   width: 100vw;
   height: 360vh;
@@ -487,16 +501,16 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: calc(5 * var(--u));
+  gap: calc(3.5 * var(--u));
   width: 100vw;
   height: 100vh;
-  padding: 0 4vw;
+  padding: 0 var(--gutter);
   overflow: hidden;
   background: var(--gradient);
 }
 
 .showcase__title {
-  font-size: calc(5.5 * var(--u));
+  font-size: var(--fs-title);
   text-align: center;
 }
 
@@ -547,18 +561,18 @@ button {
 }
 
 .showcase__list h3 {
-  font-size: calc(1.5 * var(--u));
+  font-size: max(15px, calc(1.3 * var(--u)));
 }
 
 .showcase__list p {
-  font-size: calc(1 * var(--u));
+  font-size: max(12px, calc(0.85 * var(--u)));
   white-space: pre;
 }
 
 .showcase__cards {
   position: relative;
   width: 100%;
-  height: calc(38 * var(--u));
+  height: calc(36 * var(--u));
   overflow: hidden;
   border-radius: 0.75rem;
 }
@@ -578,20 +592,20 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: calc(1.2 * var(--u));
-  padding: calc(2.4 * var(--u));
+  gap: calc(1.1 * var(--u));
+  padding: calc(2.2 * var(--u));
 }
 
 .showcase__card-text h3 {
   color: var(--tortora);
-  font-size: calc(3 * var(--u));
+  font-size: calc(2.4 * var(--u));
   line-height: 1.05;
   letter-spacing: -0.02em;
 }
 
 .showcase__card-text > div > p {
-  margin-top: calc(0.6 * var(--u));
-  font-size: calc(1.05 * var(--u));
+  margin-top: calc(0.5 * var(--u));
+  font-size: max(13px, calc(0.95 * var(--u)));
   color: rgba(74, 52, 39, 0.65);
 }
 
@@ -604,9 +618,9 @@ button {
   display: flex;
   justify-content: space-between;
   gap: calc(1 * var(--u));
-  padding: calc(0.55 * var(--u)) 0;
+  padding: calc(0.5 * var(--u)) 0;
   border-bottom: 1px solid rgba(74, 52, 39, 0.12);
-  font-size: calc(0.95 * var(--u));
+  font-size: max(13px, calc(0.9 * var(--u)));
   transition: color 0.3s;
 }
 
@@ -625,16 +639,16 @@ button {
 
 @media (min-width: 1026px), (min-aspect-ratio: 1/1) {
   .showcase .roll-btn {
-    gap: calc(0.9 * var(--u));
-    height: calc(3.5 * var(--u));
-    padding: 0 calc(2 * var(--u));
-    font-size: calc(1.15 * var(--u));
+    gap: calc(0.8 * var(--u));
+    height: max(38px, calc(3 * var(--u)));
+    padding: 0 max(16px, calc(1.7 * var(--u)));
+    font-size: max(13px, calc(0.95 * var(--u)));
   }
 
   .showcase .roll-btn__dot,
   .showcase .roll-btn__spacer {
-    width: calc(0.5 * var(--u));
-    height: calc(0.5 * var(--u));
+    width: max(5px, calc(0.45 * var(--u)));
+    height: max(5px, calc(0.45 * var(--u)));
   }
 }
 
@@ -663,46 +677,51 @@ button {
 .why {
   position: relative;
   width: 100vw;
-  padding: 25vw 0 10vw;
+  /* O topo fica livre para o brilho que desce da seção de tratamentos. */
+  padding: max(20vh, calc(12 * var(--u))) var(--gutter) calc(6 * var(--u));
   background: var(--ink);
 }
 
 .why__head {
-  margin-bottom: 5vw;
+  margin-bottom: calc(3.5 * var(--u));
   text-align: center;
 }
 
 .why__subtitle {
-  margin-top: 1.5vw;
-  font-size: 1.25vw;
+  margin-top: calc(1 * var(--u));
+  font-size: var(--fs-lead);
 }
 
 .why__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: calc(4 * var(--u));
 }
 
 .why__card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 32vw;
-  padding: 2vw 4vw 3vw;
+  min-height: calc(19 * var(--u));
+  padding: calc(1.5 * var(--u)) 0 calc(1 * var(--u));
 }
 
 .why__icon {
-  margin-bottom: 2.5vw;
+  width: max(30px, calc(2.6 * var(--u)));
+  height: max(30px, calc(2.6 * var(--u)));
+  margin-bottom: calc(1.6 * var(--u));
   color: var(--accent-text);
 }
 
 .why__card h3 {
-  margin-bottom: 2.5vw;
-  font-size: 2vw;
+  margin-bottom: calc(1.1 * var(--u));
+  font-size: var(--fs-h3);
+  line-height: 1.3;
 }
 
 .why__card p {
-  font-size: 1.25vw;
-  line-height: 1.5;
+  font-size: var(--fs-body);
+  line-height: 1.6;
   color: rgba(246, 235, 229, 0.8);
 }
 
@@ -710,7 +729,7 @@ button {
   position: relative;
   width: 100%;
   height: 1px;
-  margin-top: 3vw;
+  margin-top: calc(2 * var(--u));
   background: rgba(246, 235, 229, 0.2);
 }
 
@@ -732,14 +751,13 @@ button {
 
 .tech__head {
   position: relative;
-  width: 60%;
-  padding: 6vw 4vw 0;
+  padding: calc(6 * var(--u)) var(--gutter) 0;
 }
 
 .tech__text {
-  width: 75%;
-  margin-top: 1.5vw;
-  font-size: 1.25vw;
+  max-width: calc(46 * var(--u));
+  margin-top: calc(1.2 * var(--u));
+  font-size: var(--fs-lead);
 }
 
 .tech__sticky {
@@ -761,8 +779,8 @@ button {
 
 .tech__row {
   display: flex;
-  gap: 1.6vw;
-  padding: 0 4vw;
+  gap: calc(1.6 * var(--u));
+  padding: 0 var(--gutter);
   will-change: transform;
 }
 
@@ -772,9 +790,9 @@ button {
   flex-direction: column;
   flex-shrink: 0;
   justify-content: space-between;
-  width: 27vw;
-  height: 30vw;
-  padding: 1.6vw;
+  width: calc(24 * var(--u));
+  height: calc(27 * var(--u));
+  padding: calc(1.6 * var(--u));
   overflow: hidden;
   border: 1px solid rgba(246, 235, 229, 0.2);
   border-radius: 0.5rem;
@@ -795,8 +813,8 @@ button {
   align-items: center;
   justify-content: center;
   align-self: flex-end;
-  width: 3vw;
-  height: 3vw;
+  width: max(36px, calc(2.8 * var(--u)));
+  height: max(36px, calc(2.8 * var(--u)));
   overflow: hidden;
   border: 1px solid rgba(246, 235, 229, 0.3);
   border-radius: 50%;
@@ -832,19 +850,19 @@ button {
 }
 
 .tech__content h3 {
-  margin-bottom: 1vw;
-  font-size: 2.5vw;
+  margin-bottom: calc(0.8 * var(--u));
+  font-size: calc(1.9 * var(--u));
 }
 
 .tech__content li {
   display: flex;
   align-items: center;
-  gap: 0.7vw;
-  font-size: 1.25vw;
+  gap: calc(0.6 * var(--u));
+  font-size: var(--fs-body);
 }
 
 .tech__content li + li {
-  margin-top: 0.4vw;
+  margin-top: calc(0.35 * var(--u));
 }
 
 .tech__bullet {
@@ -862,35 +880,35 @@ button {
 .tech--static .tech__sticky {
   position: static;
   height: auto;
-  padding-bottom: 6vw;
+  padding-bottom: calc(6 * var(--u));
 }
 
 .tech--static .tech__row {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  padding-top: 5vw;
+  padding-top: calc(5 * var(--u));
 }
 
 .tech--static .tech__card {
   width: auto;
   height: auto;
-  min-height: 22vw;
+  min-height: calc(20 * var(--u));
 }
 
-/* ---------- Especialidades (linhas que vibram) ---------- */
+/* ---------- Especialidades (lista com imagem que acompanha a linha) ---------- */
 
 .specialties {
   position: relative;
   width: 100vw;
-  padding: 7vw 0;
+  padding: calc(7 * var(--u)) 0;
   background: var(--ink);
 }
 
 .specialties__inner {
   display: flex;
   align-items: center;
-  gap: 4vw;
-  padding: 0 4vw;
+  gap: calc(4 * var(--u));
+  padding: 0 var(--gutter);
 }
 
 .specialties__list {
@@ -898,23 +916,23 @@ button {
 }
 
 .specialties__list .section-title {
-  margin-bottom: 4vw;
+  margin-bottom: calc(3 * var(--u));
 }
 
 .specialties__row {
   position: relative;
-  padding: 2rem 0;
+  padding: max(12px, calc(1.3 * var(--u))) 0;
 }
 
 .specialties__row h3 {
-  font-size: 1.8vw;
+  font-size: max(16px, calc(1.45 * var(--u)));
 }
 
 .specialties__row p {
-  margin-top: 0.75rem;
-  font-size: 1.25vw;
+  margin-top: calc(0.4 * var(--u));
+  font-size: var(--fs-small);
   letter-spacing: 0.025em;
-  color: rgba(246, 235, 229, 0.3);
+  color: rgba(246, 235, 229, 0.45);
 }
 
 .specialties__divider {
@@ -925,18 +943,18 @@ button {
 
 .specialties__image {
   position: absolute;
-  right: 10%;
+  right: calc(var(--gutter) + 4 * var(--u));
   display: flex;
   justify-content: center;
-  width: 40vw;
+  width: calc(34 * var(--u));
   opacity: 0;
   pointer-events: none;
 }
 
 .specialties__frame {
   position: relative;
-  width: 40vw;
-  height: 22vw;
+  width: calc(34 * var(--u));
+  height: calc(19 * var(--u));
   overflow: hidden;
   border-radius: 0.5rem;
   background: var(--ink);
@@ -975,11 +993,11 @@ button {
 }
 
 .benefits__title {
-  width: 60%;
+  width: min(60%, calc(68 * var(--u)));
 }
 
 .benefits__title h2 {
-  font-size: 5.5vw;
+  font-size: calc(4 * var(--u));
   line-height: 1.2;
 }
 
@@ -1001,7 +1019,7 @@ button {
 .benefits__grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 3vw;
+  gap: calc(3 * var(--u));
   perspective: 350vw;
 }
 
@@ -1009,12 +1027,12 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 14vw;
-  height: 8vw;
+  width: calc(13 * var(--u));
+  height: calc(7.5 * var(--u));
 }
 
 .benefits__item span {
-  font-size: 1.9vw;
+  font-size: calc(1.55 * var(--u));
   font-weight: 500;
   line-height: 1.1;
   color: var(--accent-text);
@@ -1024,18 +1042,18 @@ button {
 
 .steps {
   width: 100vw;
-  padding: 7vw 4vw;
+  padding: calc(6 * var(--u)) var(--gutter);
   background: var(--ink);
 }
 
 .steps__head {
-  width: 65%;
-  margin: 0 auto 6vw;
+  max-width: calc(70 * var(--u));
+  margin: 0 auto calc(5 * var(--u));
   text-align: center;
 }
 
 .steps__head .section-title {
-  font-size: 5.2vw;
+  font-size: var(--fs-title);
 }
 
 .steps__stage {
@@ -1044,12 +1062,12 @@ button {
 
 .steps__card {
   position: relative;
-  width: 60%;
-  height: 30vw;
+  width: min(100%, calc(56 * var(--u)));
+  height: calc(27 * var(--u));
   margin: 0 auto;
   overflow: hidden;
   border: 1px solid rgba(246, 235, 229, 0.1);
-  border-radius: 2vw;
+  border-radius: calc(1.6 * var(--u));
   background: rgba(246, 235, 229, 0.05);
   opacity: 0;
 }
@@ -1059,10 +1077,10 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2.5vw;
+  gap: calc(1.8 * var(--u));
   width: 100%;
   height: 100%;
-  padding: 8vw 6vw 4vw;
+  padding: calc(6.5 * var(--u)) calc(5 * var(--u)) calc(3 * var(--u));
   text-align: center;
   touch-action: pan-y;
   cursor: grab;
@@ -1072,28 +1090,28 @@ button {
 .steps__who {
   display: flex;
   flex-direction: column;
-  gap: 0.4vw;
+  gap: calc(0.3 * var(--u));
 }
 
 .steps__name {
-  font-size: 2.6vw;
+  font-size: calc(2 * var(--u));
   color: var(--accent-text);
 }
 
 .steps__role {
-  font-size: 1.145vw;
+  font-size: var(--fs-small);
 }
 
 .steps__quote {
   width: 82%;
-  font-size: 1.145vw;
+  font-size: var(--fs-body);
   line-height: 1.6;
   color: rgba(246, 235, 229, 0.7);
 }
 
 .steps__avatars {
   position: absolute;
-  top: -2vw;
+  top: calc(-2 * var(--u));
   left: 50%;
   display: flex;
   align-items: center;
@@ -1107,14 +1125,14 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 5vw;
-  height: 5vw;
+  width: calc(4 * var(--u));
+  height: calc(4 * var(--u));
   padding: 0;
   overflow: hidden;
   border: 1px solid rgba(246, 235, 229, 0.25);
   border-radius: 50%;
   background: #1a3441;
-  font-size: 1.6vw;
+  font-size: calc(1.3 * var(--u));
   font-weight: 300;
   opacity: 0.6;
   cursor: pointer;
@@ -1123,11 +1141,11 @@ button {
 }
 
 .steps__avatar.is-before {
-  margin-right: -1vw;
+  margin-right: calc(-0.8 * var(--u));
 }
 
 .steps__avatar.is-after {
-  margin-left: -1vw;
+  margin-left: calc(-0.8 * var(--u));
 }
 
 .steps__avatar:hover {
@@ -1135,8 +1153,8 @@ button {
 }
 
 .steps__avatar.is-active {
-  margin: 0 2vw;
-  padding: 0.3vw;
+  margin: 0 calc(1.6 * var(--u));
+  padding: calc(0.25 * var(--u));
   border: 0;
   background: var(--gradient);
   opacity: 1;
@@ -1151,14 +1169,14 @@ button {
   height: 100%;
   border-radius: 50%;
   background: #102633;
-  font-size: 1.3vw;
+  font-size: calc(1.05 * var(--u));
 }
 
 .steps__nav {
   display: flex;
   justify-content: center;
   gap: 0.75rem;
-  margin-top: 3vw;
+  margin-top: calc(2.4 * var(--u));
   opacity: 0;
 }
 
@@ -1167,8 +1185,8 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 3rem;
-  height: 3rem;
+  width: max(40px, calc(2.9 * var(--u)));
+  height: max(40px, calc(2.9 * var(--u)));
   overflow: hidden;
   border: 1px solid rgba(246, 235, 229, 0.2);
   border-radius: 50%;
@@ -1205,12 +1223,12 @@ button {
 .faq {
   position: relative;
   width: 100vw;
-  padding: 6vw 10vw;
+  padding: calc(6 * var(--u)) max(10vw, calc(50vw - 42 * var(--u)));
   background: var(--ink);
 }
 
 .faq__title {
-  margin-bottom: 6vw;
+  margin-bottom: calc(3.5 * var(--u));
   text-align: center;
 }
 
@@ -1219,7 +1237,7 @@ button {
 }
 
 .faq__item {
-  padding: 2rem 0;
+  padding: max(14px, calc(1.3 * var(--u))) 0;
   border-bottom: 1px solid rgba(246, 235, 229, 0.1);
 }
 
@@ -1232,7 +1250,7 @@ button {
   padding: 0;
   border: 0;
   background: none;
-  font-size: 1.5vw;
+  font-size: max(15px, calc(1.2 * var(--u)));
   text-align: left;
   cursor: pointer;
 }
@@ -1243,8 +1261,8 @@ button {
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: 3.5rem;
-  height: 3.5rem;
+  width: max(38px, calc(2.8 * var(--u)));
+  height: max(38px, calc(2.8 * var(--u)));
   overflow: hidden;
   border: 1px solid rgba(246, 235, 229, 0.2);
   border-radius: 50%;
@@ -1253,7 +1271,7 @@ button {
 .faq__bar {
   position: absolute;
   z-index: 2;
-  width: 1rem;
+  width: max(12px, calc(0.9 * var(--u)));
   height: 2px;
   border-radius: 999px;
   background: var(--avorio);
@@ -1284,8 +1302,8 @@ button {
 
 .faq__answer p {
   width: 80%;
-  padding: 1rem 3vw 0 0;
-  font-size: 1.25vw;
+  padding: calc(0.8 * var(--u)) calc(3 * var(--u)) 0 0;
+  font-size: var(--fs-body);
   line-height: 1.6;
   color: rgba(246, 235, 229, 0.8);
 }
@@ -1295,7 +1313,7 @@ button {
 .footer {
   position: relative;
   overflow: hidden;
-  padding: 10vw 4vw 0;
+  padding: calc(8 * var(--u)) var(--gutter) 0;
 }
 
 .footer__glow {
@@ -1316,10 +1334,10 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 5rem;
-  padding: 3rem;
+  gap: calc(4 * var(--u));
+  padding: calc(2.6 * var(--u));
   border: 1px solid rgba(246, 235, 229, 0.3);
-  border-radius: 2rem;
+  border-radius: calc(1.8 * var(--u));
   background: rgba(0, 0, 0, 0.05);
   -webkit-backdrop-filter: blur(40px);
   backdrop-filter: blur(40px);
@@ -1329,23 +1347,23 @@ button {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 6rem;
+  gap: calc(4 * var(--u));
 }
 
 .footer__logo {
-  width: 22vw;
+  width: calc(17 * var(--u));
 }
 
 .footer__cta {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 2vw;
+  gap: calc(1.6 * var(--u));
 }
 
 .footer__cta p {
   width: 75%;
-  font-size: 3.4vw;
+  font-size: calc(2.6 * var(--u));
   line-height: 1.15;
   text-align: end;
 }
@@ -1354,21 +1372,22 @@ button {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 4rem;
+  gap: calc(3 * var(--u));
 }
 
 .footer__reach h2 {
-  margin-bottom: 1.25rem;
-  font-size: 1.25vw;
+  margin-bottom: calc(1 * var(--u));
+  font-size: var(--fs-small);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .footer__reach ul {
-  font-size: 1.25vw;
+  font-size: var(--fs-body);
 }
 
 .footer__reach li + li {
-  margin-top: 0.5rem;
+  margin-top: calc(0.45 * var(--u));
 }
 
 .footer__hours {
@@ -1430,8 +1449,8 @@ button {
 .footer__legal {
   display: flex;
   justify-content: space-between;
-  padding: 3rem 0 2rem;
-  font-size: 1.125rem;
+  padding: calc(2 * var(--u)) 0 calc(1.6 * var(--u));
+  font-size: var(--fs-small);
 }
 
 .under-multi {
@@ -1460,14 +1479,14 @@ button {
 
 .modal__card {
   position: relative;
-  width: 100%;
-  max-width: 75vw;
-  height: 75vh;
+  width: min(100%, calc(94 * var(--u)));
+  /* Altura fixa (as etapas não pulam de tamanho) e suficiente para nenhuma rolar. */
+  height: min(88vh, max(640px, calc(37 * var(--u))));
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 3vw;
+  padding: calc(2.6 * var(--u));
   border: 1px solid rgba(246, 235, 229, 0.1);
-  border-radius: 2vw;
+  border-radius: calc(1.6 * var(--u));
   background: rgba(246, 235, 229, 0.05);
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
@@ -1475,14 +1494,14 @@ button {
 
 .modal__close {
   position: absolute;
-  top: 2vw;
-  right: 2vw;
+  top: calc(1.6 * var(--u));
+  right: calc(1.6 * var(--u));
   z-index: 5;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 3.5rem;
-  height: 3.5rem;
+  width: max(40px, calc(2.8 * var(--u)));
+  height: max(40px, calc(2.8 * var(--u)));
   padding: 0;
   overflow: hidden;
   border: 0;
@@ -1520,24 +1539,24 @@ button {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
   align-items: start;
-  gap: 3vw;
-  padding-top: 4vw;
+  gap: calc(3.5 * var(--u));
+  padding-top: calc(1.6 * var(--u));
 }
 
 /* ---------- Fluxo de agendamento (dentro do modal) ---------- */
 
 .booking__title {
-  font-size: 4.8vw;
+  font-size: calc(3.4 * var(--u));
   line-height: 1.1;
 }
 
 .booking__intro {
-  margin-top: 1vw;
-  font-size: 1.1vw;
+  margin-top: calc(0.8 * var(--u));
+  font-size: var(--fs-body);
 }
 
 .booking__steps {
-  margin: 2.5vw 0 2vw;
+  margin: calc(2 * var(--u)) 0 calc(1.6 * var(--u));
   counter-reset: step;
   border-top: 1px solid rgba(246, 235, 229, 0.15);
 }
@@ -1546,10 +1565,10 @@ button {
   display: flex;
   align-items: baseline;
   gap: 1rem;
-  padding: 0.75rem 0;
+  padding: max(8px, calc(0.55 * var(--u))) 0;
   border-bottom: 1px solid rgba(246, 235, 229, 0.1);
   color: rgba(246, 235, 229, 0.45);
-  font-size: 1rem;
+  font-size: max(14px, calc(0.95 * var(--u)));
   counter-increment: step;
 }
 
@@ -1571,7 +1590,7 @@ button {
 
 .booking__summary {
   display: grid;
-  gap: 1.25rem;
+  gap: 1rem;
   margin: 0;
 }
 
@@ -1640,7 +1659,7 @@ button {
 }
 
 .booking__panel {
-  min-height: 24rem;
+  min-height: 20rem;
   animation: panel-in 0.6s var(--ease);
 }
 
@@ -1652,8 +1671,8 @@ button {
 }
 
 .booking__heading {
-  margin-bottom: 1.75rem;
-  font-size: 1.9vw;
+  margin-bottom: calc(1.1 * var(--u));
+  font-size: max(20px, calc(1.7 * var(--u)));
   line-height: 1.2;
 }
 
@@ -1664,7 +1683,13 @@ button {
 .booking__services {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2rem 2rem;
+  gap: 1rem calc(2.2 * var(--u));
+}
+
+.booking__column {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
 }
 
 .booking__group-title {
@@ -1679,7 +1704,7 @@ button {
   justify-content: space-between;
   gap: 1rem;
   width: 100%;
-  padding: 0.75rem 0;
+  padding: max(6px, calc(0.45 * var(--u))) 0;
   border: 0;
   border-bottom: 1px solid rgba(246, 235, 229, 0.1);
   background: none;
@@ -1848,7 +1873,7 @@ button {
 }
 
 .booking__demo {
-  margin-top: 1.75rem;
+  margin-top: 1.25rem;
   padding-left: 1rem;
   border-left: 2px solid var(--nude);
   font-size: 0.8125rem;
@@ -1869,11 +1894,21 @@ button {
 
 .booking__form {
   display: grid;
-  gap: 1.1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem 1.25rem;
+}
+
+/* Telefone e e-mail lado a lado; o resto ocupa a linha inteira. */
+.booking__form > * {
+  grid-column: 1 / -1;
+}
+
+.booking__form > .field--half {
+  grid-column: auto;
 }
 
 .booking__form .booking__heading {
-  margin-bottom: 0.25rem;
+  margin-bottom: 0;
 }
 
 .field {
@@ -1888,7 +1923,7 @@ button {
 .field input,
 .field textarea {
   width: 100%;
-  padding: 0.85rem 1.25rem;
+  padding: 0.7rem 1.15rem;
   border: 1px solid rgba(246, 235, 229, 0.15);
   border-radius: 999px;
   background: rgba(246, 235, 229, 0.15);
@@ -2036,6 +2071,10 @@ button {
 /* ---------- Tablet (≤1025px) ---------- */
 
 @media (max-width: 1025px) {
+  :root {
+    --gutter: 5vw;
+  }
+
   .roll-btn {
     gap: 1.6vw;
     height: 8vw;
@@ -2073,8 +2112,8 @@ button {
   }
 
   .why__card {
-    height: auto;
-    padding: 6vw 5vw;
+    min-height: 0;
+    padding: 6vw 0;
   }
 
   .why__card h3 {
@@ -2096,7 +2135,7 @@ button {
   }
 
   .tech__text {
-    width: 100%;
+    max-width: none;
     margin-top: 5vw;
     font-size: 2.5vw;
   }
@@ -2158,7 +2197,7 @@ button {
   }
 
   .steps__head {
-    width: 100%;
+    max-width: none;
     margin-bottom: 12vw;
   }
 
@@ -2261,6 +2300,7 @@ button {
 
   .modal__card {
     max-width: 85vw;
+    height: 80vh;
     padding: 2rem;
     border-radius: 1.5rem;
   }
@@ -2753,9 +2793,11 @@ button {
 
   .booking__services,
   .booking__datetime,
-  .booking__receipt {
+  .booking__receipt,
+  .booking__form {
     grid-template-columns: minmax(0, 1fr);
   }
+
 }
 
 @media (prefers-reduced-motion: reduce) {

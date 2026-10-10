@@ -26,7 +26,7 @@ export function WhyUs() {
     const tween = gsap.fromTo(
       ".why__card",
       { opacity: 0, yPercent: 10 },
-      { opacity: 1, yPercent: 0, stagger: 0.05, ease: "power2.out", scrollTrigger: { trigger: "#porque", start: "top top" } },
+      { opacity: 1, yPercent: 0, stagger: 0.05, ease: "power2.out", scrollTrigger: { trigger: ".why__grid", start: "top 85%" } },
     );
     return () => {
       tween.scrollTrigger?.kill();

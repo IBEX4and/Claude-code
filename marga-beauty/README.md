@@ -32,6 +32,11 @@ arquivo (veja [Traduzir para italiano](#traduzir-para-italiano)).
 Todas as animações respeitam o "reduzir movimento" do sistema. O site não toca
 nenhum som.
 
+As medidas usam a unidade `--u` (1% da largura da tela, limitada a 1,6% da
+altura). Assim, num notebook ou numa janela larga e baixa, textos e blocos
+encolhem juntos e cada seção continua cabendo em uma tela, sem precisar rolar
+para ver o conteúdo dela inteiro.
+
 ## Ver o site no seu computador (dois cliques)
 
 1. Instale o [Node.js](https://nodejs.org) (versão LTS), se ainda não tiver.
@@ -75,6 +80,7 @@ memória do servidor e o site avisa isso embaixo do calendário.
 | Fotos (e cartazes provisórios)          | `src/content/images.ts` + `public/images/` |
 | Cores                                   | `src/app/globals.css` (paleta da marca no topo: `--deep-blue`, `--petrol`, `--tortora`, `--bronze`, `--nude`, `--beige`, `--avorio`; e o degradê de `.hero__stage`) |
 | Logo, ícone da aba e imagem de compartilhamento | `public/brand/`, `src/app/icon.svg` |
+| Tamanho dos textos e espaçamentos       | `src/app/globals.css` (no topo: `--u`, `--gutter` e a escala `--fs-*`) |
 
 ### Regras da agenda (`bookingRules`)
 
