@@ -33,15 +33,15 @@ export function Showcase() {
       },
     });
     gsap.set(progress.current, { scaleY: 0 });
-    gsap.set(dots.current[0], { backgroundColor: "#ffffff", borderColor: "#ffffff" });
-    dots.current.slice(1).forEach((d) => gsap.set(d, { backgroundColor: "var(--accent-a)", borderColor: "rgba(255,255,255,0.5)" }));
+    gsap.set(dots.current[0], { backgroundColor: "#f6ebe5", borderColor: "#f6ebe5" });
+    dots.current.slice(1).forEach((d) => gsap.set(d, { backgroundColor: "var(--accent-a)", borderColor: "rgba(246,235,229,0.5)" }));
     gsap.set(cards.current, { filter: "brightness(1)" });
     cards.current.slice(1).forEach((c) => gsap.set(c, reduced ? { opacity: 0 } : { yPercent: 100 }));
     tl.to(progress.current, { scaleY: 1, ease: "none", duration: steps }, 0);
     for (let i = 0; i < steps; i++) {
       tl.to(cards.current[i + 1], reduced ? { opacity: 1, ease: "none", duration: 1 } : { yPercent: 0, ease: "power2.inOut", duration: 1 }, i);
       tl.to(cards.current[i], { filter: "brightness(0.3)", ease: "power2.inOut", duration: 1 }, i);
-      tl.set(dots.current[i + 1], { backgroundColor: "#ffffff", borderColor: "#ffffff" }, i + 1);
+      tl.set(dots.current[i + 1], { backgroundColor: "#f6ebe5", borderColor: "#f6ebe5" }, i + 1);
     }
 
     const extra: gsap.core.Tween[] = [];

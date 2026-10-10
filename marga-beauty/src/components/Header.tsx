@@ -1,42 +1,56 @@
 "use client";
 
 import { gsap } from "gsap";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { content } from "@/content";
 import { prefersReducedMotion } from "./Experience";
 import { Logo } from "./Logo";
 import { RollButton } from "./RollButton";
 
-/** Cabeçalho fixo: some ao rolar para baixo, volta ao rolar para cima. */
+/** A partir de quanto da altura da tela rolada o cabeçalho some. */
+const HIDE_AFTER = 0.1;
+
+/**
+ * Cabeçalho fixo que aparece só no topo da página, sobre o hero. Ao descer ele
+ * sobe e some; rolar para cima no meio do site não o traz de volta.
+ */
 export function Header() {
   const ref = useRef<HTMLElement>(null);
-  const [blurred, setBlurred] = useState(false);
 
   useEffect(() => {
-    let last = window.scrollY;
+    const el = ref.current;
+    if (!el) return;
     let hidden = false;
-    const onScroll = () => {
-      const y = window.scrollY;
-      setBlurred(y > window.innerHeight * 0.4);
-      if (!prefersReducedMotion()) {
-        const delta = y - last;
-        if (delta > 0 && y > 0 && !hidden) {
-          hidden = true;
-          gsap.to(ref.current, { yPercent: -100, duration: 0.5, ease: "power3.out" });
-        } else if (delta < 0 && hidden) {
-          hidden = false;
-          gsap.to(ref.current, { yPercent: 0, duration: 0.5, ease: "power3.out" });
-        }
+    const apply = (hide: boolean) => {
+      if (hide === hidden) return;
+      hidden = hide;
+      const duration = prefersReducedMotion() ? 0 : 0.5;
+      gsap.killTweensOf(el, "yPercent");
+      if (hide) {
+        gsap.to(el, {
+          yPercent: -100,
+          duration,
+          ease: "power3.out",
+          // Escondido, também sai da navegação por teclado.
+          onComplete: () => void (el.style.visibility = "hidden"),
+        });
+      } else {
+        el.style.visibility = "visible";
+        gsap.to(el, { yPercent: 0, duration, ease: "power3.out" });
       }
-      last = y;
     };
+    const onScroll = () => apply(window.scrollY > window.innerHeight * HIDE_AFTER);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   return (
-    <header ref={ref} id="header" className={`header${blurred ? " header--blur" : ""}`}>
+    <header ref={ref} id="header" className="header">
       <a href="#top" className="header__logo" aria-label={content.header.home}>
         <Logo />
       </a>

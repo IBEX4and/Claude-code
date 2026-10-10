@@ -6,8 +6,9 @@ ligado ao Google Agenda.
 
 A estrutura e as animações seguem o template de referência
 ([Elena Voss, Hyperiux](https://elena-voss-portfolio-template-v3.21st.app/)),
-com o conteúdo da Marga e a paleta da marca (rosé → bordô sobre preto, no lugar
-do laranja → vermelho da referência). Fonte: Host Grotesk, a mesma da referência.
+com o conteúdo, o logo e a paleta da marca MARGA Brazilian Beauty (azul profundo,
+petróleo, tortora, bronze, nude, bege e marfim). Fonte: Host Grotesk, a mesma da
+referência.
 
 O texto está em português por enquanto. A troca para italiano é feita num único
 arquivo (veja [Traduzir para italiano](#traduzir-para-italiano)).
@@ -16,20 +17,20 @@ arquivo (veja [Traduzir para italiano](#traduzir-para-italiano)).
 
 | Seção (referência)          | No site da Marga                 | Efeito                                                                                     |
 | --------------------------- | -------------------------------- | ------------------------------------------------------------------------------------------ |
+| Cabeçalho                   | Logo + botão Agendar             | Aparece só no topo da página, sobre o hero; some ao descer e não volta no meio do site |
 | Hero                        | Foto da Marga + título           | Foto revela em diagonal (3,5 s), letras sobem, parallax do mouse em 2 camadas; no scroll o hero encolhe até 50% e revela um mosaico em loop que sai do desfoque |
 | Award Winning Work          | Nossos Tratamentos               | Arco em degradê sobe; lista com barra de progresso; cartões de cada área sobem um sobre o outro, com "snap" |
 | Why Work With Me            | Por Que a Marga Beauty?          | Colunas entram em sequência; linha preenche no hover                                        |
 | Design That Speaks…         | Tecnologia que Respeita a Sua Pele | Cartões em rolagem horizontal; preenchimento radial em degradê no hover                   |
-| Awards and Recognition      | Formação e Especialidades        | Linhas que vibram como corda (com som de dedilhado) e imagem que acompanha a linha          |
+| Awards and Recognition      | Formação e Especialidades        | Linhas fixas e imagem que acompanha a linha                                                 |
 | Trusted by Founders…        | Benefícios da drenagem           | Palavras vêm do fundo em 3D, ficam nítidas e somem                                          |
 | Testimonials                | Como Funciona o Seu Atendimento  | Carrossel com bolinhas que se reorganizam e cartão que troca (arrasta no celular)          |
 | FAQ                         | Perguntas Frequentes             | Acordeão com botão em degradê                                                               |
 | Footer                      | Rodapé                           | Cartão de vidro sobe com o scroll, brilho em onda                                           |
 | Modal "Get in Touch"        | Modal de agendamento             | Abre de todos os botões "Agendar"                                                           |
 
-Todas as animações respeitam o "reduzir movimento" do sistema. O som das linhas
-que vibram pode ser desligado em `src/components/Specialties.tsx`
-(`<StringLine sound={false} />`).
+Todas as animações respeitam o "reduzir movimento" do sistema. O site não toca
+nenhum som.
 
 ## Ver o site no seu computador (dois cliques)
 
@@ -72,7 +73,8 @@ memória do servidor e o site avisa isso embaixo do calendário.
 | Endereço, WhatsApp, e-mail, P. IVA      | `src/config/business.ts`      |
 | Horário de funcionamento e regras da agenda | `src/config/business.ts` (`bookingRules`) |
 | Fotos (e cartazes provisórios)          | `src/content/images.ts` + `public/images/` |
-| Cores                                   | `src/app/globals.css` (`--accent-a`, `--accent-b` no topo e o degradê de `.hero__stage`) |
+| Cores                                   | `src/app/globals.css` (paleta da marca no topo: `--deep-blue`, `--petrol`, `--tortora`, `--bronze`, `--nude`, `--beige`, `--avorio`; e o degradê de `.hero__stage`) |
+| Logo, ícone da aba e imagem de compartilhamento | `public/brand/`, `src/app/icon.svg` |
 
 ### Regras da agenda (`bookingRules`)
 

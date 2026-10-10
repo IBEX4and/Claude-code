@@ -1,17 +1,30 @@
 /* ==========================================================================
    Marga Beauty — estrutura e animações espelhadas do template de referência
-   (Elena Voss / Hyperiux), com a paleta da marca: rosé → bordô sobre preto.
+   (Elena Voss / Hyperiux), com a identidade da marca MARGA Brazilian Beauty:
+   azul profundo, tortora, bronze, nude e avorio (paleta/cores.json da marca).
    Medidas em vw como na referência; ajustes para tablet (≤1025px) e celular (≤767px).
    ========================================================================== */
 
 :root {
-  --ink: #0a0708;
-  --card: #171214;
-  --accent-a: #c76b78;
-  --accent-b: #8a1838;
-  --accent-text: #e9a7ab;
+  /* Paleta da marca */
+  --beige: #e6d4c5;
+  --nude: #d0a992;
+  --bronze: #a27a5a;
+  --tortora: #6f4b38;
+  --petrol: #213943;
+  --avorio: #f6ebe5;
+  --deep-blue: #0c202c;
+
+  /* Papéis no site */
+  --ink: var(--deep-blue);
+  --surface: #132b37;
+  --text: var(--avorio);
+  --accent-a: var(--tortora);
+  --accent-b: var(--bronze);
+  --accent-text: var(--nude);
   --gradient: linear-gradient(90deg, var(--accent-a), var(--accent-b));
-  --cream: #f4ece9;
+  --cream: var(--avorio);
+  --card-text: #4a3427;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --sans: var(--font-sans), "Helvetica Neue", Arial, sans-serif;
 }
@@ -34,7 +47,7 @@ html.modal-open {
 body {
   margin: 0;
   background: var(--ink);
-  color: #fff;
+  color: var(--text);
   font-family: var(--sans);
   font-weight: 400;
   line-height: 1.5;
@@ -75,11 +88,11 @@ button {
 
 ::selection {
   color: var(--ink);
-  background: var(--accent-a);
+  background: var(--nude);
 }
 
 :focus-visible {
-  outline: 2px solid #fff;
+  outline: 2px solid var(--nude);
   outline-offset: 3px;
 }
 
@@ -101,9 +114,9 @@ button {
 /* ---------- Botão em pílula (ponto que cresce + letras que rolam) ---------- */
 
 .roll-btn {
-  --btn-bg: #fff;
-  --btn-text: #111;
-  --btn-hover-text: #fff;
+  --btn-bg: var(--avorio);
+  --btn-text: var(--ink);
+  --btn-hover-text: var(--avorio);
   --btn-dot: var(--ink);
   position: relative;
   display: flex;
@@ -114,7 +127,7 @@ button {
   height: 3.5vw;
   padding: 0 2vw;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(246, 235, 229, 0.2);
   border-radius: 999px;
   background: var(--btn-bg);
   color: var(--btn-text);
@@ -127,9 +140,9 @@ button {
 
 .roll-btn--dark {
   --btn-bg: var(--ink);
-  --btn-text: #fff;
+  --btn-text: var(--avorio);
   --btn-hover-text: var(--ink);
-  --btn-dot: #fff;
+  --btn-dot: var(--avorio);
   border-color: transparent;
 }
 
@@ -213,21 +226,9 @@ button {
 /* ---------- Logotipo ---------- */
 
 .logo {
-  display: inline-flex;
-  font-size: 1.9vw;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.logo__a {
-  font-weight: 400;
-}
-
-.logo__b {
-  font-weight: 300;
-  color: rgba(255, 255, 255, 0.6);
+  display: block;
+  width: 12vw;
+  height: auto;
 }
 
 /* ---------- Cabeçalho ---------- */
@@ -243,12 +244,10 @@ button {
   width: 100vw;
   padding: 1.5vw 4vw;
   opacity: 0;
-  transition: backdrop-filter 0.5s ease-out, -webkit-backdrop-filter 0.5s ease-out;
 }
 
-.header--blur {
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
+.header__logo {
+  display: block;
 }
 
 /* ---------- Hero ---------- */
@@ -270,12 +269,12 @@ button {
   height: 100vh;
   padding: 0 4vw;
   overflow: hidden;
-  background-color: #13080b;
+  background-color: var(--deep-blue);
   background-image:
-    radial-gradient(65% 55% at 92% 6%, #d98a95 0%, rgba(217, 138, 149, 0) 65%),
-    radial-gradient(60% 55% at 4% 82%, #c56a79 0%, rgba(197, 106, 121, 0) 65%),
-    radial-gradient(75% 80% at 48% 42%, #7e1535 0%, rgba(126, 21, 53, 0) 70%),
-    linear-gradient(180deg, #c25c6a 0%, #a63e52 28%, #8a1e3c 46%, #5a1226 68%, #250a11 88%, #13080b 100%);
+    radial-gradient(55% 45% at 96% 0%, rgba(208, 169, 146, 0.75) 0%, rgba(208, 169, 146, 0) 65%),
+    radial-gradient(60% 55% at 4% 82%, #b88b63 0%, rgba(184, 139, 99, 0) 65%),
+    radial-gradient(75% 80% at 48% 42%, #6f4b38 0%, rgba(111, 75, 56, 0) 70%),
+    linear-gradient(180deg, #b08b70 0%, #977054 28%, #7a563f 46%, #4a3427 66%, #1c2a31 86%, var(--deep-blue) 100%);
 }
 
 .hero__row {
@@ -404,23 +403,23 @@ button {
 }
 
 .visual--nude {
-  background: radial-gradient(70% 60% at 70% 25%, rgba(255, 255, 255, 0.55), transparent 70%), linear-gradient(160deg, #ecd5ce, #c79a91);
-  color: #3d0f17;
+  background: radial-gradient(70% 60% at 70% 25%, rgba(255, 255, 255, 0.5), transparent 70%), linear-gradient(160deg, #ecdccf, var(--nude));
+  color: var(--tortora);
 }
 
-.visual--rose {
-  background: radial-gradient(60% 60% at 25% 30%, rgba(255, 220, 225, 0.45), transparent 70%), linear-gradient(160deg, #d98e96, #9a3150);
-  color: #fff;
+.visual--bronze {
+  background: radial-gradient(60% 60% at 25% 30%, rgba(235, 208, 174, 0.45), transparent 70%), linear-gradient(160deg, #c49a78, #7e5a42);
+  color: var(--avorio);
 }
 
-.visual--wine {
-  background: radial-gradient(70% 60% at 60% 30%, rgba(214, 120, 140, 0.45), transparent 70%), linear-gradient(160deg, #7e1c38, #2a0a12);
-  color: #f6dfe3;
+.visual--petrol {
+  background: radial-gradient(70% 60% at 60% 30%, rgba(162, 122, 90, 0.35), transparent 70%), linear-gradient(160deg, #2f4f5c, var(--deep-blue));
+  color: var(--beige);
 }
 
-.visual--plum {
-  background: radial-gradient(60% 60% at 30% 70%, rgba(255, 210, 220, 0.35), transparent 70%), linear-gradient(160deg, #b8727f, #561832);
-  color: #fff;
+.visual--tortora {
+  background: radial-gradient(60% 60% at 30% 70%, rgba(230, 212, 197, 0.3), transparent 70%), linear-gradient(160deg, #8f6649, #4a3427);
+  color: var(--avorio);
 }
 
 .visual__tag {
@@ -521,11 +520,11 @@ button {
   left: 4px;
   width: 1px;
   height: calc(21 * var(--u));
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(246, 235, 229, 0.2);
 }
 
 .showcase__progress {
-  background: #fff;
+  background: var(--avorio);
   transform-origin: top;
 }
 
@@ -542,7 +541,7 @@ button {
   width: 10px;
   height: 10px;
   margin-top: calc(-1.5 * var(--u));
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(246, 235, 229, 0.5);
   border-radius: 50%;
   background: var(--accent-a);
 }
@@ -572,7 +571,7 @@ button {
   overflow: hidden;
   border-radius: 0.75rem;
   background: var(--cream);
-  color: #1d0b10;
+  color: var(--card-text);
 }
 
 .showcase__card-text {
@@ -584,6 +583,7 @@ button {
 }
 
 .showcase__card-text h3 {
+  color: var(--tortora);
   font-size: calc(3 * var(--u));
   line-height: 1.05;
   letter-spacing: -0.02em;
@@ -592,7 +592,7 @@ button {
 .showcase__card-text > div > p {
   margin-top: calc(0.6 * var(--u));
   font-size: calc(1.05 * var(--u));
-  color: rgba(29, 11, 16, 0.65);
+  color: rgba(74, 52, 39, 0.65);
 }
 
 .showcase__card-text ul {
@@ -605,18 +605,18 @@ button {
   justify-content: space-between;
   gap: calc(1 * var(--u));
   padding: calc(0.55 * var(--u)) 0;
-  border-bottom: 1px solid rgba(29, 11, 16, 0.12);
+  border-bottom: 1px solid rgba(74, 52, 39, 0.12);
   font-size: calc(0.95 * var(--u));
   transition: color 0.3s;
 }
 
 .showcase__card-text li a span:last-child {
-  color: rgba(29, 11, 16, 0.55);
+  color: rgba(74, 52, 39, 0.55);
   white-space: nowrap;
 }
 
 .showcase__card-text li a:hover {
-  color: var(--accent-b);
+  color: var(--bronze);
 }
 
 .showcase__card-visual {
@@ -703,7 +703,7 @@ button {
 .why__card p {
   font-size: 1.25vw;
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(246, 235, 229, 0.8);
 }
 
 .why__line {
@@ -711,7 +711,7 @@ button {
   width: 100%;
   height: 1px;
   margin-top: 3vw;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(246, 235, 229, 0.2);
 }
 
 .why__line span {
@@ -776,9 +776,9 @@ button {
   height: 30vw;
   padding: 1.6vw;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(246, 235, 229, 0.2);
   border-radius: 0.5rem;
-  background: #161214;
+  background: var(--surface);
 }
 
 .tech__fill {
@@ -798,15 +798,15 @@ button {
   width: 3vw;
   height: 3vw;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(246, 235, 229, 0.3);
   border-radius: 50%;
-  color: #fff;
+  color: var(--avorio);
   transition: background-color 0.3s ease-out, color 0.3s ease-out;
 }
 
 .tech__card.is-active .tech__arrow {
-  background: #fff;
-  color: #000;
+  background: var(--avorio);
+  color: var(--ink);
 }
 
 .tech__arrow-icon {
@@ -852,7 +852,7 @@ button {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #fff;
+  background: var(--avorio);
 }
 
 .tech--static {
@@ -914,15 +914,13 @@ button {
   margin-top: 0.75rem;
   font-size: 1.25vw;
   letter-spacing: 0.025em;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(246, 235, 229, 0.3);
 }
 
 .specialties__divider {
-  position: relative;
   width: 100%;
   height: 1px;
-  transform: scaleX(0);
-  transform-origin: left;
+  background: rgba(246, 235, 229, 0.4);
 }
 
 .specialties__image {
@@ -953,39 +951,6 @@ button {
 
 .specialties__img .visual {
   border-radius: 0.5rem;
-}
-
-.string-line {
-  position: relative;
-  width: 100%;
-  height: 1px;
-}
-
-.string-line svg {
-  position: absolute;
-  top: -50px;
-  width: 100%;
-  height: 100px;
-  pointer-events: none;
-}
-
-.string-line path {
-  fill: none;
-  stroke-width: 1px;
-}
-
-.string-line__hit {
-  position: relative;
-  top: -20px;
-  z-index: 1;
-  display: flex;
-  width: 100%;
-  height: 40px;
-}
-
-.string-line__hit:hover {
-  top: -75px;
-  height: 150px;
 }
 
 /* ---------- Benefícios em 3D ---------- */
@@ -1083,9 +1048,9 @@ button {
   height: 30vw;
   margin: 0 auto;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(246, 235, 229, 0.1);
   border-radius: 2vw;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(246, 235, 229, 0.05);
   opacity: 0;
 }
 
@@ -1123,7 +1088,7 @@ button {
   width: 82%;
   font-size: 1.145vw;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(246, 235, 229, 0.7);
 }
 
 .steps__avatars {
@@ -1146,9 +1111,9 @@ button {
   height: 5vw;
   padding: 0;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(246, 235, 229, 0.25);
   border-radius: 50%;
-  background: #2a1d21;
+  background: #1a3441;
   font-size: 1.6vw;
   font-weight: 300;
   opacity: 0.6;
@@ -1185,7 +1150,7 @@ button {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: #1f1316;
+  background: #102633;
   font-size: 1.3vw;
 }
 
@@ -1205,10 +1170,10 @@ button {
   width: 3rem;
   height: 3rem;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(246, 235, 229, 0.2);
   border-radius: 50%;
   background: none;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(246, 235, 229, 0.8);
   cursor: pointer;
   transition: color 0.3s;
 }
@@ -1228,7 +1193,7 @@ button {
 }
 
 .circle-btn:hover {
-  color: #fff;
+  color: var(--avorio);
 }
 
 .circle-btn:hover .circle-btn__fill {
@@ -1255,7 +1220,7 @@ button {
 
 .faq__item {
   padding: 2rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(246, 235, 229, 0.1);
 }
 
 .faq__question {
@@ -1281,7 +1246,7 @@ button {
   width: 3.5rem;
   height: 3.5rem;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(246, 235, 229, 0.2);
   border-radius: 50%;
 }
 
@@ -1291,7 +1256,7 @@ button {
   width: 1rem;
   height: 2px;
   border-radius: 999px;
-  background: #fff;
+  background: var(--avorio);
   transition: transform 0.3s ease-out;
 }
 
@@ -1322,7 +1287,7 @@ button {
   padding: 1rem 3vw 0 0;
   font-size: 1.25vw;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(246, 235, 229, 0.8);
 }
 
 /* ---------- Rodapé ---------- */
@@ -1353,7 +1318,7 @@ button {
   justify-content: space-between;
   gap: 5rem;
   padding: 3rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(246, 235, 229, 0.3);
   border-radius: 2rem;
   background: rgba(0, 0, 0, 0.05);
   -webkit-backdrop-filter: blur(40px);
@@ -1368,7 +1333,7 @@ button {
 }
 
 .footer__logo {
-  font-size: 3.5vw;
+  width: 22vw;
 }
 
 .footer__cta {
@@ -1407,7 +1372,7 @@ button {
 }
 
 .footer__hours {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(246, 235, 229, 0.75);
 }
 
 .footer__whatsapp {
@@ -1433,9 +1398,9 @@ button {
   display: flex;
   padding: 0.625rem;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(246, 235, 229, 0.6);
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(246, 235, 229, 0.05);
   transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
@@ -1448,7 +1413,7 @@ button {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: #fff;
+  background: var(--avorio);
   transform: scale(0);
   transition: transform 0.3s ease-in-out;
 }
@@ -1470,7 +1435,7 @@ button {
 }
 
 .under-multi {
-  background-image: linear-gradient(transparent, transparent), linear-gradient(#fff, #fff);
+  background-image: linear-gradient(transparent, transparent), linear-gradient(var(--avorio), var(--avorio));
   background-position: 100% 100%, 0 100%;
   background-repeat: no-repeat;
   background-size: 100% 0, 0 1px;
@@ -1490,7 +1455,7 @@ button {
   align-items: center;
   justify-content: center;
   padding: 0 4vw;
-  background: rgba(7, 5, 6, 0.92);
+  background: rgba(12, 32, 44, 0.94);
 }
 
 .modal__card {
@@ -1501,9 +1466,9 @@ button {
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 3vw;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(246, 235, 229, 0.1);
   border-radius: 2vw;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(246, 235, 229, 0.05);
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
 }
@@ -1531,7 +1496,7 @@ button {
   width: 1rem;
   height: 2px;
   border-radius: 999px;
-  background: #fff;
+  background: var(--avorio);
   transition: transform 0.5s ease-in-out;
 }
 
@@ -1574,7 +1539,7 @@ button {
 .booking__steps {
   margin: 2.5vw 0 2vw;
   counter-reset: step;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid rgba(246, 235, 229, 0.15);
 }
 
 .booking__steps li {
@@ -1582,8 +1547,8 @@ button {
   align-items: baseline;
   gap: 1rem;
   padding: 0.75rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.45);
+  border-bottom: 1px solid rgba(246, 235, 229, 0.1);
+  color: rgba(246, 235, 229, 0.45);
   font-size: 1rem;
   counter-increment: step;
 }
@@ -1595,7 +1560,7 @@ button {
 
 .booking__steps li.is-current,
 .booking__steps li.is-done {
-  color: #fff;
+  color: var(--avorio);
 }
 
 .booking__steps li.is-done::after {
@@ -1618,7 +1583,7 @@ button {
 
 .booking__summary dt {
   font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(246, 235, 229, 0.5);
 }
 
 .booking__summary dd {
@@ -1657,16 +1622,16 @@ button {
   padding: 0.85rem 1.5rem;
   border: 0;
   border-radius: 999px;
-  background: #fff;
-  color: #111;
+  background: var(--avorio);
+  color: var(--ink);
   font-size: 0.9375rem;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 }
 
 .button:hover {
-  background: var(--accent-a);
-  color: #fff;
+  background: var(--bronze);
+  color: var(--avorio);
 }
 
 .button--small {
@@ -1705,7 +1670,7 @@ button {
 .booking__group-title {
   margin-bottom: 0.25rem;
   font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(246, 235, 229, 0.5);
 }
 
 .option {
@@ -1716,7 +1681,7 @@ button {
   width: 100%;
   padding: 0.75rem 0;
   border: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(246, 235, 229, 0.1);
   background: none;
   font-size: 0.9375rem;
   text-align: left;
@@ -1731,7 +1696,7 @@ button {
 
 .option__meta {
   font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(246, 235, 229, 0.5);
   white-space: nowrap;
 }
 
@@ -1762,7 +1727,7 @@ button {
   width: 2.5rem;
   height: 2.5rem;
   padding: 0;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(246, 235, 229, 0.2);
   border-radius: 50%;
   background: none;
   font-size: 1.25rem;
@@ -1772,7 +1737,7 @@ button {
 }
 
 .calendar__nav:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(246, 235, 229, 0.12);
 }
 
 .calendar__nav:disabled {
@@ -1791,7 +1756,7 @@ button {
   padding-bottom: 0.5rem;
   font-size: 0.75rem;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(246, 235, 229, 0.5);
 }
 
 .calendar__grid td {
@@ -1808,7 +1773,7 @@ button {
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(246, 235, 229, 0.1);
   font-size: 0.875rem;
   font-variant-numeric: tabular-nums;
   cursor: pointer;
@@ -1816,12 +1781,12 @@ button {
 }
 
 .calendar__day:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(246, 235, 229, 0.2);
 }
 
 .calendar__day:disabled {
   background: none;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(246, 235, 229, 0.3);
   cursor: default;
 }
 
@@ -1832,12 +1797,12 @@ button {
 .booking__tz {
   margin-top: 1rem;
   font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(246, 235, 229, 0.5);
 }
 
 .slots__status {
   font-size: 0.9375rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(246, 235, 229, 0.6);
 }
 
 .slots__status .button {
@@ -1852,7 +1817,7 @@ button {
 .slots__label {
   margin-bottom: 0.5rem;
   font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(246, 235, 229, 0.5);
 }
 
 .slots__list {
@@ -1867,7 +1832,7 @@ button {
   width: 100%;
   padding: 0.65rem 0;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(246, 235, 229, 0.2);
   border-radius: 999px;
   background: none;
   font-size: 0.875rem;
@@ -1879,22 +1844,22 @@ button {
 .slot:hover,
 .slot[aria-pressed="true"] {
   border-color: transparent;
-  background: var(--accent-b);
+  background: var(--bronze);
 }
 
 .booking__demo {
   margin-top: 1.75rem;
   padding-left: 1rem;
-  border-left: 2px solid var(--accent-a);
+  border-left: 2px solid var(--nude);
   font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(246, 235, 229, 0.55);
 }
 
 .booking__notice {
   margin-bottom: 1.25rem;
   padding: 0.85rem 1rem;
   border-radius: 0.75rem;
-  background: rgba(199, 107, 120, 0.2);
+  background: rgba(208, 169, 146, 0.18);
   font-size: 0.9375rem;
 }
 
@@ -1924,10 +1889,10 @@ button {
 .field textarea {
   width: 100%;
   padding: 0.85rem 1.25rem;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(246, 235, 229, 0.15);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
+  background: rgba(246, 235, 229, 0.15);
+  color: var(--avorio);
   font: inherit;
   font-size: 0.9375rem;
   resize: vertical;
@@ -1939,14 +1904,14 @@ button {
 
 .field input::placeholder,
 .field textarea::placeholder {
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(246, 235, 229, 0.45);
 }
 
 .field input:focus-visible,
 .field textarea:focus-visible {
   outline: none;
-  border-color: var(--accent-a);
-  box-shadow: 0 0 0 1px var(--accent-a);
+  border-color: var(--nude);
+  box-shadow: 0 0 0 1px var(--nude);
 }
 
 .field__hint,
@@ -1955,7 +1920,7 @@ button {
 }
 
 .field__hint {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(246, 235, 229, 0.5);
 }
 
 .field__error {
@@ -1977,7 +1942,7 @@ button {
   height: 1.125rem;
   margin: 0.2rem 0 0;
   padding: 0;
-  accent-color: var(--accent-a);
+  accent-color: var(--bronze);
 }
 
 .field--check label {
@@ -2014,12 +1979,12 @@ button {
   gap: 1.25rem 2rem;
   margin: 0 0 1.5rem;
   padding: 1.25rem 0;
-  border-block: 1px solid rgba(255, 255, 255, 0.12);
+  border-block: 1px solid rgba(246, 235, 229, 0.12);
 }
 
 .booking__receipt dt {
   font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(246, 235, 229, 0.5);
 }
 
 .booking__receipt dd {
@@ -2029,7 +1994,7 @@ button {
 
 .booking__done-text {
   max-width: 46ch;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(246, 235, 229, 0.8);
 }
 
 .booking__actions {
@@ -2055,7 +2020,7 @@ button {
 
 .legal__updated {
   margin-bottom: 3rem;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(246, 235, 229, 0.55);
 }
 
 .legal h2 {
@@ -2064,7 +2029,7 @@ button {
 }
 
 .legal p {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(246, 235, 229, 0.8);
   line-height: 1.7;
 }
 
@@ -2088,7 +2053,7 @@ button {
   }
 
   .logo {
-    font-size: 3.8vw;
+    width: 25vw;
   }
 
   .header {
@@ -2267,7 +2232,7 @@ button {
   }
 
   .footer__logo {
-    font-size: 6vw;
+    width: 34vw;
   }
 
   .footer__cta {
@@ -2388,6 +2353,7 @@ button {
   }
 
   .showcase__card-text h3 {
+  color: var(--tortora);
     font-size: 4.5vw;
   }
 
@@ -2480,7 +2446,7 @@ button {
   }
 
   .logo {
-    font-size: 5.2vw;
+    width: 34vw;
   }
 
   .header {
@@ -2566,6 +2532,7 @@ button {
   }
 
   .showcase__card-text h3 {
+  color: var(--tortora);
     font-size: 8vw;
   }
 
@@ -2738,7 +2705,7 @@ button {
   }
 
   .footer__logo {
-    font-size: 8.5vw;
+    width: 46vw;
   }
 
   .footer__cta {
@@ -2825,11 +2792,6 @@ button {
 
   .benefits__layer {
     display: none;
-  }
-
-  .string-line__hit:hover {
-    top: -20px;
-    height: 40px;
   }
 
   *,

@@ -23,13 +23,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: content.meta.title,
     description: content.meta.description,
-    images: ["/images/marga-hero.png"],
+    images: [{ url: "/brand/og.png", width: 1200, height: 630, alt: "MARGA Brazilian Beauty" }],
     type: "website",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0A0708",
+  themeColor: "#0C202C",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

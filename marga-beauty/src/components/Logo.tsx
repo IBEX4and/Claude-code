@@ -1,9 +1,13 @@
-/** Logotipo em texto, no mesmo desenho do "ELENAVOSS" da referência (duas espessuras). */
+/** Logotipo oficial (MARGA Brazilian Beauty), versão bege para fundos escuros. */
 export function Logo({ className = "" }: { className?: string }) {
   return (
-    <span className={`logo ${className}`}>
-      <span className="logo__a">Marga</span>
-      <span className="logo__b">Beauty</span>
-    </span>
+    <img
+      src="/brand/marga-logo-beige.svg"
+      alt="MARGA Brazilian Beauty"
+      width={4815}
+      height={1762}
+      className={`logo ${className}`}
+      draggable={false}
+    />
   );
 }

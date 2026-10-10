@@ -1,16 +1,12 @@
 "use client";
 
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Fragment, useCallback, useEffect, useRef } from "react";
 import { content } from "@/content";
 import type { VisualKey } from "@/content/images";
 import { prefersReducedMotion } from "./Experience";
-import { StringLine } from "./StringLine";
 import { TextReveal } from "./TextReveal";
 import { Visual } from "./Visual";
-
-gsap.registerPlugin(ScrollTrigger);
 
 /** "Awards and Industry Recognition" da referência: lista com imagem que acompanha a linha. */
 export function Specialties() {
@@ -20,7 +16,6 @@ export function Specialties() {
   const container = useRef<HTMLDivElement>(null);
   const images = useRef<(HTMLDivElement | null)[]>([]);
   const rows = useRef<(HTMLDivElement | null)[]>([]);
-  const dividers = useRef<(HTMLDivElement | null)[]>([]);
   const zTop = useRef(items.length);
   const current = useRef<number | null>(null);
   const pointer = useRef<{ x: number; y: number } | null>(null);
@@ -28,24 +23,6 @@ export function Specialties() {
   useEffect(() => {
     gsap.set(frame.current, { y: 0 });
     images.current.forEach((img, i) => gsap.set(img, { zIndex: i + 1, scale: i === 0 ? 1.05 : 0 }));
-    const lines = dividers.current.filter(Boolean);
-    if (prefersReducedMotion()) {
-      gsap.set(lines, { scaleX: 1 });
-      return;
-    }
-    const tweens = lines.map((line) =>
-      gsap.to(line, {
-        scaleX: 1,
-        duration: 0.8,
-        ease: "power2.inOut",
-        scrollTrigger: { trigger: line, start: "top 85%", toggleActions: "play none none none" },
-      }),
-    );
-    return () =>
-      tweens.forEach((tw) => {
-        tw.scrollTrigger?.kill();
-        tw.kill();
-      });
   }, []);
 
   const show = useCallback((i: number) => {
@@ -122,11 +99,7 @@ export function Specialties() {
           <div onMouseEnter={() => fade(true)} onMouseLeave={() => fade(false)}>
             {items.map((item, i) => (
               <Fragment key={item.title}>
-                {i !== 0 && (
-                  <div ref={(el) => void (dividers.current[i - 1] = el)} className="specialties__divider">
-                    <StringLine />
-                  </div>
-                )}
+                {i !== 0 && <div className="specialties__divider" aria-hidden="true" />}
                 <div ref={(el) => void (rows.current[i] = el)} className="specialties__row">
                   <TextReveal splitBy="lines">
                     <h3>{item.title}</h3>
@@ -137,9 +110,7 @@ export function Specialties() {
                 </div>
               </Fragment>
             ))}
-            <div ref={(el) => void (dividers.current[items.length - 1] = el)} className="specialties__divider">
-              <StringLine />
-            </div>
+            <div className="specialties__divider" aria-hidden="true" />
           </div>
         </div>
         <div ref={container} className="specialties__image" aria-hidden="true">
