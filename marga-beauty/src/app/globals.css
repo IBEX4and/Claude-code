@@ -324,16 +324,16 @@ button {
 .hero__portrait {
   /* Altura da foto: a tela toda, ou menos se o espaço entre o título e os textos
      da direita for estreito (telas mais quadradas). */
-  --ph: min(100vh, (80.96vw - 34 * var(--u) - 36px) * 2000 / 1116);
+  --ph: min(100vh, (80.96vw - 34 * var(--u) - 36px) * 1086 / 573);
   position: absolute;
   /* Abaixo da borda: o parallax do mouse sobe a foto sem mostrar o corte de baixo. */
   bottom: -32px;
   left: 50%;
-  width: calc(var(--ph) * 1116 / 2000);
+  width: calc(var(--ph) * 573 / 1086);
   height: var(--ph);
   /* Centralizada; em telas mais quadradas desliza para a direita o necessário
      para não cobrir o fim do título (com folga para o parallax). */
-  margin-left: calc(var(--ph) * 1116 / 2000 / -2 + max(0px, 34 * var(--u) - 46vw + var(--ph) * 1116 / 2000 / 2 + 18px));
+  margin-left: calc(var(--ph) * 573 / 1086 / -2 + max(0px, 34 * var(--u) - 46vw + var(--ph) * 573 / 1086 / 2 + 18px));
   opacity: 0;
   pointer-events: none;
   user-select: none;
@@ -352,9 +352,9 @@ button {
   height: 100%;
   object-fit: contain;
   object-position: 50% 100%;
-  /* Funde as laterais do blazer (a foto corta os ombros). */
-  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%);
+  /* Suaviza só a borda lateral do recorte. */
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 2%, #000 98%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 2%, #000 98%, transparent 100%);
 }
 
 .hero__gallery {
@@ -2515,7 +2515,7 @@ button {
   .hero__portrait {
     bottom: 0;
     --ph: 66vh;
-    margin-left: calc(var(--ph) * 1116 / 2000 / -2 + 16vw);
+    margin-left: calc(var(--ph) * 573 / 1086 / -2 + 16vw);
   }
 
   .hero__gallery-inner {
@@ -2577,7 +2577,7 @@ button {
   .hero__portrait {
     bottom: 0;
     --ph: 62vh;
-    margin-left: calc(var(--ph) * 1116 / 2000 / -2 + 14vw);
+    margin-left: calc(var(--ph) * 573 / 1086 / -2 + 14vw);
   }
 
   .hero__tile {

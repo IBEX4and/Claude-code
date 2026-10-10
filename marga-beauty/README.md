@@ -110,11 +110,11 @@ horário se o serviço inteiro couber antes da pausa ou do fechamento.
 
 ### Fotos
 
-A foto do hero (`public/images/marga-hero.webp`, 1116 × 2000, e `.png` reserva) é
-o retrato de estúdio da Marga com o fundo removido, para o parallax funcionar.
+A foto do hero (`public/images/marga-hero.webp`, 573 × 1086, e `.png` reserva) é
+o retrato de corpo inteiro da Marga (terno claro) com o fundo removido, para o parallax funcionar.
 Para trocar por outra, gere um recorte com fundo transparente (PNG/WebP) e
 atualize `width`/`height` em `src/content/images.ts` e a proporção
-`1116 / 2000` em `src/app/globals.css` (`.hero__portrait`).
+`573 / 1086` em `src/app/globals.css` (`.hero__portrait`).
 
 As demais imagens (mosaico do hero, cartões de tratamento, especialidades)
 aparecem como cartazes no degradê da marca com a etiqueta "Foto provisória".
