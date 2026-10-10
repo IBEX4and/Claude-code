@@ -326,9 +326,11 @@ button {
   position: absolute;
   bottom: 0;
   left: 50%;
-  width: calc(var(--ph) * 645 / 859);
+  width: calc(var(--ph) * 1116 / 2000);
   height: var(--ph);
-  margin-left: calc(var(--ph) * 645 / 859 / -2);
+  /* Centralizada; em telas mais quadradas desliza para a direita o necessário
+     para não cobrir o fim do título. */
+  margin-left: calc(var(--ph) * 1116 / 2000 / -2 + max(0px, 33 * var(--u) - 46vw + 23vh + 12px));
   opacity: 0;
   pointer-events: none;
   user-select: none;
@@ -2499,7 +2501,7 @@ button {
   }
 
   .hero__title h1 {
-    font-size: 12vw;
+    font-size: 9.5vw;
   }
 
   .hero__aside {
@@ -2513,7 +2515,7 @@ button {
 
   .hero__portrait {
     --ph: 66vh;
-    margin-left: calc(var(--ph) * 645 / 859 / -2 + 16vw);
+    margin-left: calc(var(--ph) * 1116 / 2000 / -2 + 16vw);
   }
 
   .hero__gallery-inner {
@@ -2574,7 +2576,7 @@ button {
 
   .hero__portrait {
     --ph: 62vh;
-    margin-left: calc(var(--ph) * 645 / 859 / -2 + 14vw);
+    margin-left: calc(var(--ph) * 1116 / 2000 / -2 + 14vw);
   }
 
   .hero__tile {

@@ -78,7 +78,7 @@ export function Steps() {
   const item = items[index];
 
   return (
-    <section ref={section} id="etapas" className="steps">
+    <section ref={section} id="etapas" className="steps" data-snap>
       <div className="steps__head">
         <TextReveal stagger={0.015}>
           <h2 className="section-title">{t.title}</h2>

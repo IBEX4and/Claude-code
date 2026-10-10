@@ -29,7 +29,6 @@ export function Showcase() {
         start: "10% top",
         end: "bottom bottom",
         scrub: true,
-        ...(reduced ? {} : { snap: { snapTo: 1 / steps, duration: { min: 0.2, max: 0.6 }, ease: "power1.inOut" } }),
       },
     });
     gsap.set(progress.current, { scaleY: 0 });
@@ -62,7 +61,14 @@ export function Showcase() {
   }, [categories.length]);
 
   return (
-    <section id="tratamentos" className="showcase">
+    <section
+      id="tratamentos"
+      className="showcase"
+      // Encaixa em cada cartão (a linha do tempo começa em 10% da seção).
+      data-snap-zone="steps"
+      data-snap-steps={categories.length - 1}
+      data-snap-offset="0.1"
+    >
       <div ref={arch} className="showcase__arch" />
       <div className="showcase__stage">
         <TextReveal stagger={0.015}>

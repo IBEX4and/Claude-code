@@ -43,7 +43,7 @@ export function WhyUs() {
   };
 
   return (
-    <section id="porque" className="why">
+    <section id="porque" className="why" data-snap>
       <div className="why__head">
         <TextReveal stagger={0.015}>
           <h2 className="section-title">{t.title}</h2>

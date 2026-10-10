@@ -133,7 +133,7 @@ export function Hero() {
     : [gallery.columnA, gallery.columnB];
 
   return (
-    <section ref={section} id="top" className="hero">
+    <section ref={section} id="top" className="hero" data-snap-zone="directional">
       <div ref={stage} className="hero__stage">
         <div ref={textRow} className="hero__row">
           <div className="hero__title">

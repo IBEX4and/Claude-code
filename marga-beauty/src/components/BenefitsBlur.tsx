@@ -73,7 +73,7 @@ export function BenefitsBlur() {
   }, []);
 
   return (
-    <section ref={section} id="beneficios" className="benefits">
+    <section ref={section} id="beneficios" className="benefits" data-snap>
       <div className="benefits__sticky">
         <div className="benefits__title">
           <TextReveal stagger={0.015}>

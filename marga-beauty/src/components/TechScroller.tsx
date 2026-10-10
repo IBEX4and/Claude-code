@@ -62,7 +62,7 @@ export function TechScroller() {
   };
 
   return (
-    <section id="tecnologias" className={`tech${reduced ? " tech--static" : ""}`}>
+    <section id="tecnologias" className={`tech${reduced ? " tech--static" : ""}`} data-snap="both">
       <div className="tech__sticky">
         <div className="tech__head">
           <TextReveal stagger={0.015}>

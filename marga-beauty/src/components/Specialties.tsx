@@ -86,7 +86,7 @@ export function Specialties() {
   };
 
   return (
-    <section id="especialidades" className="specialties">
+    <section id="especialidades" className="specialties" data-snap>
       <div className="specialties__inner">
         <div className="specialties__list">
           <TextReveal stagger={0.015}>

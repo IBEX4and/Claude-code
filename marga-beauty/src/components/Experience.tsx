@@ -4,6 +4,7 @@ import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { gestureTarget, readSnapMap, settleTarget } from "@/lib/snapping";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -33,6 +34,8 @@ export function isCompactLayout() {
   return typeof window !== "undefined" && window.matchMedia(COMPACT_LAYOUT).matches;
 }
 
+const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
+
 export function prefersReducedMotion() {
   return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
@@ -46,14 +49,103 @@ export function Experience({ children }: { children: React.ReactNode }) {
     window.scrollTo(0, 0);
     if (prefersReducedMotion()) return;
 
-    const lenis = new Lenis({ lerp: 0.1 });
+    // Encaixe da rolagem (ver src/lib/snapping.ts).
+    let jumping = false; // indo de uma ponta à outra do hero
+    let holdGesture = false; // ignora o resto do gesto que disparou o salto
+    let heldAt = 0;
+    let lastInput = 0;
+    let touching = false;
+    let touchTravel = 0; // distância do dedo no gesto atual (toques curtos não rolam)
+    let settleTimer: number | undefined;
+
+    const jump = (target: number) => {
+      jumping = true;
+      window.clearTimeout(settleTimer);
+      lenis.scrollTo(target, {
+        duration: 1.4,
+        easing: easeInOutCubic,
+        lock: true,
+        force: true,
+        onComplete: () => {
+          jumping = false;
+          holdGesture = true;
+          heldAt = performance.now();
+        },
+      });
+    };
+
+    const lenis = new Lenis({
+      lerp: 0.1,
+      // Roda do mouse e toque passam por aqui antes de rolar: no hero, um gesto
+      // leva direto ao fim da animação (ou de volta ao topo).
+      virtualScroll: ({ deltaY, event }) => {
+        if (lenis.isStopped) return true;
+        const isTouch = event.type.startsWith("touch");
+        const now = performance.now();
+        const gap = now - lastInput;
+        lastInput = now;
+        if (isTouch && event.type === "touchstart") {
+          holdGesture = false;
+          touchTravel = 0;
+          return true;
+        }
+        if (isTouch) touchTravel += deltaY;
+        const block = () => {
+          if (event.cancelable) event.preventDefault();
+          return false;
+        };
+        if (jumping) return block();
+        if (holdGesture) {
+          // A inércia do trackpad continua mandando eventos; espera o gesto acabar.
+          const gestureOver = isTouch ? false : gap > 180 || now - heldAt > 1200;
+          if (!gestureOver) return block();
+          holdGesture = false;
+        }
+        if ((event.target as Element | null)?.closest?.("[data-lenis-prevent]")) return true;
+        if (isTouch && Math.abs(touchTravel) < 12) return true;
+        const target = gestureTarget(readSnapMap(), lenis.targetScroll, deltaY);
+        if (target === null) return true;
+        jump(target);
+        return block();
+      },
+    });
     lenisRef.current = lenis;
     lenis.on("scroll", ScrollTrigger.update);
     const tick = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
     lenis.stop();
+
+    // Quando a rolagem para (roda, toque com inércia, teclado, barra), encaixa no
+    // ponto mais próximo se estiver perto dele.
+    const settle = () => {
+      if (jumping || touching || lenis.isStopped || lenis.isScrolling) return;
+      const target = settleTarget(readSnapMap(), window.scrollY, lenis.direction || 1, window.innerHeight);
+      if (target === null) return;
+      lenis.scrollTo(target, { duration: 0.9, easing: easeInOutCubic });
+    };
+    const scheduleSettle = () => {
+      window.clearTimeout(settleTimer);
+      settleTimer = window.setTimeout(settle, 160);
+    };
+    const onTouchStart = () => {
+      touching = true;
+      window.clearTimeout(settleTimer);
+    };
+    const onTouchEnd = () => {
+      touching = false;
+      scheduleSettle();
+    };
+    lenis.on("scroll", scheduleSettle);
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchend", onTouchEnd, { passive: true });
+    window.addEventListener("touchcancel", onTouchEnd, { passive: true });
+
     return () => {
+      window.clearTimeout(settleTimer);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("touchcancel", onTouchEnd);
       gsap.ticker.remove(tick);
       lenis.destroy();
       lenisRef.current = null;

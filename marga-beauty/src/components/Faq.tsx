@@ -76,7 +76,7 @@ export function Faq() {
   }, []);
 
   return (
-    <section id="perguntas" className="faq">
+    <section id="perguntas" className="faq" data-snap>
       <TextReveal stagger={0.015}>
         <h2 className="section-title faq__title">{t.title}</h2>
       </TextReveal>
