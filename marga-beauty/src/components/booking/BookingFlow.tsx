@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { bookingRules, business, fullAddress, whatsappUrl } from "@/config/business";
 import { content } from "@/content";
 import { weekdayNames } from "@/lib/hours";
@@ -45,6 +45,20 @@ const serviceColumns = (() => {
   }
   return [groups.filter((_, i) => !(best & (1 << i))), groups.filter((_, i) => best & (1 << i))];
 })();
+
+/** No celular a lista é uma coluna só, então as áreas ficam na ordem do site. */
+const PHONE_SCREEN = "(max-width: 767px)";
+const watchPhone = (onChange: () => void) => {
+  const query = window.matchMedia(PHONE_SCREEN);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+};
+const useIsPhone = () =>
+  useSyncExternalStore(
+    watchPhone,
+    () => window.matchMedia(PHONE_SCREEN).matches,
+    () => false,
+  );
 
 const capitalize = (s: string) => s.charAt(0).toLocaleUpperCase() + s.slice(1);
 const ymd = (y: number, m: number, d: number) =>
@@ -114,7 +128,23 @@ export function BookingFlow({
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [result, setResult] = useState<Result | null>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
+  const slotsRef = useRef<HTMLDivElement>(null);
   const firstRender = useRef(true);
+  const isPhone = useIsPhone();
+  const columns = isPhone ? [[...content.services.categories]] : serviceColumns;
+
+  // Telas estreitas: os horários ficam abaixo do calendário. Ao escolher o dia,
+  // rola o modal até eles se ainda não estiverem à vista.
+  const revealSlots = () =>
+    requestAnimationFrame(() => {
+      const area = scrollArea.current;
+      const slots = slotsRef.current;
+      if (!area || !slots) return;
+      const box = area.getBoundingClientRect();
+      const top = slots.getBoundingClientRect().top;
+      if (top + 200 <= box.bottom) return;
+      area.scrollTo({ top: area.scrollTop + top - box.top - 16, behavior: "smooth" });
+    });
 
   const service = findService(serviceId);
 
@@ -318,7 +348,7 @@ export function BookingFlow({
               {t.chooseService}
             </h3>
             <div className="booking__services">
-              {serviceColumns.map((column, c) => (
+              {columns.map((column, c) => (
                 <div key={c} className="booking__column">
                   {column.map((category) => (
                     <div key={category.id} className="booking__group">
@@ -419,6 +449,7 @@ export function BookingFlow({
                                     setDate(day);
                                     setTime(null);
                                     setNotice(null);
+                                    revealSlots();
                                   }}
                                 >
                                   {Number(day.slice(8))}
@@ -433,7 +464,7 @@ export function BookingFlow({
                   <p className="booking__tz">{t.timezoneNote}</p>
                 </div>
 
-                <div className="slots">
+                <div className="slots" ref={slotsRef}>
                   {loadState === "loading" ? (
                     <p className="slots__status">{t.loading}</p>
                   ) : !monthHasSlots ? (

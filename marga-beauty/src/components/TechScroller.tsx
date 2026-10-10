@@ -25,7 +25,9 @@ export function TechScroller() {
     if (reduced || !row.current) return;
     const el = row.current;
     const w = window.innerWidth;
-    const from = w > 1025 ? 70 : 50;
+    // Onde a fileira começa (em % da largura dela): os primeiros cartões já
+    // aparecem sob o título assim que a seção fixa na tela.
+    const from = w > 1025 ? 35 : w > 767 ? 10 : 4;
     // Termina com o último cartão encostado na margem direita.
     const end = () => -((el.scrollWidth - window.innerWidth) / el.scrollWidth) * 100;
     const tween = gsap.fromTo(
@@ -34,7 +36,7 @@ export function TechScroller() {
       {
         xPercent: end,
         ease: "none",
-        scrollTrigger: { trigger: "#tecnologias", start: "top 20%", end: "bottom bottom", scrub: true, invalidateOnRefresh: true },
+        scrollTrigger: { trigger: "#tecnologias", start: "top top", end: "bottom bottom", scrub: true, invalidateOnRefresh: true },
       },
     );
     return () => {
@@ -60,21 +62,21 @@ export function TechScroller() {
 
   return (
     <section id="tecnologias" className={`tech${reduced ? " tech--static" : ""}`}>
-      <div className="tech__head">
-        <TextReveal stagger={0.015}>
-          <h2 className="section-title">
-            {t.title[0]}
-            <br />
-            {t.title[1]}
-          </h2>
-        </TextReveal>
-        <div className="tech__text">
-          <TextReveal splitBy="lines">
-            <p>{t.text}</p>
-          </TextReveal>
-        </div>
-      </div>
       <div className="tech__sticky">
+        <div className="tech__head">
+          <TextReveal stagger={0.015}>
+            <h2 className="section-title">
+              {t.title[0]}
+              <br />
+              {t.title[1]}
+            </h2>
+          </TextReveal>
+          <div className="tech__text">
+            <TextReveal splitBy="lines">
+              <p>{t.text}</p>
+            </TextReveal>
+          </div>
+        </div>
         <div className="tech__viewport">
           <div ref={row} className="tech__row">
             {t.cards.map((card, i) => (
