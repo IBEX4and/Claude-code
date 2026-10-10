@@ -104,7 +104,7 @@ memória do servidor e o site avisa isso embaixo do calendário.
   incluindo Páscoa e Pasquetta.
 - `closedDates`: férias e o dia do padroeiro da cidade (`"2026-12-24"`, …).
 
-Cada serviço tem a sua duração em `src/content/pt.ts`. O sistema só oferece um
+Cada serviço tem a sua duração em `src/content/it.ts`. O sistema só oferece um
 horário se o serviço inteiro couber antes da pausa ou do fechamento.
 
 ### Fotos
