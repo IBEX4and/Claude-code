@@ -40,7 +40,8 @@ export function Showcase() {
     for (let i = 0; i < steps; i++) {
       tl.to(cards.current[i + 1], reduced ? { opacity: 1, ease: "none", duration: 1 } : { yPercent: 0, ease: "power2.inOut", duration: 1 }, i);
       tl.to(cards.current[i], { filter: "brightness(0.3)", ease: "power2.inOut", duration: 1 }, i);
-      tl.set(dots.current[i + 1], { backgroundColor: "#f6ebe5", borderColor: "#f6ebe5" }, i + 1);
+      // Um pouco antes do fim da etapa, para o ponto acender mesmo com arredondamento.
+      tl.set(dots.current[i + 1], { backgroundColor: "#f6ebe5", borderColor: "#f6ebe5" }, i + 0.98);
     }
 
     const extra: gsap.core.Tween[] = [];

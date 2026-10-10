@@ -114,7 +114,8 @@ export function Hero() {
       s.cx += (s.tx - s.cx) * 0.08;
       s.icy += (s.iy - s.icy) * 0.08;
       s.cy += (s.ty - s.cy) * 0.08;
-      gsap.set(portraitInner.current, { x: s.icx, y: s.icy });
+      // Move o elemento que tem a máscara, para o degradê das laterais ir junto com a foto.
+      gsap.set(portrait.current, { x: s.icx, y: s.icy });
       gsap.set(textRow.current, { x: s.cx, y: s.cy });
       raf = requestAnimationFrame(loop);
     };

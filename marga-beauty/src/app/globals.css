@@ -322,15 +322,18 @@ button {
 }
 
 .hero__portrait {
-  --ph: 100vh;
+  /* Altura da foto: a tela toda, ou menos se o espaço entre o título e os textos
+     da direita for estreito (telas mais quadradas). */
+  --ph: min(100vh, (80.96vw - 34 * var(--u) - 36px) * 2000 / 1116);
   position: absolute;
-  bottom: 0;
+  /* Abaixo da borda: o parallax do mouse sobe a foto sem mostrar o corte de baixo. */
+  bottom: -32px;
   left: 50%;
   width: calc(var(--ph) * 1116 / 2000);
   height: var(--ph);
   /* Centralizada; em telas mais quadradas desliza para a direita o necessário
-     para não cobrir o fim do título. */
-  margin-left: calc(var(--ph) * 1116 / 2000 / -2 + max(0px, 33 * var(--u) - 46vw + 23vh + 12px));
+     para não cobrir o fim do título (com folga para o parallax). */
+  margin-left: calc(var(--ph) * 1116 / 2000 / -2 + max(0px, 34 * var(--u) - 46vw + var(--ph) * 1116 / 2000 / 2 + 18px));
   opacity: 0;
   pointer-events: none;
   user-select: none;
@@ -2514,6 +2517,7 @@ button {
   }
 
   .hero__portrait {
+    bottom: 0;
     --ph: 66vh;
     margin-left: calc(var(--ph) * 1116 / 2000 / -2 + 16vw);
   }
@@ -2575,6 +2579,7 @@ button {
   }
 
   .hero__portrait {
+    bottom: 0;
     --ph: 62vh;
     margin-left: calc(var(--ph) * 1116 / 2000 / -2 + 14vw);
   }
