@@ -4,7 +4,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
 import { content } from "@/content";
-import { prefersReducedMotion } from "./Experience";
+import { isCompactLayout, prefersReducedMotion } from "./Experience";
 import { TextReveal } from "./TextReveal";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -26,7 +26,7 @@ export function BenefitsBlur() {
       gsap.set(items, { opacity: 0.5 });
       return;
     }
-    const desktop = window.innerWidth > 1024;
+    const desktop = !isCompactLayout();
     const enter = desktop ? 1.5 : 4;
     const exit = desktop ? 1.5 : 3.5;
     const groupGap = enter + 0.4;

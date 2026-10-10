@@ -126,8 +126,10 @@ export function Hero() {
     };
   }, []);
 
+  // Cada coluna é a mesma sequência duas vezes: o loop sobe exatamente meia coluna.
+  // Em telas menores os blocos são mais altos, então a sequência vai dobrada.
   const columns = mobile
-    ? [[...gallery.columnA, ...gallery.columnB], [...gallery.columnB, ...gallery.columnA]]
+    ? [[...gallery.columnA, ...gallery.columnA], [...gallery.columnB, ...gallery.columnB]]
     : [gallery.columnA, gallery.columnB];
 
   return (

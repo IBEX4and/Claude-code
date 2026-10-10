@@ -22,7 +22,8 @@ export function TechScroller() {
   useEffect(() => setReduced(prefersReducedMotion()), []);
 
   useEffect(() => {
-    if (reduced || !row.current) return;
+    // Lê a preferência direto: o estado "reduced" só chega no render seguinte.
+    if (prefersReducedMotion() || !row.current) return;
     const el = row.current;
     const w = window.innerWidth;
     // Onde a fileira começa (em % da largura dela): os primeiros cartões já
@@ -41,9 +42,9 @@ export function TechScroller() {
     );
     return () => {
       tween.scrollTrigger?.kill();
-      tween.kill();
+      tween.revert();
     };
-  }, [reduced]);
+  }, []);
 
   const activate = (i: number) => {
     if (i === active) return;

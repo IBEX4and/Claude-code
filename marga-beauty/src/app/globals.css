@@ -393,9 +393,11 @@ button {
   animation: marquee-y 18s linear infinite;
 }
 
+/* Cada coluna repete a mesma sequência duas vezes: subir meia coluna mais meio
+   espaçamento (2,5vw / 2) volta exatamente ao começo, sem pulo. */
 @keyframes marquee-y {
   to {
-    transform: translateY(-51.1%);
+    transform: translateY(calc(-50% - 1.25vw));
   }
 }
 
@@ -887,6 +889,9 @@ button {
 }
 
 .tech--static .tech__row {
+  flex: 1;
+  width: 100%;
+  transform: none;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   padding-top: calc(5 * var(--u));
@@ -1478,6 +1483,15 @@ button {
   background-size: 100% 0, 100% 1px;
 }
 
+@media (min-width: 1026px), (min-width: 768px) and (min-aspect-ratio: 1/1) {
+  .footer__glow {
+    top: 0;
+    height: calc(100% + 5rem);
+    object-fit: cover;
+    object-position: 50% 100%;
+  }
+}
+
 /* ---------- Modal de agendamento ---------- */
 
 .modal {
@@ -1909,7 +1923,7 @@ button {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
-  gap: 0.8rem 1.25rem;
+  gap: 0.6rem 1.25rem;
 }
 
 /* Telefone e e-mail lado a lado; o resto ocupa a linha inteira. */
@@ -1938,7 +1952,7 @@ button {
 .field input,
 .field textarea {
   width: 100%;
-  padding: 0.7rem 1.15rem;
+  padding: 0.55rem 1.15rem;
   border: 1px solid rgba(246, 235, 229, 0.15);
   border-radius: 999px;
   background: rgba(246, 235, 229, 0.15);
@@ -1949,7 +1963,7 @@ button {
 }
 
 .field textarea {
-  height: 4.25rem;
+  height: 3.5rem;
   border-radius: 1.25rem;
 }
 
@@ -1971,6 +1985,8 @@ button {
 }
 
 .field__hint {
+  order: 3;
+  font-size: 0.75rem;
   color: rgba(246, 235, 229, 0.5);
 }
 
@@ -2066,17 +2082,6 @@ button {
     margin: calc(1 * var(--u)) 0;
   }
 
-  .booking__form {
-    gap: 0.6rem 1.25rem;
-  }
-
-  .field input {
-    padding: 0.55rem 1.15rem;
-  }
-
-  .field textarea {
-    height: 3.5rem;
-  }
 }
 
 /* ---------- Página legal ---------- */
@@ -2109,8 +2114,8 @@ button {
 
 /* ---------- Tablet (≤1025px) ---------- */
 
-/* Tablet em pé e celular. Tablet deitado (ou janela estreita e baixa) fica com o
-   layout de desktop, que já se ajusta à altura pela unidade --u. */
+/* Tablet em pé e celular. Tablet deitado (ou janela de 768px ou mais, larga e
+   baixa) fica com o layout de desktop, que já se ajusta à altura pela unidade --u. */
 @media (max-width: 767px), (max-width: 1025px) and (max-aspect-ratio: 1/1) {
   :root {
     --gutter: 5vw;
@@ -2405,8 +2410,9 @@ button {
   }
 }
 
-/* Tablet em pé: hero e tratamentos empilhados. Deitado, mantêm o layout de desktop. */
-@media (max-width: 1025px) and (max-aspect-ratio: 1/1) {
+/* Tablet em pé e celular: hero e tratamentos empilhados. Telas deitadas a partir
+   de 768px mantêm o layout de desktop. */
+@media (max-width: 767px), (max-width: 1025px) and (max-aspect-ratio: 1/1) {
   .section-title,
   .showcase__title,
   .benefits__title h2,
@@ -2435,8 +2441,8 @@ button {
 
   .showcase__track,
   .showcase__progress {
-    top: 1vw;
-    height: 33vw;
+    top: 2.6vw;
+    height: 39vw;
   }
 
   .showcase__list ol {
@@ -2516,20 +2522,6 @@ button {
 
   .hero__tile {
     height: 45vw;
-  }
-}
-
-/* Em telas menores o loop do mosaico tem outra proporção. */
-@media (max-width: 1025px) {
-  .marquee-1,
-  .marquee-2 {
-    animation-name: marquee-y-sm;
-  }
-}
-
-@keyframes marquee-y-sm {
-  to {
-    transform: translateY(-50.27%);
   }
 }
 
@@ -2899,10 +2891,15 @@ button {
 
   .booking__steps li {
     flex: 1;
-    gap: 0.4rem;
+    gap: 0.3rem;
     padding: 6px 0;
     border-bottom-width: 2px;
-    font-size: 12.5px;
+    font-size: min(12.5px, 3.3vw);
+    white-space: nowrap;
+  }
+
+  .booking__steps li::before {
+    width: auto;
   }
 
   .booking__steps li.is-current {
@@ -2968,7 +2965,8 @@ button {
   }
 
   .field textarea {
-    height: 3.5rem;
+    height: 4.25rem;
+    padding: 0.55rem 1rem;
   }
 
   .modal .booking__submit {

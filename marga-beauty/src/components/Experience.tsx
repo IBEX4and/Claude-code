@@ -26,6 +26,13 @@ export function useExperience() {
   return ctx;
 }
 
+/** Mesmo critério do CSS: tablet em pé e celular usam o layout empilhado. */
+export const COMPACT_LAYOUT = "(max-width: 767px), (max-width: 1025px) and (max-aspect-ratio: 1/1)";
+
+export function isCompactLayout() {
+  return typeof window !== "undefined" && window.matchMedia(COMPACT_LAYOUT).matches;
+}
+
 export function prefersReducedMotion() {
   return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }

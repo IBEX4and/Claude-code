@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
 import { bookingRules, business, fullAddress, mapsUrl, whatsappUrl } from "@/config/business";
 import { content } from "@/content";
 import { groupWeeklyHours } from "@/lib/hours";
-import { prefersReducedMotion } from "./Experience";
+import { isCompactLayout, prefersReducedMotion } from "./Experience";
 import { InstagramIcon, WhatsAppIcon } from "./Icons";
 import { Logo } from "./Logo";
 import { RollButton } from "./RollButton";
@@ -21,7 +21,7 @@ export function Footer() {
 
   // O cartão sobe um pouco conforme o rodapé entra na tela.
   useEffect(() => {
-    if (prefersReducedMotion() || window.innerWidth <= 1025) return;
+    if (prefersReducedMotion() || isCompactLayout()) return;
     const tween = gsap.fromTo(
       card.current,
       { yPercent: 20 },
