@@ -997,14 +997,14 @@ button {
   position: relative;
   z-index: 2;
   width: 100vw;
-  height: 240vh;
+  height: 100vh;
+  overflow: hidden;
   text-align: center;
   background: var(--ink);
 }
 
 .benefits__sticky {
-  position: sticky;
-  top: 0;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1022,16 +1022,12 @@ button {
 }
 
 .benefits__layer {
-  position: sticky;
-  top: 0;
-  left: 0;
+  position: absolute;
+  inset: 0;
   z-index: 20;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100vw;
-  height: 100vh;
-  margin-top: -100vh;
   overflow: hidden;
   pointer-events: none;
 }

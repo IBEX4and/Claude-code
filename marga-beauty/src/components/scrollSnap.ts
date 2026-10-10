@@ -67,7 +67,8 @@ export function createScrollSnap() {
     jumpKey = restingKey(readSnapMap(), target);
     aim(target);
     l.scrollTo(target, {
-      duration: 1.4,
+      // O hero percorre duas telas; entre cartões o caminho é mais curto.
+      duration: Math.abs(target - l.animatedScroll) > window.innerHeight * 1.2 ? 1.4 : 1,
       easing: easeInOutCubic,
       lock: true,
       force: true,

@@ -33,11 +33,15 @@ test("gesto para cima no fim do hero volta ao topo", () => {
   assert.equal(gestureTarget(map, 1200, -3), 0);
 });
 
-test("fora do hero, ou saindo dele, o gesto rola normalmente", () => {
-  assert.equal(gestureTarget(map, 2000, 40), null); // no fim do hero, descendo
-  assert.equal(gestureTarget(map, 0, -40), null); // no topo, subindo
-  assert.equal(gestureTarget(map, 2500, -40), null); // depois do hero
-  assert.equal(gestureTarget(map, 900, 0), null); // sem movimento
+test("do fim do hero, o gesto segue para o primeiro cartão (e volta)", () => {
+  assert.equal(gestureTarget(map, 2000, 40), 3360);
+  assert.equal(gestureTarget(map, 2500, -40), 2000);
+  assert.equal(gestureTarget(map, 3360, -40), 2000);
+});
+
+test("no topo subindo, ou sem movimento, o gesto rola normalmente", () => {
+  assert.equal(gestureTarget(map, 0, -40), null);
+  assert.equal(gestureTarget(map, 900, 0), null);
 });
 
 test("parado no meio do hero (teclado, barra de rolagem) segue o sentido do movimento", () => {
@@ -99,4 +103,18 @@ test("reconhece o ponto em que a rolagem está parada", () => {
   assert.equal(restingKey(map, 2001), "zone0:1");
   assert.equal(restingKey(map, 6000), "snap0:top");
   assert.equal(restingKey(map, 6500), null);
+});
+
+test("nos tratamentos, cada gesto leva ao cartão seguinte ou anterior", () => {
+  assert.equal(gestureTarget(map, 3360, 40), 4107);
+  assert.equal(gestureTarget(map, 4107, 40), 4854);
+  assert.equal(gestureTarget(map, 4107, -40), 3360);
+  assert.equal(gestureTarget(map, 3700, 10), 4107); // no meio do caminho
+  assert.equal(gestureTarget(map, 3100, 40), 3360); // chegando, entra no primeiro cartão
+});
+
+test("depois do último cartão a rolagem segue livre", () => {
+  assert.equal(gestureTarget(map, 3100, -40), 2000); // subindo antes do primeiro cartão: volta ao hero
+  assert.equal(gestureTarget(map, 5600, 40), null); // descendo a partir do último
+  assert.equal(gestureTarget(map, 6200, 40), null); // fora da seção
 });

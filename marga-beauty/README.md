@@ -23,7 +23,7 @@ arquivo (veja [Traduzir para italiano](#traduzir-para-italiano)).
 | Why Work With Me            | Por Que a Marga Beauty?          | Colunas entram em sequência; linha preenche no hover                                        |
 | Design That Speaks…         | Tecnologia que Respeita a Sua Pele | Cartões em rolagem horizontal; preenchimento radial em degradê no hover                   |
 | Awards and Recognition      | Formação e Especialidades        | Linhas fixas e imagem que acompanha a linha                                                 |
-| Trusted by Founders…        | Benefícios da drenagem           | Palavras vêm do fundo em 3D, ficam nítidas e somem                                          |
+| Trusted by Founders…        | Benefícios da drenagem           | Palavras vêm do fundo em 3D, ficam nítidas e somem, em loop contínuo (não depende da rolagem) |
 | Testimonials                | Como Funciona o Seu Atendimento  | Carrossel com bolinhas que se reorganizam e cartão que troca (arrasta no celular)          |
 | FAQ                         | Perguntas Frequentes             | Acordeão com botão em degradê                                                               |
 | Footer                      | Rodapé                           | Cartão de vidro sobe com o scroll, brilho em onda                                           |
@@ -42,7 +42,9 @@ seções com `data-snap`:
 
 - **Hero:** um gesto para baixo (roda, trackpad ou dedo) leva direto ao fim da
   animação, com o hero reduzido sobre o mosaico; um gesto para cima volta ao topo.
-- **Tratamentos:** ao parar de rolar, encaixa no cartão mais próximo.
+- **Tratamentos:** cada gesto leva ao item seguinte da linha do tempo (Rosto →
+  Corpo → Drenagem → Podologia), e o primeiro gesto depois do mosaico do hero já
+  entra no Rosto. Depois de Podologia a rolagem segue livre.
 - **Demais seções:** ao parar perto do topo de uma seção (até 30% da tela), a
   página desliza até ele. Longe dos pontos, a rolagem fica livre.
 

@@ -129,13 +129,14 @@ export function settleTarget(
 }
 
 /**
- * Para onde leva um gesto (roda do mouse, toque) feito em `y` dentro de uma zona
- * direcional. Devolve null quando o gesto deve rolar normalmente.
+ * Para onde leva um gesto (roda do mouse, toque) feito em `y`. As zonas formam uma
+ * corrente de etapas — topo, fim do hero, cada cartão de tratamentos — e cada gesto
+ * leva à etapa seguinte ou anterior. Fora da corrente (ou saindo pelas pontas)
+ * devolve null e a rolagem segue normal.
  */
 export function gestureTarget(map: SnapMap, y: number, delta: number): number | null {
   if (!delta) return null;
-  const zone = map.zones.find((z) => z.mode === "directional" && y >= z.from - 1 && y <= z.to + 1);
-  if (!zone) return null;
-  if (delta > 0) return y < zone.to - 1 ? zone.to : null;
-  return y > zone.from + 1 ? zone.from : null;
+  const chain = [...new Set(map.zones.flatMap((z) => z.points))].sort((a, b) => a - b);
+  if (!chain.length || y < chain[0] - 1 || y > chain[chain.length - 1] + 1) return null;
+  return nextFrom(chain, y, delta);
 }
