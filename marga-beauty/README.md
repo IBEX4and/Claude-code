@@ -163,20 +163,32 @@ pessoal) bloqueia o horário no site automaticamente.
 
 Com as variáveis preenchidas, o aviso de "modo demonstração" some sozinho.
 
-## Publicar e ligar o domínio da GoDaddy
+## Publicar e domínios
 
-O site já está publicado em **https://marga-beauty.vercel.app** (projeto
-`marga-beauty` na conta da Vercel). Os passos abaixo servem para ligar o
-GitHub (publicação automática a cada alteração) e o domínio próprio.
+O site está publicado no projeto `marga-beauty` da Vercel, com os domínios:
 
-1. Na [Vercel](https://vercel.com/), importe este repositório e defina
-   **Root Directory** como `marga-beauty`.
-2. Em *Settings → Environment Variables*, cadastre as variáveis do Google e
-   `NEXT_PUBLIC_SITE_URL` com o endereço final.
-3. Em *Settings → Domains*, adicione o domínio (com e sem `www`).
-4. Na GoDaddy, em *DNS* do domínio, crie os registros que a Vercel mostrar
-   (normalmente um registro **A** para `@` e um **CNAME** para `www`). A
-   propagação leva de minutos a algumas horas.
+| Domínio | Função |
+| --- | --- |
+| **margabrazilianbeauty.com** | Endereço oficial |
+| www.margabrazilianbeauty.com | Redireciona (301) para o oficial |
+| margabeauty.com | Redireciona (301) para o oficial |
+| www.margabeauty.com | Redireciona (301) para o oficial |
+
+`NEXT_PUBLIC_SITE_URL` (produção) = `https://margabrazilianbeauty.com`.
+
+DNS na GoDaddy, igual nos dois domínios (*Meus produtos → Domínio → DNS*). Remova
+os registros **A** de `@` que já existirem e qualquer *Encaminhamento*
+(Forwarding) do domínio, e crie:
+
+| Tipo | Nome | Valor |
+| --- | --- | --- |
+| A | `@` | `216.198.79.1` |
+| A | `@` | `64.29.17.1` |
+| CNAME | `www` | `e2f568b944591e95.vercel-dns-017.com` |
+
+A Vercel emite o certificado HTTPS sozinha quando o DNS propagar (de minutos a
+algumas horas). Para publicar automaticamente a cada alteração no GitHub, importe
+este repositório na Vercel com **Root Directory** `marga-beauty`.
 
 ## Idioma
 
