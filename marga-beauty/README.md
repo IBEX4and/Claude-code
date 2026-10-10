@@ -37,6 +37,15 @@ altura). Assim, num notebook ou numa janela larga e baixa, textos e blocos
 encolhem juntos e cada seção continua cabendo em uma tela, sem precisar rolar
 para ver o conteúdo dela inteiro.
 
+A rolagem tem encaixe ("snap"), definido em `src/lib/snapping.ts` e marcado nas
+seções com `data-snap`:
+
+- **Hero:** um gesto para baixo (roda, trackpad ou dedo) leva direto ao fim da
+  animação, com o hero reduzido sobre o mosaico; um gesto para cima volta ao topo.
+- **Tratamentos:** ao parar de rolar, encaixa no cartão mais próximo.
+- **Demais seções:** ao parar perto do topo de uma seção (até 30% da tela), a
+  página desliza até ele. Longe dos pontos, a rolagem fica livre.
+
 ## Ver o site no seu computador (dois cliques)
 
 1. Instale o [Node.js](https://nodejs.org) (versão LTS), se ainda não tiver.
@@ -99,13 +108,16 @@ horário se o serviço inteiro couber antes da pausa ou do fechamento.
 
 ### Fotos
 
-A foto do hero (`public/images/marga-hero.webp` e `.png`) já é a da Marga, recortada
-com fundo transparente. As demais imagens (mosaico do hero, cartões de tratamento,
-especialidades) aparecem como cartazes no degradê da marca com a etiqueta
-"Foto provisória". Para trocar, coloque a foto em `public/images/` e preencha o
-`src` do item correspondente em `src/content/images.ts`. Para o hero, uma versão
-da mesma foto em resolução maior (1500 px de largura ou mais) deixa a imagem mais
-nítida em telas grandes.
+A foto do hero (`public/images/marga-hero.webp`, 1116 × 2000, e `.png` reserva) é
+o retrato de estúdio da Marga com o fundo removido, para o parallax funcionar.
+Para trocar por outra, gere um recorte com fundo transparente (PNG/WebP) e
+atualize `width`/`height` em `src/content/images.ts` e a proporção
+`1116 / 2000` em `src/app/globals.css` (`.hero__portrait`).
+
+As demais imagens (mosaico do hero, cartões de tratamento, especialidades)
+aparecem como cartazes no degradê da marca com a etiqueta "Foto provisória".
+Para trocar, coloque a foto em `public/images/` e preencha o `src` do item
+correspondente em `src/content/images.ts`.
 
 ## Como o agendamento funciona
 
@@ -188,8 +200,8 @@ GitHub (publicação automática a cada alteração) e o domínio próprio.
 - [ ] Horários reais de atendimento e dias fechados
 - [ ] Durações de cada tratamento e lista final de serviços (os de podologia
       foram montados por nós; o Instagram não detalha)
-- [ ] Fotos: Marga no estúdio, tratamentos de rosto, corpo, drenagem e pés;
-      foto do hero em resolução maior
+- [ ] Fotos: Marga no estúdio, tratamentos de rosto, corpo, drenagem e pés
+      (a do hero já é a definitiva)
 - [ ] Revisão da política de privacidade por um profissional (GDPR)
 - [ ] Na Itália, *podologo* é profissão de saúde regulamentada: confirmar se o
       diploma dela é reconhecido lá antes de usar "podologia" no texto em
