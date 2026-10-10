@@ -15,7 +15,7 @@ export const business = {
   city: "Rovello Porro",
   /** Sigla da província (Como). */
   province: "CO",
-  country: "Itália",
+  country: "Italia",
   /** Número com DDI, só dígitos: usado no link direto do WhatsApp. */
   whatsapp: "393758620602",
   phoneDisplay: "+39 375 862 0602",
@@ -27,7 +27,7 @@ export const business = {
   vatNumber: "",
 };
 
-/** Endereço completo no formato italiano: "Via L. Carcano, 11, 22070 Rovello Porro (CO), Itália". */
+/** Endereço completo no formato italiano: "Via L. Carcano, 11, 22070 Rovello Porro (CO), Italia". */
 export function fullAddress() {
   const { address, postalCode, city, province, country } = business;
   const locality = [postalCode, city].filter(Boolean).join(" ") + (province ? ` (${province})` : "");

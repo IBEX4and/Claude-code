@@ -561,7 +561,7 @@ export function BookingFlow({
               />
               <label htmlFor="booking-consent">
                 {t.fields.consent}{" "}
-                <a href="/privacidade" target="_blank" rel="noopener">
+                <a href="/privacy" target="_blank" rel="noopener">
                   {t.fields.privacyLink}
                 </a>
               </label>

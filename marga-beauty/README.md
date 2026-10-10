@@ -10,8 +10,7 @@ com o conteúdo, o logo e a paleta da marca MARGA Brazilian Beauty (azul profund
 petróleo, tortora, bronze, nude, bege e marfim). Fonte: Host Grotesk, a mesma da
 referência.
 
-O texto está em português por enquanto. A troca para italiano é feita num único
-arquivo (veja [Traduzir para italiano](#traduzir-para-italiano)).
+O site está em italiano; o português continua disponível (veja [Idioma](#idioma)).
 
 ## Seções e efeitos
 
@@ -85,7 +84,7 @@ memória do servidor e o site avisa isso embaixo do calendário.
 
 | O quê                                   | Arquivo                       |
 | --------------------------------------- | ----------------------------- |
-| Todos os textos, serviços e durações    | `src/content/pt.ts`           |
+| Todos os textos, serviços e durações    | `src/content/it.ts` (italiano, em uso) e `pt.ts` |
 | Endereço, WhatsApp, e-mail, P. IVA      | `src/config/business.ts`      |
 | Horário de funcionamento e regras da agenda | `src/config/business.ts` (`bookingRules`) |
 | Fotos (e cartazes provisórios)          | `src/content/images.ts` + `public/images/` |
@@ -179,19 +178,16 @@ GitHub (publicação automática a cada alteração) e o domínio próprio.
    (normalmente um registro **A** para `@` e um **CNAME** para `www`). A
    propagação leva de minutos a algumas horas.
 
-## Traduzir para italiano
+## Idioma
 
-1. Copie `src/content/pt.ts` para `src/content/it.ts`.
-2. Troque `export const pt = {` por `export const it: SiteContent = {` e importe o
-   tipo: `import type { SiteContent } from "./pt";`.
-3. Traduza só os valores (as chaves e os `id` dos serviços ficam iguais). Ajuste
-   `locale: "it-IT"` e `htmlLang: "it"`: datas, dias da semana e meses passam a
-   sair em italiano automaticamente.
-4. Em `src/content/index.ts`, troque a linha de exportação para
-   `export { it as content } from "./it";`.
-5. Se quiser os endereços em italiano, ajuste os `id` das seções
-   (`#tratamentos` → `#trattamenti` etc.) e renomeie a pasta
-   `src/app/privacidade` para `src/app/privacy`, atualizando os links.
+O site está **em italiano** (`src/content/it.ts`). O texto original em português
+continua em `src/content/pt.ts`, com a mesma estrutura. Para voltar ao português,
+troque a linha de exportação em `src/content/index.ts` por
+`export { pt as content } from "./pt";`. Datas, dias da semana e meses seguem o
+`locale` de cada arquivo automaticamente.
+
+A política de privacidade fica em `/privacy` (o endereço antigo `/privacidade`
+redireciona para lá).
 
 ## Pendências com a cliente
 

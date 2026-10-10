@@ -19,11 +19,17 @@ export const pt = {
     book: "Agendar",
   },
 
+  /** Cartazes provisórios (até chegarem as fotos de cada área). */
+  visuals: {
+    placeholder: "Foto provisória",
+    labels: { rosto: "Rosto", corpo: "Corpo", drenagem: "Drenagem Linfática", podologia: "Podologia", marga: "Marga" },
+  },
+
   hero: {
     title: "Sua Beleza em Perfeito Equilíbrio",
     asideTop: "Estética Avançada",
     asideBottom: ["Podologia &", "Drenagem Brasileira"],
-    imageAlt: "Marga, fundadora da Marga Beauty, de blazer preto",
+    imageAlt: "Marga, fundadora da Marga Beauty, de terninho claro",
     galleryLabel: "Tratamentos da Marga Beauty",
   },
 

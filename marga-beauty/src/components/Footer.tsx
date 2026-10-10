@@ -110,7 +110,7 @@ export function Footer() {
             {t.rights(new Date().getFullYear())}
             {business.vatNumber && ` · ${t.vat} ${business.vatNumber}`}
           </p>
-          <a href="/privacidade" className="under-multi-parent">
+          <a href="/privacy" className="under-multi-parent">
             <span className="under-multi">{t.privacy}</span>
           </a>
         </div>

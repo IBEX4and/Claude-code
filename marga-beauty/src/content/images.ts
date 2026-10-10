@@ -1,22 +1,22 @@
 /**
  * Fotos do site. Itens sem `src` aparecem como cartaz provisório nas cores da
- * marca: coloque a foto em /public/images/ e preencha o `src` aqui.
+ * marca (com o nome da área, em `content.visuals.labels`): coloque a foto em
+ * /public/images/ e preencha o `src` aqui.
  */
 
 export type VisualSpec = {
   src?: string;
   /** Foto recortada (fundo transparente) sobre o degradê da marca. */
   cutout?: boolean;
-  label: string;
   tone: "nude" | "bronze" | "petrol" | "tortora";
 };
 
 export const visuals = {
-  rosto: { label: "Rosto", tone: "nude" },
-  corpo: { label: "Corpo", tone: "bronze" },
-  drenagem: { label: "Drenagem Linfática", tone: "petrol" },
-  podologia: { label: "Podologia", tone: "tortora" },
-  marga: { src: "/images/marga-hero.webp", cutout: true, label: "Marga", tone: "bronze" },
+  rosto: { tone: "nude" },
+  corpo: { tone: "bronze" },
+  drenagem: { tone: "petrol" },
+  podologia: { tone: "tortora" },
+  marga: { src: "/images/marga-hero.webp", cutout: true, tone: "bronze" },
 } satisfies Record<string, VisualSpec>;
 
 export type VisualKey = keyof typeof visuals;

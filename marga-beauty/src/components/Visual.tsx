@@ -1,3 +1,4 @@
+import { content } from "@/content";
 import { visuals, type VisualKey } from "@/content/images";
 
 /** Foto (ou cartaz provisório no degradê da marca, enquanto a foto real não chega). */
@@ -12,8 +13,8 @@ export function Visual({ id, className = "", alt = "" }: { id: VisualKey; classN
         <img src={v.src} alt="" className="visual__cutout" loading="lazy" decoding="async" />
       ) : (
         <>
-          <span className="visual__tag">Foto provisória</span>
-          <span className="visual__label">{v.label}</span>
+          <span className="visual__tag">{content.visuals.placeholder}</span>
+          <span className="visual__label">{content.visuals.labels[id]}</span>
         </>
       )}
     </div>

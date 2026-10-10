@@ -25,6 +25,7 @@ export const metadata: Metadata = {
     description: content.meta.description,
     images: [{ url: "/brand/og.png", width: 1200, height: 630, alt: "MARGA Brazilian Beauty" }],
     type: "website",
+    locale: content.locale.replace("-", "_"),
   },
 };
 
