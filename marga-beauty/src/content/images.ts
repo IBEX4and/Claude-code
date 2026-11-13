@@ -24,7 +24,7 @@ export const visuals = {
 
 export type VisualKey = keyof typeof visuals;
 
-export const hero = { src: "/images/marga-hero.webp", fallback: "/images/marga-hero.png", width: 700, height: 1254 };
+export const hero = { src: "/images/marga-hero.webp", fallback: "/images/marga-hero.png", width: 700, height: 1255 };
 
 /** Mosaico que aparece atrás do hero quando ele encolhe (duas colunas em loop). */
 export const gallery: { columnA: VisualKey[]; columnB: VisualKey[] } = {
