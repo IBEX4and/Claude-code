@@ -203,8 +203,8 @@ redireciona para lá).
 
 ## Pendências com a cliente
 
-- [x] Endereço (Via L. Carcano, 11, 22070 Rovello Porro, CO) e WhatsApp
-      (+39 375 862 0602) — `src/config/business.ts`
+- [x] Endereço (Via Quattro Novembre, 93, 21040 Uboldo, VA) e WhatsApp
+      (+39 352 280 2247), e-mail info@margabeauty.com, Instagram @margabeauty_official — `src/config/business.ts`
 - [ ] E-mail de contato e **Partita IVA** (obrigatória no site de empresas na
       Itália) — `src/config/business.ts`
 - [ ] Horários reais de atendimento e dias fechados

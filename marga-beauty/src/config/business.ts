@@ -10,24 +10,23 @@ export type WeeklyHours = Record<1 | 2 | 3 | 4 | 5 | 6 | 7, TimeRange[]>;
 
 export const business = {
   name: "Marga Beauty",
-  address: "Via L. Carcano, 11",
-  postalCode: "22070",
-  city: "Rovello Porro",
-  /** Sigla da província (Como). */
-  province: "CO",
+  address: "Via Quattro Novembre, 93",
+  postalCode: "21040",
+  city: "Uboldo",
+  /** Sigla da província (Varese). */
+  province: "VA",
   country: "Italia",
   /** Número com DDI, só dígitos: usado no link direto do WhatsApp. */
-  whatsapp: "393758620602",
-  phoneDisplay: "+39 375 862 0602",
-  // TODO: e-mail de contato (vazio esconde a linha no rodapé)
-  email: "",
-  instagram: "https://www.instagram.com/marga_beauty_official/",
-  instagramHandle: "@marga_beauty_official",
+  whatsapp: "393522802247",
+  phoneDisplay: "+39 352 280 2247",
+  email: "info@margabeauty.com",
+  instagram: "https://www.instagram.com/margabeauty_official/",
+  instagramHandle: "@margabeauty_official",
   // TODO: na Itália a Partita IVA precisa aparecer no site.
   vatNumber: "",
 };
 
-/** Endereço completo no formato italiano: "Via L. Carcano, 11, 22070 Rovello Porro (CO), Italia". */
+/** Endereço completo no formato italiano: "Via Quattro Novembre, 93, 21040 Uboldo (VA), Italia". */
 export function fullAddress() {
   const { address, postalCode, city, province, country } = business;
   const locality = [postalCode, city].filter(Boolean).join(" ") + (province ? ` (${province})` : "");

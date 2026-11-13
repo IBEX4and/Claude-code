@@ -11,7 +11,7 @@ export const it: SiteContent = {
   meta: {
     title: "Marga Beauty — Estetica avanzata, linfodrenaggio brasiliano e podologia",
     description:
-      "Trattamenti viso e corpo con tecnologie di ultima generazione, linfodrenaggio Metodo Renata França e podologia a Rovello Porro (CO). Prenota online con gli orari disponibili in tempo reale.",
+      "Trattamenti viso e corpo con tecnologie di ultima generazione, linfodrenaggio Metodo Renata França e podologia a Uboldo (VA). Prenota online con gli orari disponibili in tempo reale.",
   },
 
   header: {
@@ -21,14 +21,14 @@ export const it: SiteContent = {
 
   visuals: {
     placeholder: "Foto provvisoria",
-    labels: { rosto: "Viso", corpo: "Corpo", drenagem: "Linfodrenaggio", podologia: "Podologia", marga: "Marga" },
+    labels: { rosto: "Viso", corpo: "Corpo", drenagem: "Linfodrenaggio", podologia: "Podologia", marga: "Marga", margaDivisa: "Marga", margaCamicia: "Marga", margaAbito: "Marga" },
   },
 
   hero: {
     title: "La Tua Bellezza in Perfetto Equilibrio",
     asideTop: "Estetica Avanzata",
     asideBottom: ["Podologia &", "Linfodrenaggio Brasiliano"],
-    imageAlt: "Marga, fondatrice di Marga Beauty, in tailleur chiaro",
+    imageAlt: "Marga, fondatrice di Marga Beauty, con la divisa del centro",
     galleryLabel: "Trattamenti di Marga Beauty",
   },
 
@@ -260,7 +260,7 @@ export const it: SiteContent = {
       { title: "Podologia", meta: "Formazione professionale", image: "podologia" },
       { title: "Metodo Renata França", meta: "Linfodrenaggio brasiliano", image: "drenagem" },
       { title: "Estetica Avanzata", meta: "Tecnologie per viso e corpo", image: "rosto" },
-      { title: "Trattamenti Donna e Uomo", meta: "Protocolli su misura per ogni persona", image: "marga" },
+      { title: "Trattamenti Donna e Uomo", meta: "Protocolli su misura per ogni persona", image: "margaDivisa" },
     ],
   },
 

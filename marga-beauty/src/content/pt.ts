@@ -22,14 +22,14 @@ export const pt = {
   /** Cartazes provisórios (até chegarem as fotos de cada área). */
   visuals: {
     placeholder: "Foto provisória",
-    labels: { rosto: "Rosto", corpo: "Corpo", drenagem: "Drenagem Linfática", podologia: "Podologia", marga: "Marga" },
+    labels: { rosto: "Rosto", corpo: "Corpo", drenagem: "Drenagem Linfática", podologia: "Podologia", marga: "Marga", margaDivisa: "Marga", margaCamicia: "Marga", margaAbito: "Marga" },
   },
 
   hero: {
     title: "Sua Beleza em Perfeito Equilíbrio",
     asideTop: "Estética Avançada",
     asideBottom: ["Podologia &", "Drenagem Brasileira"],
-    imageAlt: "Marga, fundadora da Marga Beauty, de terninho claro",
+    imageAlt: "Marga, fundadora da Marga Beauty, com o uniforme do espaço",
     galleryLabel: "Tratamentos da Marga Beauty",
   },
 
@@ -264,7 +264,7 @@ export const pt = {
       { title: "Podologia", meta: "Formação profissional", image: "podologia" },
       { title: "Método Renata França", meta: "Drenagem linfática brasileira", image: "drenagem" },
       { title: "Estética Avançada", meta: "Tecnologias para rosto e corpo", image: "rosto" },
-      { title: "Atendimento Feminino e Masculino", meta: "Protocolos para cada pessoa", image: "marga" },
+      { title: "Atendimento Feminino e Masculino", meta: "Protocolos para cada pessoa", image: "margaDivisa" },
     ],
   },
 
