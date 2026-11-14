@@ -73,7 +73,7 @@ export async function POST(request: Request) {
     const labels = content.booking.eventDetails;
 
     await createEvent({
-      summary: content.booking.eventTitle(service.name, input.name),
+      summary: content.booking.eventTitle(service.label, input.name),
       description: [
         `${labels.phone}: ${input.phone}`,
         `${labels.email}: ${input.email}`,
@@ -94,7 +94,7 @@ export async function POST(request: Request) {
         mode: calendarMode,
         booking: {
           serviceId: service.id,
-          serviceName: service.name,
+          serviceName: service.label,
           duration: service.duration,
           start: start.toISO(),
           end: end.toISO(),

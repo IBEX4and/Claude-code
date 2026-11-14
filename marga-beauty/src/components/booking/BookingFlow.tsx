@@ -3,7 +3,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { bookingRules, business, fullAddress, whatsappUrl } from "@/config/business";
 import { content } from "@/content";
+import { areas, type TreatmentArea } from "@/content/treatments";
 import { weekdayNames } from "@/lib/hours";
+import { findService as findServiceById } from "@/lib/services";
 import { RollButton } from "../RollButton";
 import { googleCalendarUrl, icsDataUrl } from "./calendarLinks";
 
@@ -17,34 +19,35 @@ type Availability = {
   months: { first: string; last: string };
   days: Record<string, string[]>;
 };
-type Result = { serviceName: string; duration: number; start: string; end: string };
+type Result = { serviceName: string; start: string; end: string };
 type Form = { name: string; phone: string; email: string; notes: string; consent: boolean; website: string };
 
-const services = content.services.categories.flatMap((c) => c.items);
-const findService = (id: string | null) => services.find((s) => s.id === id) ?? null;
+const findService = (id: string | null) => (id ? findServiceById(id) ?? null : null);
+type AreaId = TreatmentArea["id"];
 
 /**
- * Divide as áreas em duas colunas com alturas parecidas (cada área conta os seus
- * serviços + o título), mantendo a ordem original dentro de cada coluna. Assim a
- * lista inteira cabe no modal sem rolar.
+ * Divide as categorias da área em duas colunas com alturas parecidas (cada uma
+ * conta os seus serviços + os títulos), mantendo a ordem original em cada coluna.
  */
-const serviceColumns = (() => {
-  const groups = content.services.categories;
-  const weight = groups.map((g) => g.items.length + 1);
+const splitColumns = (categories: TreatmentArea["categories"]) => {
+  const weight = categories.map((c) => c.groups.reduce((n, g) => n + g.items.length + (g.title ? 1 : 0), 1));
   let best = 0;
   let bestHeight = Infinity;
-  for (let mask = 0; mask < 1 << groups.length; mask++) {
+  for (let mask = 0; mask < 1 << categories.length; mask++) {
     let left = 0;
     let right = 0;
     weight.forEach((w, i) => (mask & (1 << i) ? (right += w) : (left += w)));
-    // Em empate, prefere a divisão que deixa a primeira área na coluna da esquerda.
     if (Math.max(left, right) < bestHeight && !(mask & 1)) {
       best = mask;
       bestHeight = Math.max(left, right);
     }
   }
-  return [groups.filter((_, i) => !(best & (1 << i))), groups.filter((_, i) => best & (1 << i))];
-})();
+  return [categories.filter((_, i) => !(best & (1 << i))), categories.filter((_, i) => best & (1 << i))];
+};
+const columnsByArea = Object.fromEntries(areas.map((a) => [a.id, splitColumns(a.categories)])) as Record<
+  AreaId,
+  TreatmentArea["categories"][]
+>;
 
 /** No celular a lista é uma coluna só, então as áreas ficam na ordem do site. */
 const PHONE_SCREEN = "(max-width: 767px)";
@@ -115,6 +118,7 @@ export function BookingFlow({
 }) {
   const [step, setStep] = useState<Step>("service");
   const [serviceId, setServiceId] = useState<string | null>(null);
+  const [area, setArea] = useState<AreaId>("donna");
   const [month, setMonth] = useState<string>(currentMonth);
   const [availability, setAvailability] = useState<Availability | null>(null);
   const [loadState, setLoadState] = useState<"idle" | "loading" | "error">("idle");
@@ -131,7 +135,8 @@ export function BookingFlow({
   const slotsRef = useRef<HTMLDivElement>(null);
   const firstRender = useRef(true);
   const isPhone = useIsPhone();
-  const columns = isPhone ? [[...content.services.categories]] : serviceColumns;
+  const currentArea = areas.find((a) => a.id === area) ?? areas[0];
+  const columns = isPhone ? [currentArea.categories] : columnsByArea[currentArea.id];
 
   // Telas estreitas: os horários ficam abaixo do calendário. Ao escolher o dia,
   // rola o modal até eles se ainda não estiverem à vista.
@@ -150,6 +155,8 @@ export function BookingFlow({
 
   const chooseService = useCallback((id: string) => {
     setServiceId(id);
+    const chosen = findService(id);
+    if (chosen) setArea(chosen.areaId as AreaId);
     setDate(null);
     setTime(null);
     setNotice(null);
@@ -318,7 +325,7 @@ export function BookingFlow({
             <div>
               <dt>{t.summary.service}</dt>
               <dd>
-                {service.name}, {content.showcase.minutes(service.duration)}
+                {service.label}
               </dd>
               <button type="button" className="text-link" onClick={() => setStep("service")}>
                 {t.change}
@@ -347,27 +354,44 @@ export function BookingFlow({
             <h3 ref={headingRef} tabIndex={-1} className="booking__heading">
               {t.chooseService}
             </h3>
-            <div className="booking__services">
+            <div className="booking__areas" role="group" aria-label={t.areaLabel}>
+              {areas.map((a) => (
+                <button
+                  key={a.id}
+                  type="button"
+                  className="booking__area"
+                  aria-pressed={a.id === currentArea.id}
+                  onClick={() => setArea(a.id)}
+                >
+                  {a.name}
+                </button>
+              ))}
+            </div>
+            <div className="booking__services" key={currentArea.id}>
               {columns.map((column, c) => (
                 <div key={c} className="booking__column">
                   {column.map((category) => (
                     <div key={category.id} className="booking__group">
                       <h4 className="booking__group-title">{category.name}</h4>
-                      <ul>
-                        {category.items.map((item) => (
-                          <li key={item.id}>
-                            <button
-                              type="button"
-                              className="option"
-                              aria-pressed={serviceId === item.id}
-                              onClick={() => chooseService(item.id)}
-                            >
-                              <span>{item.name}</span>
-                              <span className="option__meta">{content.showcase.minutes(item.duration)}</span>
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
+                      {category.groups.map((group, g) => (
+                        <div key={g}>
+                          {group.title && <p className="booking__subgroup">{group.title}</p>}
+                          <ul>
+                            {group.items.map((item) => (
+                              <li key={item.id}>
+                                <button
+                                  type="button"
+                                  className="option"
+                                  aria-pressed={serviceId === item.id}
+                                  onClick={() => chooseService(item.id)}
+                                >
+                                  <span>{item.name}</span>
+                                </button>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
                     </div>
                   ))}
                 </div>
@@ -597,10 +621,6 @@ export function BookingFlow({
               <div>
                 <dt>{t.summary.time}</dt>
                 <dd>{time}</dd>
-              </div>
-              <div>
-                <dt>{t.summary.duration}</dt>
-                <dd>{content.showcase.minutes(result.duration)}</dd>
               </div>
             </dl>
             <p className="booking__done-text">{t.success.text}</p>

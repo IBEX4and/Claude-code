@@ -5,10 +5,9 @@ import { Faq } from "@/components/Faq";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { Showcase } from "@/components/Showcase";
+import { Treatments } from "@/components/Treatments";
 import { Specialties } from "@/components/Specialties";
 import { Steps } from "@/components/Steps";
-import { TechScroller } from "@/components/TechScroller";
 import { WhyUs } from "@/components/WhyUs";
 
 export default function Home() {
@@ -17,9 +16,8 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <Showcase />
+        <Treatments />
         <WhyUs />
-        <TechScroller />
         <Specialties />
         <BenefitsBlur />
         <Steps />

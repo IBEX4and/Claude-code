@@ -1,345 +1,143 @@
-/**
- * Todo o texto do site em português.
- * Para lançar em italiano: copie este arquivo para `it.ts`, traduza os valores
- * (as chaves e os `id` ficam iguais) e troque a importação em `content/index.ts`.
- */
+import type { SiteContent } from "./it";
 
-export const pt = {
+/**
+ * Texto do site em português (versão secundária; o site publicado usa `it.ts`).
+ * Mesmas chaves de `it.ts`. Os nomes dos tratamentos ficam em italiano, em `treatments.ts`.
+ */
+export const pt: SiteContent = {
   locale: "pt-BR",
   htmlLang: "pt-BR",
 
   meta: {
-    title: "Marga Beauty — Estética avançada, drenagem linfática brasileira e podologia",
+    title: "MARGA Brazilian Beauty — Cera brasileira, rosto, corpo, mãos e pés em Uboldo",
     description:
-      "Tratamentos de rosto e corpo com tecnologias de última geração, drenagem linfática Método Renata França e podologia. Agende online com horários em tempo real.",
+      "Centro de estética brasileira em Uboldo (VA), para mulheres e homens: depilação com cera brasileira, tratamentos de rosto, drenagem linfática, Miracle Face, manicure e pedicure. Agende online.",
   },
 
   header: {
-    home: "Marga Beauty, início",
+    home: "MARGA Brazilian Beauty, início",
     book: "Agendar",
   },
 
   /** Cartazes provisórios (até chegarem as fotos de cada área). */
   visuals: {
     placeholder: "Foto provisória",
-    labels: { rosto: "Rosto", corpo: "Corpo", drenagem: "Drenagem Linfática", podologia: "Podologia", marga: "Marga", margaDivisa: "Marga", margaCamicia: "Marga", margaAbito: "Marga" },
+    labels: { rosto: "Rosto", corpo: "Corpo", drenagem: "Drenagem Linfática", podologia: "Mãos e pés", marga: "Marga", margaDivisa: "Marga", margaCamicia: "Marga", margaAbito: "Marga" },
   },
 
   hero: {
     title: "Sua Beleza em Perfeito Equilíbrio",
-    asideTop: "Estética Avançada",
-    asideBottom: ["Podologia &", "Drenagem Brasileira"],
-    imageAlt: "Marga, fundadora da Marga Beauty, com o uniforme do espaço",
-    galleryLabel: "Tratamentos da Marga Beauty",
+    asideTop: "Mulher & Homem",
+    asideBottom: ["Estética", "Brasileira"],
+    imageAlt: "Marga, fundadora da MARGA Brazilian Beauty, com o uniforme do espaço",
+    galleryLabel: "Tratamentos da MARGA Brazilian Beauty",
   },
 
-  /** Seção em degradê com a lista lateral e os cartões que sobem (um por área). */
-  showcase: {
+  treatments: {
     title: "Nossos Tratamentos",
+    intro: "Escolha a área e a categoria: cada serviço aparece com uma breve descrição.",
+    areasLabel: "Área",
+    categoriesLabel: "Categorias",
     book: "Agendar",
     bookAria: (name: string) => `Agendar ${name}`,
-    minutes: (n: number) => `${n} min`,
-  },
-
-  services: {
-    categories: [
-      {
-        id: "rosto",
-        name: "Rosto",
-        tags: ["Anti-idade", "Pele renovada"],
-        summary: "Rejuvenescimento, limpeza profunda e regeneração da pele.",
-        image: "rosto",
-        items: [
-          {
-            id: "limpeza-profunda",
-            name: "Limpeza de pele profunda",
-            description: "Espátula ultrassônica, extração delicada e máscara calmante.",
-            duration: 60,
-          },
-          {
-            id: "anti-idade",
-            name: "Tratamento anti-idade",
-            description: "Radiofrequência multipolar e LED para firmeza e viço.",
-            duration: 60,
-          },
-          {
-            id: "antimanchas",
-            name: "Tratamento antimanchas",
-            description: "Protocolo para uniformizar o tom e devolver a luminosidade.",
-            duration: 60,
-          },
-          {
-            id: "acne",
-            name: "Tratamento para acne",
-            description: "Limpeza, controle da oleosidade e LED para peles acneicas.",
-            duration: 60,
-          },
-          {
-            id: "lifting",
-            name: "Lifting não invasivo",
-            description: "Efeito lifting sem agulhas, com tecnologia e massagem facial.",
-            duration: 75,
-          },
-          {
-            id: "oxigenoterapia",
-            name: "Oxigenoterapia facial",
-            description: "Oxigênio e ativos para uma pele descansada e luminosa.",
-            duration: 45,
-          },
-        ],
-      },
-      {
-        id: "corpo",
-        name: "Corpo",
-        tags: ["Remodelação", "Anticelulite"],
-        summary: "Remodelação, drenagem e tonificação com tecnologia e técnicas manuais.",
-        image: "corpo",
-        items: [
-          {
-            id: "radiofrequencia-corpo",
-            name: "Remodelação com radiofrequência",
-            description: "Calor controlado para firmar a pele e definir o contorno.",
-            duration: 60,
-          },
-          {
-            id: "ondas-de-choque",
-            name: "Ondas de choque estéticas",
-            description: "Tratamento direcionado para celulite e gordura localizada.",
-            duration: 45,
-          },
-          {
-            id: "cavitacao",
-            name: "Ultrassom e cavitação",
-            description: "Ultrassom focado para reduzir medidas.",
-            duration: 45,
-          },
-          {
-            id: "pressoterapia",
-            name: "Pressoterapia",
-            description: "Compressão sequencial que ativa a circulação e reduz o inchaço.",
-            duration: 45,
-          },
-          {
-            id: "vacuum",
-            name: "Vacuum endomassagem",
-            description: "Sucção e rolos para drenar, tonificar e suavizar a celulite.",
-            duration: 45,
-          },
-          {
-            id: "madeiroterapia",
-            name: "Madeiroterapia",
-            description: "Instrumentos de madeira para modelar o corpo e ativar a circulação.",
-            duration: 60,
-          },
-          {
-            id: "eletroporacao",
-            name: "Eletroporação",
-            description: "Leva ativos às camadas profundas da pele, sem agulhas.",
-            duration: 45,
-          },
-          {
-            id: "termo-crio",
-            name: "Termoterapia e crioterapia",
-            description: "Calor e frio alternados para tonificar e drenar.",
-            duration: 60,
-          },
-        ],
-      },
-      {
-        id: "drenagem",
-        name: "Drenagem Linfática",
-        tags: ["Método Renata França", "Bem-estar"],
-        summary: "Leveza, menos inchaço e bem-estar desde a primeira sessão.",
-        image: "drenagem",
-        items: [
-          {
-            id: "drenagem-renata-franca",
-            name: "Drenagem linfática Método Renata França",
-            description: "Manobras rápidas e ritmadas no corpo todo. Resultado visível logo após a sessão.",
-            duration: 60,
-          },
-          {
-            id: "modeladora",
-            name: "Massagem modeladora",
-            description: "Manobras firmes e profundas para modelar o contorno e tonificar.",
-            duration: 60,
-          },
-        ],
-      },
-      {
-        id: "podologia",
-        name: "Podologia",
-        tags: ["Saúde dos pés", "Cuidado completo"],
-        summary: "Cuidado especializado para a saúde e a beleza dos pés.",
-        image: "podologia",
-        items: [
-          {
-            id: "avaliacao-podologica",
-            name: "Avaliação podológica",
-            description: "Análise dos pés, das unhas e da pisada, com orientação de cuidados.",
-            duration: 45,
-          },
-          {
-            id: "unha-encravada",
-            name: "Unha encravada",
-            description: "Tratamento cuidadoso da unha encravada, com instrumentos esterilizados.",
-            duration: 45,
-          },
-          {
-            id: "calosidades",
-            name: "Calos e calosidades",
-            description: "Remoção de calos e espessamentos da pele dos pés.",
-            duration: 45,
-          },
-          {
-            id: "pes-completo",
-            name: "Tratamento completo dos pés",
-            description: "Unhas, pele, hidratação e massagem relaxante.",
-            duration: 60,
-          },
-        ],
-      },
-    ],
   },
 
   why: {
-    title: "Por Que a Marga Beauty?",
-    subtitle: "Tecnologia, competência e sensibilidade estética",
+    title: "Por que a MARGA Brazilian Beauty?",
+    subtitle: "Competência, cuidado e sensibilidade brasileira",
     items: [
       {
         icon: "sparkles",
-        title: "Protocolos Personalizados",
-        text: "Cada tratamento é estudado para você, combinando técnicas manuais e aparelhos profissionais de alta performance.",
+        title: "Cuidado sob Medida",
+        text: "Cada serviço é adaptado à sua pele e às suas necessidades, com atenção aos detalhes e ao acabamento.",
       },
       {
         icon: "zap",
-        title: "Tecnologia de Última Geração",
-        text: "Laser, radiofrequência multipolar, ondas de choque, cavitação e mais: equipamentos de ponta para rosto e corpo.",
+        title: "Tradição Brasileira",
+        text: "Cera brasileira, drenagem linfática e Miracle Face do método Renata França: técnicas manuais que levam a Uboldo o melhor da estética brasileira.",
       },
       {
         icon: "heart",
-        title: "Resultados Visíveis e Naturais",
-        text: "Respeito total ao equilíbrio da pele e da silhueta, em tratamentos femininos e masculinos.",
+        title: "Para Mulheres e Homens",
+        text: "Duas áreas dedicadas, com serviços pensados para elas e para eles. Você pode consultar as duas e escolher livremente.",
       },
     ],
   },
 
-  /** Cartões em rolagem horizontal. */
   technologies: {
-    title: ["Tecnologia que", "Respeita a Sua Pele"],
-    text: "Especializada em tecnologias estéticas de última geração para remodelação corporal, regeneração da pele e rejuvenescimento facial. Cada tratamento é pensado para você, unindo métodos manuais e aparelhos profissionais para resultados visíveis e naturais.",
+    title: ["Tecnologias", "Estéticas Avançadas"],
+    text: "",
     cardAction: (title: string) => `Agendar: ${title}`,
-    cards: [
-      {
-        title: "Rejuvenescimento",
-        items: ["Radiofrequência multipolar", "Fotobiomodulação LED", "Oxigenoterapia", "Lifting não invasivo"],
-      },
-      {
-        title: "Pele Saudável",
-        items: ["Espátula ultrassônica", "Tratamento antimanchas", "Tratamento para acne", "Eletroporação"],
-      },
-      {
-        title: "Remodelação",
-        items: ["Ondas de choque", "Ultrassom e cavitação", "Laser de última geração", "Termo e crioterapia"],
-      },
-      {
-        title: "Drenagem",
-        items: ["Método Renata França", "Pressoterapia", "Vacuum endomassagem", "Linfodrenagem manual"],
-      },
-      {
-        title: "Técnicas Manuais",
-        items: ["Madeiroterapia", "Massagem modeladora", "Massagem linfodrenante", "Protocolos anticelulite"],
-      },
-      {
-        title: "Podologia",
-        items: ["Avaliação podológica", "Unha encravada", "Calos e calosidades", "Cuidado completo dos pés"],
-      },
-    ],
+    cards: [],
   },
 
-  /** Lista com linhas que vibram e imagem que acompanha o mouse. */
   specialties: {
-    title: ["Formação e", "Especialidades"],
+    title: ["Nossas", "Especialidades"],
     items: [
-      { title: "Podologia", meta: "Formação profissional", image: "podologia" },
-      { title: "Método Renata França", meta: "Drenagem linfática brasileira", image: "drenagem" },
-      { title: "Estética Avançada", meta: "Tecnologias para rosto e corpo", image: "rosto" },
-      { title: "Atendimento Feminino e Masculino", meta: "Protocolos para cada pessoa", image: "margaDivisa" },
+      { title: "Cera Brasileira", meta: "Depilação de rosto e corpo", image: "margaAbito" },
+      { title: "Miracle Face", meta: "Massagem facial método Renata França", image: "margaCamicia" },
+      { title: "Drenagem Linfática", meta: "Manobras drenantes para corpo e pernas", image: "margaDivisa" },
+      { title: "Mãos e Pés", meta: "Manicure, pedicure e cuidado das unhas", image: "marga" },
     ],
   },
 
-  /** Frase central com os benefícios voando em 3D. */
   benefits: {
-    title: "Drenagem Linfática Brasileira: Leveza e Bem-Estar Desde a Primeira Sessão.",
+    title: "Drenagem Linfática Brasileira: Sensação de Leveza Desde a Primeira Sessão.",
     words: [
-      "Menos estresse",
-      "Menos ansiedade",
-      "Alívio muscular",
-      "Mais circulação",
-      "Imunidade",
-      "Pele mais elástica",
-      "Menos cansaço",
-      "Menos toxinas",
-      "Sono melhor",
-      "Menos inchaço",
       "Leveza",
+      "Relaxamento",
+      "Pernas leves",
+      "Pele macia",
       "Bem-estar",
+      "Autocuidado",
+      "Equilíbrio",
+      "Tempo para você",
+      "Delicadeza",
+      "Harmonia",
+      "Pele lisa",
+      "Serenidade",
     ],
   },
 
-  /** Carrossel no formato dos depoimentos da referência, com as etapas do atendimento. */
   steps: {
     title: "Como Funciona o Seu Atendimento",
     stepLabel: (n: number, total: number) => `Etapa ${n} de ${total}`,
-    showStep: (title: string) => `Mostrar etapa: ${title}`,
+    showStep: (title: string) => `Mostrar a etapa: ${title}`,
     prev: "Etapa anterior",
     next: "Próxima etapa",
     items: [
-      {
-        title: "Avaliação",
-        text: "Conversamos sobre o seu objetivo e analisamos pele, corpo ou pés. É o ponto de partida de todo protocolo.",
-      },
-      {
-        title: "Protocolo Sob Medida",
-        text: "Definimos as técnicas, os aparelhos e o número de sessões que fazem sentido para o seu caso.",
-      },
-      {
-        title: "Sessões",
-        text: "Tratamentos com hora marcada, no seu ritmo, combinando tecnologia e o cuidado das mãos.",
-      },
-      {
-        title: "Acompanhamento",
-        text: "Avaliamos a evolução a cada etapa e ajustamos o protocolo quando for preciso.",
-      },
+      { title: "Escolha", text: "Consulte as áreas Mulher e Homem e escolha o serviço que deseja." },
+      { title: "Agende", text: "Escolha dia e horário online, ou fale com a gente no WhatsApp." },
+      { title: "Seu Momento", text: "Recebemos você no espaço em Uboldo e adaptamos o serviço à sua pele." },
+      { title: "Dicas", text: "No fim do atendimento, damos algumas orientações para cuidar da pele em casa." },
     ],
   },
 
   faq: {
     title: "Perguntas Frequentes",
-    // TODO: confirmar com a cliente a política de remarcação (24 h).
     items: [
       {
-        question: "O que é a drenagem linfática Método Renata França?",
+        question: "Os serviços também são para homens?",
         answer:
-          "É uma técnica brasileira de drenagem com manobras rápidas, firmes e ritmadas. Ela ajuda a desinchar e devolve a sensação de leveza já na primeira sessão, além de contribuir para o bem-estar geral.",
+          "Sim. O site tem duas áreas, Mulher e Homem, com as mesmas categorias: cera brasileira, rosto, corpo, mãos e pés. Você pode consultar as duas livremente.",
       },
       {
-        question: "Quantas sessões são necessárias?",
-        answer:
-          "Depende do seu objetivo e do tratamento escolhido. Na avaliação inicial definimos o protocolo e o número de sessões indicado para você.",
+        question: "O que é o Miracle Face?",
+        answer: "É a massagem facial do método Renata França, com manobras drenantes e de modelagem manual.",
       },
       {
-        question: "Os tratamentos também são para homens?",
-        answer: "Sim. Os tratamentos de rosto, corpo e podologia são oferecidos para mulheres e homens.",
+        question: "Como me preparo para a cera brasileira?",
+        answer:
+          "Os limites da área são combinados antes de começar. Mãos e pés, incluindo os dedos, são serviços separados da depilação de braços e pernas.",
       },
       {
         question: "Como funciona o agendamento online?",
         answer:
-          "Você escolhe o tratamento, vê os horários livres em tempo real e confirma em poucos passos. O horário entra direto na agenda da Marga.",
+          "Escolha o serviço, veja os horários livres e confirme em poucos passos. O horário entra direto na agenda da Marga.",
       },
       {
-        question: "Posso remarcar ou cancelar um horário?",
-        answer: "Sim. Avise com pelo menos 24 horas de antecedência para liberarmos o horário para outra pessoa.",
+        question: "Posso remarcar ou cancelar?",
+        answer: "Claro. Avise com pelo menos 24 horas de antecedência, para liberarmos o horário para outra pessoa.",
       },
     ],
   },
@@ -352,7 +150,7 @@ export const pt = {
     closed: "Fechado",
     privacy: "Política de privacidade",
     vat: "P. IVA",
-    rights: (year: number) => `Copyright © Marga Beauty ${year}`,
+    rights: (year: number) => `Copyright © MARGA Brazilian Beauty ${year}`,
     instagram: "Instagram",
     whatsapp: "WhatsApp",
     whatsappMessage: "Olá, Marga! Vi o site e gostaria de mais informações.",
@@ -368,6 +166,7 @@ export const pt = {
     steps: ["Tratamento", "Data e horário", "Seus dados"],
     stepsLabel: "Etapas do agendamento",
     chooseService: "Qual tratamento você quer fazer?",
+    areaLabel: "Área",
     chooseDate: "Escolha o dia e o horário",
     calendarLabel: "Calendário",
     chooseTime: "Escolha o horário",
@@ -398,7 +197,6 @@ export const pt = {
       service: "Tratamento",
       date: "Data",
       time: "Horário",
-      duration: "Duração",
     },
     submit: "Confirmar agendamento",
     submitting: "Confirmando…",
@@ -431,7 +229,7 @@ export const pt = {
       notes: "Observações",
       source: "Agendado pelo site",
     },
-    clientEventTitle: (service: string) => `${service} na Marga Beauty`,
+    clientEventTitle: (service: string) => `${service} na MARGA Brazilian Beauty`,
   },
 
   privacy: {
@@ -443,7 +241,7 @@ export const pt = {
       {
         title: "Quem trata os seus dados",
         body: [
-          "O responsável pelo tratamento é Marga Beauty. Os dados de contato completos (razão social, endereço e Partita IVA) estão no rodapé do site.",
+          "O responsável pelo tratamento é MARGA Brazilian Beauty. Os dados de contato completos (razão social, endereço e Partita IVA) estão no rodapé do site.",
         ],
       },
       {
@@ -462,7 +260,7 @@ export const pt = {
       {
         title: "Onde ficam guardados",
         body: [
-          "O agendamento é salvo na agenda Google de Marga Beauty. O Google atua como fornecedor de serviço, com proteções previstas pelo GDPR.",
+          "O agendamento é salvo na agenda Google de MARGA Brazilian Beauty. O Google atua como fornecedor de serviço, com proteções previstas pelo GDPR.",
         ],
       },
       {
@@ -481,4 +279,3 @@ export const pt = {
   },
 };
 
-export type SiteContent = typeof pt;

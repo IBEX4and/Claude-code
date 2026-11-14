@@ -34,6 +34,14 @@ export function isCompactLayout() {
   return typeof window !== "undefined" && window.matchMedia(COMPACT_LAYOUT).matches;
 }
 
+/** Toque como entrada principal (celular, tablet) ou layout empilhado. */
+export function isTouchOrCompact() {
+  return (
+    typeof window !== "undefined" &&
+    (window.matchMedia("(pointer: coarse)").matches || window.matchMedia(COMPACT_LAYOUT).matches)
+  );
+}
+
 export function prefersReducedMotion() {
   return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
@@ -45,7 +53,11 @@ export function Experience({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";
     window.scrollTo(0, 0);
-    if (prefersReducedMotion()) return;
+    // A barra de endereço do celular aparece e some ao rolar: não recalcula tudo por isso.
+    ScrollTrigger.config({ ignoreMobileResize: true });
+    // Celular, tablet e telas de toque: rolagem nativa do aparelho (mais fluida e
+    // previsível), sem rolagem suave nem encaixe. O encaixe fica só no desktop.
+    if (prefersReducedMotion() || isTouchOrCompact()) return;
 
     // Encaixe da rolagem: hero com salto de ponta a ponta e paradas nas etapas.
     const snap = createScrollSnap();

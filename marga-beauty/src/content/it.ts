@@ -1,309 +1,127 @@
-import type { SiteContent } from "./pt";
-
 /**
  * Tutto il testo del sito in italiano (versione in uso).
- * Stessa struttura di `pt.ts`: le chiavi e gli `id` dei servizi restano uguali.
+ * È anche il modello di `pt.ts` (stesse chiavi). I trattamenti sono in `treatments.ts`.
  */
-export const it: SiteContent = {
+export const it = {
   locale: "it-IT",
   htmlLang: "it",
 
   meta: {
-    title: "Marga Beauty — Estetica avanzata, linfodrenaggio brasiliano e podologia",
+    title: "MARGA Brazilian Beauty — Cera brasiliana, viso, corpo, mani e piedi a Uboldo",
     description:
-      "Trattamenti viso e corpo con tecnologie di ultima generazione, linfodrenaggio Metodo Renata França e podologia a Uboldo (VA). Prenota online con gli orari disponibili in tempo reale.",
+      "Centro estetico brasiliano a Uboldo (VA), per donna e uomo: epilazione con cera brasiliana, trattamenti viso, linfodrenaggio, Miracle Face, manicure e pedicure. Prenota online.",
   },
 
   header: {
-    home: "Marga Beauty, home",
+    home: "MARGA Brazilian Beauty, home",
     book: "Prenota",
   },
 
   visuals: {
     placeholder: "Foto provvisoria",
-    labels: { rosto: "Viso", corpo: "Corpo", drenagem: "Linfodrenaggio", podologia: "Podologia", marga: "Marga", margaDivisa: "Marga", margaCamicia: "Marga", margaAbito: "Marga" },
+    labels: { rosto: "Viso", corpo: "Corpo", drenagem: "Linfodrenaggio", podologia: "Mani e piedi", marga: "Marga", margaDivisa: "Marga", margaCamicia: "Marga", margaAbito: "Marga" },
   },
 
   hero: {
     title: "La Tua Bellezza in Perfetto Equilibrio",
-    asideTop: "Estetica Avanzata",
-    asideBottom: ["Podologia &", "Linfodrenaggio Brasiliano"],
-    imageAlt: "Marga, fondatrice di Marga Beauty, con la divisa del centro",
-    galleryLabel: "Trattamenti di Marga Beauty",
+    asideTop: "Donna & Uomo",
+    asideBottom: ["Estetica", "Brasiliana"],
+    imageAlt: "Marga, fondatrice di MARGA Brazilian Beauty, con la divisa del centro",
+    galleryLabel: "Trattamenti di MARGA Brazilian Beauty",
   },
 
-  showcase: {
+  treatments: {
     title: "I Nostri Trattamenti",
+    intro: "Scegli l'area e la categoria: trovi ogni servizio con una breve descrizione.",
+    areasLabel: "Area",
+    categoriesLabel: "Categorie",
     book: "Prenota",
     bookAria: (name: string) => `Prenota ${name}`,
-    minutes: (n: number) => `${n} min`,
-  },
-
-  services: {
-    categories: [
-      {
-        id: "rosto",
-        name: "Viso",
-        tags: ["Anti-age", "Pelle rinnovata"],
-        summary: "Ringiovanimento, pulizia profonda e rigenerazione della pelle.",
-        image: "rosto",
-        items: [
-          {
-            id: "limpeza-profunda",
-            name: "Pulizia viso profonda",
-            description: "Spatola a ultrasuoni, estrazione delicata e maschera lenitiva.",
-            duration: 60,
-          },
-          {
-            id: "anti-idade",
-            name: "Trattamento anti-age",
-            description: "Radiofrequenza multipolare e LED per compattezza e luminosità.",
-            duration: 60,
-          },
-          {
-            id: "antimanchas",
-            name: "Trattamento antimacchie",
-            description: "Protocollo per uniformare l'incarnato e ridare luminosità.",
-            duration: 60,
-          },
-          {
-            id: "acne",
-            name: "Trattamento per l'acne",
-            description: "Pulizia, controllo del sebo e LED per pelli acneiche.",
-            duration: 60,
-          },
-          {
-            id: "lifting",
-            name: "Lifting non invasivo",
-            description: "Effetto lifting senza aghi, con tecnologia e massaggio viso.",
-            duration: 75,
-          },
-          {
-            id: "oxigenoterapia",
-            name: "Ossigenoterapia viso",
-            description: "Ossigeno e principi attivi per una pelle riposata e luminosa.",
-            duration: 45,
-          },
-        ],
-      },
-      {
-        id: "corpo",
-        name: "Corpo",
-        tags: ["Rimodellamento", "Anticellulite"],
-        summary: "Rimodellamento, drenaggio e tonificazione con tecnologia e tecniche manuali.",
-        image: "corpo",
-        items: [
-          {
-            id: "radiofrequencia-corpo",
-            name: "Rimodellamento con radiofrequenza",
-            description: "Calore controllato per rassodare la pelle e definire la silhouette.",
-            duration: 60,
-          },
-          {
-            id: "ondas-de-choque",
-            name: "Onde d'urto estetiche",
-            description: "Trattamento mirato per cellulite e adiposità localizzate.",
-            duration: 45,
-          },
-          {
-            id: "cavitacao",
-            name: "Ultrasuoni e cavitazione",
-            description: "Ultrasuoni focalizzati per ridurre i centimetri.",
-            duration: 45,
-          },
-          {
-            id: "pressoterapia",
-            name: "Pressoterapia",
-            description: "Compressione sequenziale che attiva la circolazione e sgonfia.",
-            duration: 45,
-          },
-          {
-            id: "vacuum",
-            name: "Vacuum endomassaggio",
-            description: "Aspirazione e rulli per drenare, tonificare e levigare la cellulite.",
-            duration: 45,
-          },
-          {
-            id: "madeiroterapia",
-            name: "Maderoterapia",
-            description: "Strumenti in legno per modellare il corpo e attivare la circolazione.",
-            duration: 60,
-          },
-          {
-            id: "eletroporacao",
-            name: "Elettroporazione",
-            description: "Veicola i principi attivi negli strati profondi della pelle, senza aghi.",
-            duration: 45,
-          },
-          {
-            id: "termo-crio",
-            name: "Termoterapia e crioterapia",
-            description: "Caldo e freddo alternati per tonificare e drenare.",
-            duration: 60,
-          },
-        ],
-      },
-      {
-        id: "drenagem",
-        name: "Linfodrenaggio",
-        tags: ["Metodo Renata França", "Benessere"],
-        summary: "Leggerezza, meno gonfiore e benessere fin dalla prima seduta.",
-        image: "drenagem",
-        items: [
-          {
-            id: "drenagem-renata-franca",
-            name: "Linfodrenaggio Metodo Renata França",
-            description: "Manovre rapide e ritmate su tutto il corpo. Risultato visibile subito dopo la seduta.",
-            duration: 60,
-          },
-          {
-            id: "modeladora",
-            name: "Massaggio modellante",
-            description: "Manovre decise e profonde per modellare la silhouette e tonificare.",
-            duration: 60,
-          },
-        ],
-      },
-      {
-        id: "podologia",
-        name: "Podologia",
-        tags: ["Salute del piede", "Cura completa"],
-        summary: "Cura specializzata per la salute e la bellezza dei piedi.",
-        image: "podologia",
-        items: [
-          {
-            id: "avaliacao-podologica",
-            name: "Valutazione podologica",
-            description: "Analisi di piedi, unghie e appoggio, con consigli per la cura.",
-            duration: 45,
-          },
-          {
-            id: "unha-encravada",
-            name: "Unghia incarnita",
-            description: "Trattamento accurato dell'unghia incarnita, con strumenti sterilizzati.",
-            duration: 45,
-          },
-          {
-            id: "calosidades",
-            name: "Calli e callosità",
-            description: "Rimozione di calli e ispessimenti della pelle dei piedi.",
-            duration: 45,
-          },
-          {
-            id: "pes-completo",
-            name: "Trattamento completo dei piedi",
-            description: "Unghie, pelle, idratazione e massaggio rilassante.",
-            duration: 60,
-          },
-        ],
-      },
-    ],
   },
 
   why: {
-    title: "Perché Marga Beauty?",
-    subtitle: "Tecnologia, competenza e sensibilità estetica",
+    title: "Perché MARGA Brazilian Beauty?",
+    subtitle: "Competenza, cura e sensibilità brasiliana",
     items: [
       {
         icon: "sparkles",
-        title: "Protocolli Personalizzati",
-        text: "Ogni trattamento è studiato per te, unendo tecniche manuali e apparecchiature professionali ad alte prestazioni.",
+        title: "Cura su Misura",
+        text: "Ogni servizio viene adattato alla tua pelle e alle tue esigenze, con attenzione ai dettagli e alla rifinitura.",
       },
       {
         icon: "zap",
-        title: "Tecnologia di Ultima Generazione",
-        text: "Laser, radiofrequenza multipolare, onde d'urto, cavitazione e molto altro: apparecchiature all'avanguardia per viso e corpo.",
+        title: "Tradizione Brasiliana",
+        text: "Cera brasiliana, linfodrenaggio e Miracle Face del metodo Renata França: tecniche manuali che portano a Uboldo il meglio dell'estetica brasiliana.",
       },
       {
         icon: "heart",
-        title: "Risultati Visibili e Naturali",
-        text: "Massimo rispetto per l'equilibrio della pelle e della silhouette, con trattamenti per donna e per uomo.",
+        title: "Per Donna e per Uomo",
+        text: "Due aree dedicate, con servizi pensati per lei e per lui. Puoi consultarle entrambe e scegliere liberamente.",
       },
     ],
   },
 
+  /**
+   * Tecnologie estetiche avanzate: contenuti in arrivo. La sezione non è
+   * pubblicata (vedi `page.tsx`); completare qui quando i testi sono confermati.
+   */
   technologies: {
-    title: ["Tecnologia che", "Rispetta la Tua Pelle"],
-    text: "Specializzata in tecnologie estetiche di ultima generazione per il rimodellamento corporeo, la rigenerazione della pelle e il ringiovanimento del viso. Ogni trattamento è pensato per te, unendo metodi manuali e apparecchiature professionali per risultati visibili e naturali.",
+    title: ["Tecnologie", "Estetiche Avanzate"],
+    text: "",
     cardAction: (title: string) => `Prenota: ${title}`,
-    cards: [
-      {
-        title: "Ringiovanimento",
-        items: ["Radiofrequenza multipolare", "Fotobiomodulazione LED", "Ossigenoterapia", "Lifting non invasivo"],
-      },
-      {
-        title: "Pelle Sana",
-        items: ["Spatola a ultrasuoni", "Trattamento antimacchie", "Trattamento per l'acne", "Elettroporazione"],
-      },
-      {
-        title: "Rimodellamento",
-        items: ["Onde d'urto", "Ultrasuoni e cavitazione", "Laser di ultima generazione", "Termo e crioterapia"],
-      },
-      {
-        title: "Drenaggio",
-        items: ["Metodo Renata França", "Pressoterapia", "Vacuum endomassaggio", "Linfodrenaggio manuale"],
-      },
-      {
-        title: "Tecniche Manuali",
-        items: ["Maderoterapia", "Massaggio modellante", "Massaggio drenante", "Protocolli anticellulite"],
-      },
-      {
-        title: "Podologia",
-        items: ["Valutazione podologica", "Unghia incarnita", "Calli e callosità", "Cura completa del piede"],
-      },
-    ],
+    cards: [] as { title: string; items: string[] }[],
   },
 
   specialties: {
-    title: ["Formazione e", "Specializzazioni"],
+    title: ["Le Nostre", "Specialità"],
     items: [
-      { title: "Podologia", meta: "Formazione professionale", image: "podologia" },
-      { title: "Metodo Renata França", meta: "Linfodrenaggio brasiliano", image: "drenagem" },
-      { title: "Estetica Avanzata", meta: "Tecnologie per viso e corpo", image: "rosto" },
-      { title: "Trattamenti Donna e Uomo", meta: "Protocolli su misura per ogni persona", image: "margaDivisa" },
+      { title: "Cera Brasiliana", meta: "Epilazione mirata viso e corpo", image: "margaAbito" },
+      { title: "Miracle Face", meta: "Massaggio viso metodo Renata França", image: "margaCamicia" },
+      { title: "Linfodrenaggio", meta: "Manualità drenanti per corpo e gambe", image: "margaDivisa" },
+      { title: "Mani e Piedi", meta: "Manicure, pedicure e cura delle unghie", image: "marga" },
     ],
   },
 
   benefits: {
-    title: "Linfodrenaggio Brasiliano: Leggerezza e Benessere Fin dalla Prima Seduta.",
+    title: "Linfodrenaggio Brasiliano: una Sensazione di Leggerezza Fin dalla Prima Seduta.",
     words: [
-      "Meno stress",
-      "Meno ansia",
-      "Sollievo muscolare",
-      "Più circolazione",
-      "Difese immunitarie",
-      "Pelle più elastica",
-      "Meno stanchezza",
-      "Meno tossine",
-      "Sonno migliore",
-      "Meno gonfiore",
       "Leggerezza",
+      "Relax",
+      "Gambe leggere",
+      "Pelle morbida",
       "Benessere",
+      "Cura di sé",
+      "Equilibrio",
+      "Tempo per te",
+      "Dolcezza",
+      "Armonia",
+      "Pelle liscia",
+      "Serenità",
     ],
   },
 
   steps: {
-    title: "Come Funziona il Tuo Percorso",
+    title: "Come Funziona il Tuo Appuntamento",
     stepLabel: (n: number, total: number) => `Fase ${n} di ${total}`,
     showStep: (title: string) => `Mostra la fase: ${title}`,
     prev: "Fase precedente",
     next: "Fase successiva",
     items: [
       {
-        title: "Valutazione",
-        text: "Parliamo del tuo obiettivo e analizziamo pelle, corpo o piedi. È il punto di partenza di ogni protocollo.",
+        title: "Scegli",
+        text: "Consulta le aree Donna e Uomo e scegli il servizio che desideri.",
       },
       {
-        title: "Protocollo su Misura",
-        text: "Definiamo le tecniche, le apparecchiature e il numero di sedute più adatti al tuo caso.",
+        title: "Prenota",
+        text: "Scegli giorno e orario online, oppure scrivici su WhatsApp per qualsiasi domanda.",
       },
       {
-        title: "Sedute",
-        text: "Trattamenti su appuntamento, con i tuoi tempi, unendo tecnologia e la cura delle mani.",
+        title: "Il Tuo Momento",
+        text: "Ti accogliamo nel centro di Uboldo e adattiamo il servizio alla tua pelle e alle tue esigenze.",
       },
       {
-        title: "Monitoraggio",
-        text: "Valutiamo i progressi a ogni fase e adattiamo il protocollo quando serve.",
+        title: "Consigli",
+        text: "A fine appuntamento ti diamo qualche indicazione per prenderti cura della pelle a casa.",
       },
     ],
   },
@@ -313,23 +131,24 @@ export const it: SiteContent = {
     // TODO: confermare con la cliente la politica di disdetta (24 ore).
     items: [
       {
-        question: "Che cos'è il linfodrenaggio Metodo Renata França?",
+        question: "I servizi sono anche per uomini?",
         answer:
-          "È una tecnica brasiliana di drenaggio con manovre rapide, decise e ritmate. Aiuta a sgonfiare e restituisce una sensazione di leggerezza già dalla prima seduta, contribuendo al benessere generale.",
+          "Sì. Il sito ha due aree, Donna e Uomo, con le stesse categorie: epilazione con cera brasiliana, trattamenti viso, trattamenti corpo, mani e piedi. Puoi consultarle entrambe liberamente.",
       },
       {
-        question: "Quante sedute servono?",
+        question: "Che cos'è il Miracle Face?",
         answer:
-          "Dipende dal tuo obiettivo e dal trattamento scelto. Nella valutazione iniziale definiamo il protocollo e il numero di sedute più indicato per te.",
+          "È il massaggio viso del metodo Renata França, con manovre drenanti e di modellamento manuale.",
       },
       {
-        question: "I trattamenti sono anche per uomini?",
-        answer: "Sì. I trattamenti viso, corpo e podologia sono proposti sia alle donne sia agli uomini.",
+        question: "Come mi preparo alla ceretta brasiliana?",
+        answer:
+          "I confini della zona da trattare vengono concordati prima di iniziare. Mani e piedi, comprese le dita, sono servizi separati dall'epilazione di braccia e gambe.",
       },
       {
         question: "Come funziona la prenotazione online?",
         answer:
-          "Scegli il trattamento, vedi gli orari liberi in tempo reale e confermi in pochi passaggi. L'appuntamento entra direttamente nell'agenda di Marga.",
+          "Scegli il servizio, vedi gli orari liberi e confermi in pochi passaggi. L'appuntamento entra direttamente nell'agenda di Marga.",
       },
       {
         question: "Posso spostare o disdire un appuntamento?",
@@ -346,7 +165,7 @@ export const it: SiteContent = {
     closed: "Chiuso",
     privacy: "Informativa sulla privacy",
     vat: "P. IVA",
-    rights: (year: number) => `Copyright © Marga Beauty ${year}`,
+    rights: (year: number) => `Copyright © MARGA Brazilian Beauty ${year}`,
     instagram: "Instagram",
     whatsapp: "WhatsApp",
     whatsappMessage: "Ciao Marga! Ho visto il sito e vorrei qualche informazione.",
@@ -362,6 +181,7 @@ export const it: SiteContent = {
     steps: ["Trattamento", "Data e ora", "I tuoi dati"],
     stepsLabel: "Fasi della prenotazione",
     chooseService: "Quale trattamento desideri?",
+    areaLabel: "Area",
     chooseDate: "Scegli il giorno e l'orario",
     calendarLabel: "Calendario",
     chooseTime: "Scegli l'orario",
@@ -392,7 +212,6 @@ export const it: SiteContent = {
       service: "Trattamento",
       date: "Data",
       time: "Orario",
-      duration: "Durata",
     },
     submit: "Conferma la prenotazione",
     submitting: "Conferma in corso…",
@@ -425,7 +244,7 @@ export const it: SiteContent = {
       notes: "Note",
       source: "Prenotato dal sito",
     },
-    clientEventTitle: (service: string) => `${service} da Marga Beauty`,
+    clientEventTitle: (service: string) => `${service} da MARGA Brazilian Beauty`,
   },
 
   privacy: {
@@ -437,7 +256,7 @@ export const it: SiteContent = {
       {
         title: "Titolare del trattamento",
         body: [
-          "Il titolare del trattamento è Marga Beauty. I dati di contatto completi (ragione sociale, indirizzo e Partita IVA) sono riportati nel piè di pagina del sito.",
+          "Il titolare del trattamento è MARGA Brazilian Beauty. I dati di contatto completi (ragione sociale, indirizzo e Partita IVA) sono riportati nel piè di pagina del sito.",
         ],
       },
       {
@@ -456,7 +275,7 @@ export const it: SiteContent = {
       {
         title: "Dove vengono conservati",
         body: [
-          "La prenotazione viene salvata nel Google Calendar di Marga Beauty. Google opera come fornitore di servizi, con le garanzie previste dal GDPR.",
+          "La prenotazione viene salvata nel Google Calendar di MARGA Brazilian Beauty. Google opera come fornitore di servizi, con le garanzie previste dal GDPR.",
         ],
       },
       {
@@ -474,3 +293,5 @@ export const it: SiteContent = {
     ],
   },
 };
+
+export type SiteContent = typeof it;

@@ -4,4 +4,4 @@
  *   export { pt as content } from "./pt";
  */
 export { it as content } from "./it";
-export type { SiteContent } from "./pt";
+export type { SiteContent } from "./it";
