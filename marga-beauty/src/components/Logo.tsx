@@ -2,7 +2,7 @@
 export function Logo({ className = "" }: { className?: string }) {
   return (
     <img
-      src="/brand/v11/marga-logotipo-beige.svg"
+      src="/brand/v12/marga-logotipo-beige.svg"
       alt="MARGA Brazilian Beauty"
       width={4815}
       height={1762}
