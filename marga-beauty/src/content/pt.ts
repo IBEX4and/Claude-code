@@ -35,7 +35,7 @@ export const pt: SiteContent = {
 
   treatments: {
     title: "Nossos Tratamentos",
-    intro: "Escolha a área e a categoria: cada serviço aparece com uma breve descrição.",
+    intro: "Escolha a área e a categoria para ver todos os serviços.",
     areasLabel: "Área",
     categoriesLabel: "Categorias",
     book: "Agendar",
@@ -126,9 +126,9 @@ export const pt: SiteContent = {
         answer: "É a massagem facial do método Renata França, com manobras drenantes e de modelagem manual.",
       },
       {
-        question: "Como me preparo para a cera brasileira?",
+        question: "O que é a drenagem linfática brasileira?",
         answer:
-          "Os limites da área são combinados antes de começar. Mãos e pés, incluindo os dedos, são serviços separados da depilação de braços e pernas.",
+          "É uma técnica brasileira exclusiva, criada por Renata França, com manobras específicas, pressão firme e ritmo intenso.",
       },
       {
         question: "Como funciona o agendamento online?",

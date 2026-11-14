@@ -32,7 +32,7 @@ export const it = {
 
   treatments: {
     title: "I Nostri Trattamenti",
-    intro: "Scegli l'area e la categoria: trovi ogni servizio con una breve descrizione.",
+    intro: "Scegli l'area e la categoria per vedere tutti i servizi.",
     areasLabel: "Area",
     categoriesLabel: "Categorie",
     book: "Prenota",
@@ -141,9 +141,9 @@ export const it = {
           "È il massaggio viso del metodo Renata França, con manovre drenanti e di modellamento manuale.",
       },
       {
-        question: "Come mi preparo alla ceretta brasiliana?",
+        question: "Che cos'è il linfodrenaggio brasiliano?",
         answer:
-          "I confini della zona da trattare vengono concordati prima di iniziare. Mani e piedi, comprese le dita, sono servizi separati dall'epilazione di braccia e gambe.",
+          "È una tecnica brasiliana esclusiva, sviluppata da Renata França, caratterizzata da manualità specifiche, pressioni decise e un ritmo sostenuto.",
       },
       {
         question: "Come funziona la prenotazione online?",

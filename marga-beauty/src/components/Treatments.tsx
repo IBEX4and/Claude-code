@@ -118,10 +118,10 @@ export function Treatments() {
                 {group.title && <h4 className="treat__group-title">{group.title}</h4>}
                 <ul>
                   {group.items.map((item) => (
-                    <li key={item.id} className="treat__item">
+                    <li key={item.id} className={`treat__item${item.description ? "" : " treat__item--short"}`}>
                       <div>
                         <h5>{item.name}</h5>
-                        <p>{item.description}</p>
+                        {item.description && <p>{item.description}</p>}
                       </div>
                       <a href="#agendar" data-book-service={item.id} className="treat__book" aria-label={t.bookAria(item.name)}>
                         {t.book}

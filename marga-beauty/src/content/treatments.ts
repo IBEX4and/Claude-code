@@ -34,8 +34,7 @@ export const areas: TreatmentArea[] = [
       {
         id: "donna-cera",
         name: "Epilazione con cera brasiliana",
-        intro:
-          "Epilazione mirata delle diverse zone del viso e del corpo, con attenzione alla pelle e alla rifinitura.",
+        intro: "Epilazione mirata delle diverse zone, con attenzione alla pelle e alla precisione del risultato.",
         groups: [
           {
             title: "",
@@ -43,34 +42,33 @@ export const areas: TreatmentArea[] = [
               {
                 id: "donna-viso-e-nuca",
                 name: "Viso e nuca",
-                description:
-                  "Sopracciglia, labbro superiore, mento, sotto mento, basette, naso e nuca. Per il naso si trattano solo i peli visibili al bordo esterno delle narici.",
+                description: "",
               },
               {
                 id: "donna-braccia-e-ascelle",
                 name: "Braccia e ascelle",
-                description: "Braccia, avambraccia, braccia complete, mani e ascelle.",
+                description: "",
               },
               {
                 id: "donna-gambe-e-piedi",
                 name: "Gambe e piedi",
-                description: "Mezza gamba superiore, mezza gamba inferiore, gambe complete e piedi.",
+                description: "",
               },
               {
                 id: "donna-zone-intime-e-glutei",
                 name: "Zone intime e glutei",
-                description: "Inguine parziale, inguine totale, inguine totale + perianale, zona perianale e glutei.",
+                description: "",
               },
             ],
           },
         ],
-        notes: ["Mani e piedi, comprese le dita, sono servizi separati dall'epilazione di braccia e gambe."],
+        notes: [],
         image: "margaAbito",
       },
       {
         id: "donna-viso",
         name: "Trattamenti viso",
-        intro: "La detersione iniziale del viso è inclusa in ogni pulizia e trattamento viso.",
+        intro: "",
         groups: [
           {
             title: "",
@@ -78,68 +76,47 @@ export const areas: TreatmentArea[] = [
               {
                 id: "donna-pulizia-del-viso-manuale",
                 name: "Pulizia del viso manuale",
-                description:
-                  "Pulizia manuale per rimuovere le impurità superficiali, con attenzione alle esigenze della pelle.",
+                description: "",
               },
               {
                 id: "donna-pulizia-del-viso-trattamento",
                 name: "Pulizia del viso + trattamento",
-                description:
-                  "Pulizia del viso abbinata a un trattamento cosmetico scelto in base alle esigenze della pelle.",
+                description: "",
               },
               {
                 id: "donna-miracle-face",
                 name: "Miracle Face",
-                description: "Massaggio viso del metodo Renata França, con manovre drenanti e di modellamento manuale.",
+                description: "",
               },
-            ],
-          },
-          {
-            title: "Sguardo e make up",
-            items: [
               {
                 id: "donna-tintura-sopracciglia-e-ciglia",
                 name: "Tintura sopracciglia e ciglia",
-                description: "Colorazione per valorizzare le sopracciglia o dare risalto alle ciglia naturali.",
+                description: "",
               },
               {
                 id: "donna-laminazione-ciglia-e-sopracciglia",
                 name: "Laminazione ciglia e sopracciglia",
-                description:
-                  "Trattamenti per valorizzare la curvatura delle ciglia o orientare e ordinare i peli delle sopracciglia.",
+                description: "",
               },
               {
                 id: "donna-extension-ciglia",
                 name: "Extension ciglia",
-                description:
-                  "Applicazione per personalizzare lunghezza e intensità dello sguardo. Disponibile anche la rimozione professionale.",
+                description: "",
               },
               {
                 id: "donna-trucco-sposa",
                 name: "Trucco sposa",
-                description: "Make-up personalizzato in base ai lineamenti e allo stile della cerimonia.",
+                description: "",
               },
               {
                 id: "donna-trucco-giorno-e-sera",
                 name: "Trucco giorno e sera",
-                description: "Make-up studiato in base all'occasione e all'effetto desiderato.",
-              },
-              {
-                id: "donna-applicazione-ciglia-finte-monouso",
-                name: "Applicazione ciglia finte monouso",
-                description: "Un dettaglio per completare il make-up e dare intensità allo sguardo.",
-              },
-              {
-                id: "donna-rimozione-make-up",
-                name: "Rimozione make-up",
-                description: "Detersione di viso, occhi e labbra dai residui di trucco.",
+                description: "",
               },
             ],
           },
         ],
-        notes: [
-          "Per i servizi che lo prevedono, la prova di sensibilità al prodotto viene programmata secondo le istruzioni del produttore. Segnalaci eventuali reazioni precedenti prima dell'appuntamento.",
-        ],
+        notes: [],
         image: "margaCamicia",
       },
       {
@@ -154,25 +131,22 @@ export const areas: TreatmentArea[] = [
                 id: "donna-massaggio-linfodrenante",
                 name: "Massaggio linfodrenante",
                 description:
-                  "Manualità drenanti per una sensazione di leggerezza. Disponibile total body, gambe o addome.",
+                  "Una tecnica brasiliana esclusiva, sviluppata da Renata França, caratterizzata da manualità specifiche, pressioni decise e un ritmo sostenuto.",
               },
               {
                 id: "donna-massaggio-linfodrenante-dolce-attesa",
                 name: "Massaggio linfodrenante Dolce Attesa",
-                description:
-                  "Trattamento total body dedicato alla gravidanza, con posizioni e manualità adattate. Prima di prenotare, confrontati con chi segue la tua gravidanza.",
+                description: "",
               },
               {
                 id: "donna-scrub-carezza-di-seta",
                 name: "Scrub Carezza di Seta",
-                description:
-                  "Esfoliazione cosmetica total body per rimuovere le cellule morte superficiali e lasciare la pelle più liscia e morbida.",
+                description: "",
               },
               {
                 id: "donna-trattamento-purificante-schiena",
                 name: "Trattamento purificante schiena",
-                description:
-                  "Trattamento estetico dedicato alla detersione della schiena e alle impurità superficiali, adattato alle esigenze della pelle.",
+                description: "",
               },
             ],
           },
@@ -191,58 +165,47 @@ export const areas: TreatmentArea[] = [
               {
                 id: "donna-manicure-base",
                 name: "Manicure base",
-                description: "Cura di unghie e cuticole, con finitura naturale o smalto classico.",
+                description: "",
               },
               {
                 id: "donna-manicure-brazilian-spa",
                 name: "Manicure Brazilian Spa",
-                description:
-                  "Rituale dedicato alla pelle delle mani e alle unghie, senza smalto, con smalto classico o con semipermanente.",
+                description: "",
               },
               {
                 id: "donna-manicure-con-semipermanente",
                 name: "Manicure con semipermanente",
-                description:
-                  "Preparazione delle unghie e applicazione del colore. Disponibile anche con semipermanente rinforzato.",
+                description: "",
               },
               {
                 id: "donna-trattamento-rinforzante-unghie",
                 name: "Trattamento rinforzante unghie",
-                description: "Cura cosmetica per unghie naturali fragili o che tendono a sfaldarsi.",
+                description: "",
               },
               {
                 id: "donna-gel-e-ricostruzione",
                 name: "Gel e ricostruzione",
-                description:
-                  "Copertura delle unghie naturali, ricostruzione in gel, refill e ricostruzione di una singola unghia della mano.",
-              },
-              {
-                id: "donna-rimozioni",
-                name: "Rimozioni",
-                description: "Rimozione professionale del semipermanente o del gel dalle unghie delle mani.",
+                description: "",
               },
               {
                 id: "donna-pedicure-base",
                 name: "Pedicure base",
-                description:
-                  "Cura di unghie e cuticole dei piedi, senza smalto, con smalto classico o con semipermanente.",
+                description: "",
               },
               {
                 id: "donna-pedicure-piedi-di-velluto",
                 name: "Pedicure Piedi di Velluto",
-                description:
-                  "Pedicure con delicata levigatura della pelle secca superficiale, senza smalto, con smalto classico o con semipermanente.",
+                description: "",
               },
               {
                 id: "donna-pedicure-estetico-completo-deluxe",
                 name: "Pedicure estetico completo Deluxe",
-                description:
-                  "Cura estetica di unghie, contorno e pelle dei piedi con una rifinitura più accurata. Senza smalto, con smalto classico o con semipermanente.",
+                description: "",
               },
               {
                 id: "donna-ricostruzione-singola-unghia-del-piede",
                 name: "Ricostruzione singola unghia del piede",
-                description: "Ricostruzione estetica mirata, da valutare in base alle condizioni dell'unghia.",
+                description: "",
               },
             ],
           },
@@ -259,8 +222,7 @@ export const areas: TreatmentArea[] = [
       {
         id: "uomo-cera",
         name: "Epilazione con cera brasiliana",
-        intro:
-          "Epilazione mirata delle diverse zone del viso e del corpo. I confini della zona scelta vengono concordati prima del trattamento.",
+        intro: "Epilazione mirata delle diverse zone, con attenzione alla pelle e alla precisione del risultato.",
         groups: [
           {
             title: "",
@@ -268,34 +230,32 @@ export const areas: TreatmentArea[] = [
               {
                 id: "uomo-viso-e-collo",
                 name: "Viso e collo",
-                description:
-                  "Sopracciglia, naso, orecchie, collo e nuca. Per naso e orecchie si tratta solo la peluria visibile esterna.",
+                description: "",
               },
               {
                 id: "uomo-braccia-e-busto",
                 name: "Braccia e busto",
-                description:
-                  "Avambraccia, braccia, braccia complete, mani, ascelle, spalle, petto, addome e petto + addome.",
+                description: "",
               },
               {
                 id: "uomo-schiena-e-glutei",
                 name: "Schiena e glutei",
-                description: "Schiena superiore, zona lombare o fondo schiena, schiena completa e glutei.",
+                description: "",
               },
               {
                 id: "uomo-gambe-e-piedi",
                 name: "Gambe e piedi",
-                description: "Mezza gamba superiore, mezza gamba inferiore, gambe complete e piedi.",
+                description: "",
               },
               {
                 id: "uomo-zone-intime",
                 name: "Zone intime",
-                description: "Inguine parziale, inguine totale, zona perianale e inguine totale + perianale.",
+                description: "",
               },
             ],
           },
         ],
-        notes: ["Mani e piedi, comprese le dita, sono servizi separati dall'epilazione di braccia e gambe."],
+        notes: [],
         image: "margaAbito",
       },
       {
@@ -309,51 +269,32 @@ export const areas: TreatmentArea[] = [
               {
                 id: "uomo-pulizia-del-viso-manuale",
                 name: "Pulizia del viso manuale",
-                description:
-                  "Pulizia manuale per rimuovere le impurità superficiali, con attenzione alle esigenze della pelle.",
+                description: "",
               },
               {
                 id: "uomo-pulizia-del-viso-trattamento",
                 name: "Pulizia del viso + trattamento",
-                description:
-                  "Pulizia del viso abbinata a un trattamento cosmetico scelto in base alle esigenze della pelle.",
+                description: "",
               },
               {
                 id: "uomo-miracle-face",
                 name: "Miracle Face",
-                description: "Massaggio viso del metodo Renata França, con manovre drenanti e di modellamento manuale.",
-              },
-            ],
-          },
-          {
-            title: "Sguardo",
-            items: [
-              {
-                id: "uomo-tintura-sopracciglia",
-                name: "Tintura sopracciglia",
-                description: "Colorazione per valorizzare la forma naturale delle sopracciglia.",
+                description: "",
               },
               {
-                id: "uomo-tintura-ciglia",
-                name: "Tintura ciglia",
-                description: "Colorazione per dare risalto alle ciglia naturali, soprattutto quando sono chiare.",
+                id: "uomo-tintura-sopracciglia-e-ciglia",
+                name: "Tintura sopracciglia e ciglia",
+                description: "",
               },
               {
-                id: "uomo-laminazione-ciglia",
-                name: "Laminazione ciglia",
-                description: "Trattamento per valorizzare la curvatura delle ciglia naturali.",
-              },
-              {
-                id: "uomo-laminazione-sopracciglia",
-                name: "Laminazione sopracciglia",
-                description: "Trattamento per orientare i peli e valorizzare la forma naturale delle sopracciglia.",
+                id: "uomo-laminazione-ciglia-e-sopracciglia",
+                name: "Laminazione ciglia e sopracciglia",
+                description: "",
               },
             ],
           },
         ],
-        notes: [
-          "Per i servizi che lo prevedono, la prova di sensibilità al prodotto viene programmata secondo le istruzioni del produttore. Segnalaci eventuali reazioni precedenti prima dell'appuntamento.",
-        ],
+        notes: [],
         image: "margaCamicia",
       },
       {
@@ -367,32 +308,28 @@ export const areas: TreatmentArea[] = [
               {
                 id: "uomo-massaggio-linfodrenante-total-body",
                 name: "Massaggio linfodrenante total body",
-                description: "Manualità drenanti su più zone del corpo, per una sensazione generale di leggerezza.",
+                description:
+                  "Una tecnica brasiliana esclusiva, sviluppata da Renata França, caratterizzata da manualità specifiche, pressioni decise e un ritmo sostenuto.",
               },
               {
                 id: "uomo-massaggio-linfodrenante-gambe",
                 name: "Massaggio linfodrenante gambe",
-                description:
-                  "Manualità drenanti dedicate alle gambe, per una sensazione di leggerezza nella zona trattata.",
+                description: "",
               },
               {
                 id: "uomo-esfoliazione-e-scrub-corpo",
                 name: "Esfoliazione e scrub corpo",
-                description:
-                  "Esfoliazione cosmetica total body per rimuovere le cellule morte superficiali e lasciare la pelle più liscia e morbida.",
+                description: "",
               },
               {
                 id: "uomo-trattamento-purificante-schiena",
                 name: "Trattamento purificante schiena",
-                description:
-                  "Trattamento estetico dedicato alla detersione della schiena e alle impurità superficiali, adattato alle esigenze della pelle.",
+                description: "",
               },
             ],
           },
         ],
-        notes: [
-          "Prima del massaggio, consigliamo di accorciare i peli lunghi nelle zone da trattare per facilitare le manualità. Se preferisci la ceretta brasiliana, chiedici come programmare le due sedute.",
-        ],
+        notes: [],
         image: "margaDivisa",
       },
       {
@@ -406,56 +343,37 @@ export const areas: TreatmentArea[] = [
               {
                 id: "uomo-manicure-base",
                 name: "Manicure base",
-                description: "Cura di unghie e cuticole, con finitura naturale o smalto classico.",
+                description: "",
               },
               {
                 id: "uomo-manicure-con-semipermanente",
                 name: "Manicure con semipermanente",
-                description: "Preparazione delle unghie e applicazione dello smalto semipermanente.",
+                description: "",
               },
               {
                 id: "uomo-manicure-brazilian-spa",
                 name: "Manicure Brazilian Spa",
-                description:
-                  "Rituale dedicato alla pelle delle mani e alle unghie, senza smalto, con smalto classico o con semipermanente.",
+                description: "",
               },
               {
                 id: "uomo-trattamento-rinforzante-unghie",
                 name: "Trattamento rinforzante unghie",
-                description: "Cura cosmetica per unghie naturali fragili o che tendono a sfaldarsi.",
-              },
-              {
-                id: "uomo-rimozione-semipermanente-mani",
-                name: "Rimozione semipermanente mani",
-                description: "Rimozione professionale dello smalto semipermanente dalle unghie delle mani.",
+                description: "",
               },
               {
                 id: "uomo-pedicure-base",
                 name: "Pedicure base",
-                description:
-                  "Cura di unghie e cuticole dei piedi, senza smalto, con smalto classico o con semipermanente.",
+                description: "",
               },
               {
                 id: "uomo-pedicure-levigante",
                 name: "Pedicure Levigante",
-                description:
-                  "Pedicure con delicata levigatura della pelle secca superficiale, senza smalto, con smalto classico o con semipermanente.",
+                description: "",
               },
               {
                 id: "uomo-pedicure-estetico-completo-deluxe",
                 name: "Pedicure estetico completo Deluxe",
-                description:
-                  "Cura estetica di unghie, contorno e pelle dei piedi con una rifinitura più accurata. Senza smalto, con smalto classico o con semipermanente.",
-              },
-              {
-                id: "uomo-ricostruzione-singola-unghia-del-piede",
-                name: "Ricostruzione singola unghia del piede",
-                description: "Ricostruzione estetica mirata, da valutare in base alle condizioni dell'unghia.",
-              },
-              {
-                id: "uomo-rimozione-semipermanente-piedi",
-                name: "Rimozione semipermanente piedi",
-                description: "Rimozione professionale dello smalto semipermanente dalle unghie dei piedi.",
+                description: "",
               },
             ],
           },

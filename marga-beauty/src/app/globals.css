@@ -3237,6 +3237,10 @@ button {
   color: rgba(74, 52, 39, 0.75);
 }
 
+.treat__item--short {
+  align-items: center;
+}
+
 .treat__book {
   flex-shrink: 0;
   margin-top: 0.1rem;
